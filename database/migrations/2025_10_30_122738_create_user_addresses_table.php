@@ -18,7 +18,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedInteger('city_id')->nullable();
-            $table->unsignedInteger('region_id')->nullable();
 
             $table->timestamps();
 
@@ -33,10 +32,6 @@ return new class extends Migration
                 ->on('cities')
                 ->onDelete('set null');
 
-            $table->foreign('region_id')
-                ->references('region')
-                ->on('cities')
-                ->onDelete('set null');
         });
 
     }

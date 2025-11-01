@@ -4,13 +4,11 @@ WORKDIR /var/www/html
 
 RUN echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
 
-COPY composer.json composer.lock /var/www/html/
+COPY composer.json composer.lock ./
 
 RUN composer install --no-dev --no-scripts --optimize-autoloader
 
-COPY . /var/www/html
-
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 8200
 
