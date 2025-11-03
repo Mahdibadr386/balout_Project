@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('national_code', 255)->nullable();
             $table->text('description')->nullable();
             $table->string('code', 255)->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->date('birth_date')->nullable();
             $table->date('marriage_date')->nullable();
             $table->date('last_login_date')->nullable();

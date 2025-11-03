@@ -6,43 +6,65 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
-        'name',
-        'email',
+        'is_admin',
+        'is_active',
         'password',
+        'first_name',
+        'last_name',
+        'name_en',
+        'tel',
+        'national_code',
+        'description',
+        'code',
+        'status',
+        'birth_date',
+        'marriage_date',
+        'last_login_date',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    protected $with = ['addresses'];
+
+    protected $guarded = [
+        'id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $hidden = [
         'password',
-        'remember_token',
+        'code',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'is_admin' => 'boolean',
+        'is_active' => 'boolean',
+        'status' => 'integer',
+        'birth_date' => 'date',
+        'marriage_date' => 'date',
+        'last_login_date' => 'datetime',
+    ];
+
+    public function addresses()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(UserAddress::class, 'user_id', 'id');
+    }
+
+
+    public function getCitiesAttribute()
+    {
+        return $this->addresses
+            ->filter(fn($address) => $address->city)
+            ->map(fn($address) => $address->city)
+            ->unique('id')
+            ->values();
     }
 }
