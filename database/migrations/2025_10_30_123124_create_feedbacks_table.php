@@ -12,13 +12,32 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('feedbacks', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('user_id');
-            $table->text('comment');
-            $table->unsignedBigInteger('rate');
-            $table->timestamps();
-        });
+        $table->id();
+        // Foreign keys
+        $table->unsignedBigInteger('product_id');
+        $table->unsignedBigInteger('user_id');
+
+        // Comment content
+        $table->text('comment');
+
+        // Rating (1-5)
+        $table->unsignedTinyInteger('rate');
+
+        // Timestamps
+        $table->timestamps();
+
+        // Soft deletes for recoverable feedbacks
+        $table->softDeletes();
+
+        // Foreign key constraints
+        $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+        // Indexes for fast lookups
+        $table->index('product_id');
+        $table->index('user_id');
+    });
+
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Auth;
 
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +18,7 @@ class UserAddressResource extends JsonResource
         return [
             'id'       => $this->id,
             'city_id'  => $this->city_id,
-            'city_name'=> $this->city->name ?? null,
+            'city_name'=> optional(City::find($this->city_id))->name_fa ?? null,
             'address'  => $this->address,
             'tel'      => $this->tel,
         ];

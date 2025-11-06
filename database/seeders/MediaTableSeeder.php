@@ -4,76 +4,82 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MediaTableSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-        DB::table('media')->insert([
-            [
-                'model_type' => 'App\\Models\\Product',
-                'model_id' => 1,
-                'collection_name' => 'product_images',
-                'name' => 'pistachio_main',
-                'file_name' => 'pistachio_main.jpg',
-                'mime_type' => 'image/jpeg',
-                'disk' => 'public',
-                'size' => 245678,
-                'manipulations' => json_encode([]),
-                'custom_properties' => json_encode(['alt' => 'پسته تازه ایرانی']),
-                'responsive_images' => json_encode([]),
-                'order_column' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'model_type' => 'App\\Models\\Product',
-                'model_id' => 2,
-                'collection_name' => 'product_images',
-                'name' => 'almond_main',
-                'file_name' => 'almond_main.jpg',
-                'mime_type' => 'image/jpeg',
-                'disk' => 'public',
-                'size' => 212340,
-                'manipulations' => json_encode([]),
-                'custom_properties' => json_encode(['alt' => 'بادام تازه ارگانیک']),
-                'responsive_images' => json_encode([]),
-                'order_column' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
+        // Fetch models
+        $users = DB::table('users')->pluck('id');
+        $products = DB::table('products')->pluck('id');
+        $categories = DB::table('categories')->pluck('id');
+
+        $mediaItems = [];
+
+        // Example: attach a profile image to users
+        foreach ($users as $userId) {
+            $mediaItems[] = [
+                'model_id' => $userId,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1,
-                'collection_name' => 'avatars',
-                'name' => 'admin_avatar',
-                'file_name' => 'admin.jpg',
-                'mime_type' => 'image/jpeg',
+                'type' => 'image',
+                'collection_name' => 'profile',
+                'file_name' => "user_{$userId}_avatar.jpg",
                 'disk' => 'public',
-                'size' => 98234,
-                'manipulations' => json_encode([]),
-                'custom_properties' => json_encode(['alt' => 'عکس پروفایل مدیر']),
-                'responsive_images' => json_encode([]),
+                'path' => "uploads/users/user_{$userId}_avatar.jpg",
+                'url' => "/storage/uploads/users/user_{$userId}_avatar.jpg",
+                'size' => 102400,
+                'custom_properties' => json_encode([]),
                 'order_column' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
+            ];
+        }
+
+        // Example: attach gallery images to products
+        foreach ($products as $productId) {
+            for ($i = 1; $i <= 3; $i++) {
+                $mediaItems[] = [
+                    'model_id' => $productId,
+                    'model_type' => 'App\\Models\\Product',
+                    'type' => 'image',
+                    'collection_name' => 'gallery',
+                    'file_name' => "product_{$productId}_img{$i}.jpg",
+                    'disk' => 'public',
+                    'path' => "uploads/products/product_{$productId}_img{$i}.jpg",
+                    'url' => "/storage/uploads/products/product_{$productId}_img{$i}.jpg",
+                    'size' => 204800,
+                    'custom_properties' => json_encode([]),
+                    'order_column' => $i,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+        }
+
+        // Example: attach banner images to categories
+        foreach ($categories as $categoryId) {
+            $mediaItems[] = [
+                'model_id' => $categoryId,
                 'model_type' => 'App\\Models\\Category',
-                'model_id' => 1,
-                'collection_name' => 'category_icons',
-                'name' => 'dry_fruits_icon',
-                'file_name' => 'dry_fruits_icon.png',
-                'mime_type' => 'image/png',
+                'type' => 'image',
+                'collection_name' => 'banner',
+                'file_name' => "category_{$categoryId}_banner.jpg",
                 'disk' => 'public',
-                'size' => 51234,
-                'manipulations' => json_encode([]),
-                'custom_properties' => json_encode(['alt' => 'آیکن خشکبار']),
-                'responsive_images' => json_encode([]),
+                'path' => "uploads/categories/category_{$categoryId}_banner.jpg",
+                'url' => "/storage/uploads/categories/category_{$categoryId}_banner.jpg",
+                'size' => 512000,
+                'custom_properties' => json_encode([]),
                 'order_column' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-        ]);
+            ];
+        }
+
+        // Bulk insert media items
+        DB::table('media')->insert($mediaItems);
     }
 }

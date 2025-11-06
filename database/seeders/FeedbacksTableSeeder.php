@@ -7,41 +7,46 @@ use Illuminate\Support\Facades\DB;
 
 class FeedbacksTableSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-        DB::table('feedbacks')->insert([
+        // Fetch some users and products to link feedbacks
+        $users = DB::table('users')->pluck('id');
+        $products = DB::table('products')->pluck('id');
+
+        // Example feedbacks
+        $feedbacks = [
             [
-                'product_id' => 1,
-                'user_id' => 2,
-                'comment' => 'کیفیت پسته خیلی عالی بود، تازه و خوش‌طعم.',
+                'user_id' => $users->random(),
+                'product_id' => $products->random(),
+                'comment' => 'Absolutely loved this cake! Very rich and tasty.',
                 'rate' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
-                'product_id' => 2,
-                'user_id' => 2,
-                'comment' => 'بادام کمی خشک بود ولی طعم خوبی داشت.',
+                'user_id' => $users->random(),
+                'product_id' => $products->random(),
+                'comment' => 'Good, but a bit too sweet for my taste.',
                 'rate' => 4,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
-                'product_id' => 3,
-                'user_id' => 1,
-                'comment' => 'گلدان سفالی خیلی زیباست، لعابش واقعا خاصه.',
-                'rate' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'user_id' => $users->random(),
+                'product_id' => $products->random(),
+                'comment' => 'Not fresh enough, disappointed.',
+                'rate' => 2,
             ],
-            [
-                'product_id' => 4,
-                'user_id' => 2,
-                'comment' => 'زردچوبه عطر خیلی خوبی داره و کاملا طبیعی بود.',
-                'rate' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        ];
+
+        // Insert feedbacks
+        foreach ($feedbacks as $feedback) {
+            DB::table('feedbacks')->insert(array_merge(
+                $feedback,
+                [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            ));
+        }
     }
 }

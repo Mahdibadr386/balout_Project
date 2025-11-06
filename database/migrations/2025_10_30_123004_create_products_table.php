@@ -13,30 +13,29 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->string('name' , 255);
-            $table->string('name_en' , 255)->nullable();
+            $table->string('name', 255)->index();
+            $table->string('slug', 255)->unique();
             $table->text('description')->nullable();
-            $table->string('price_number' , 255)->nullable();
-            $table->string('price_kilo' , 255)->nullable();
-            $table->integer('price_discounted')->nullable();
-            $table->string('unit' )->nullable();
-            $table->unsignedBigInteger('rate');
-            $table->integer('minimum_weight')->nullable();
-            $table->integer('maximum_weight')->nullable();
-            $table->integer('minimum_number')->nullable();
-            $table->integer('maximum_number')->nullable();
-            $table->integer('preparation_time')->nullable();
-            $table->string('batch_id' , 255)->nullable();
-            $table->boolean('available')->default(1);
-            $table->string('avg_weight')->nullable();
-            $table->string('matin_id')->nullable();
+            $table->decimal('price_base', 12, 2)->default(0);
+            $table->unsignedTinyInteger('discount_percentage')->default(0);
+            $table->string('unit', 50)->nullable();
+            $table->unsignedInteger('minimum')->default(1);
+            $table->unsignedInteger('maximum')->default(100);
+            $table->unsignedInteger('preparation_time')->default(0);
+            $table->boolean('available')->default(true)->index();
+            $table->decimal('rate', 3, 2)->default(0.00);
+            $table->string('batch_code', 100)->nullable();
+            $table->string('matin_code', 100)->nullable();
+
+            $table->unsignedBigInteger('category_id')->nullable()->index();
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('set null');
+
+
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
-
-
         });
 
     }

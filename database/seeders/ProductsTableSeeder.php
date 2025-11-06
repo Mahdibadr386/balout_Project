@@ -3,89 +3,80 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 class ProductsTableSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-        DB::table('products')->insert([
+        // Fetch existing categories to link products
+        $categories = DB::table('categories')->pluck('id', 'name');
+
+        // Example products
+        $products = [
             [
-                'category_id' => 1,
-                'name' => 'پسته اکبری ممتاز',
-                'name_en' => 'Premium Akbari Pistachio',
-                'description' => 'پسته تازه و درجه یک مناسب برای پذیرایی',
-                'price_number' => '250000',
-                'price_kilo' => '1800000',
-                'price_discounted' => 1600000,
-                'unit' => 'کیلوگرم',
-                'rate' => 5,
-                'minimum_weight' => 1,
-                'maximum_weight' => 10,
-                'preparation_time' => 2,
-                'batch_id' => 'PIS-001',
+                'name' => 'Chocolate Cake',
+                'slug' => Str::slug('Chocolate Cake'),
+                'description' => 'Rich and moist chocolate cake.',
+                'price_base' => 45.50,
+                'discount_percentage' => 10,
+                'unit' => 'piece',
+                'minimum' => 1,
+                'maximum' => 20,
+                'preparation_time' => 60, // minutes
                 'available' => true,
-                'avg_weight' => '1kg',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'rate' => 4.8,
+                'batch_code' => 'BCH-001',
+                'matin_code' => 'MAT-001',
+                'category_id' => $categories['Chocolate Cakes'] ?? null,
             ],
             [
-                'category_id' => 1,
-                'name' => 'بادام خام',
-                'name_en' => 'Raw Almond',
-                'description' => 'بادام تازه و خوش‌طعم مناسب برای رژیم غذایی',
-                'price_number' => '200000',
-                'price_kilo' => '1400000',
-                'price_discounted' => 1200000,
-                'unit' => 'کیلوگرم',
-                'rate' => 4,
-                'minimum_weight' => 1,
-                'maximum_weight' => 20,
-                'preparation_time' => 1,
-                'batch_id' => 'ALM-002',
+                'name' => 'Fruit Cake',
+                'slug' => Str::slug('Fruit Cake'),
+                'description' => 'Delicious cake with fresh fruits.',
+                'price_base' => 50.00,
+                'discount_percentage' => 5,
+                'unit' => 'piece',
+                'minimum' => 1,
+                'maximum' => 15,
+                'preparation_time' => 70,
                 'available' => true,
-                'avg_weight' => '1kg',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'rate' => 4.6,
+                'batch_code' => 'BCH-002',
+                'matin_code' => 'MAT-002',
+                'category_id' => $categories['Fruit Cakes'] ?? null,
             ],
             [
-                'category_id' => 2,
-                'name' => 'گلدان سفالی لعاب‌دار',
-                'name_en' => 'Glazed Clay Pot',
-                'description' => 'دست‌ساز با طرح سنتی، مناسب دکور خانه',
-                'price_number' => '350000',
-                'price_kilo' => null,
-                'price_discounted' => 320000,
-                'unit' => 'عدد',
-                'rate' => 5,
-                'minimum_number' => 1,
-                'maximum_number' => 10,
-                'preparation_time' => 3,
-                'batch_id' => 'CER-101',
+                'name' => 'Cheesecake',
+                'slug' => Str::slug('Cheesecake'),
+                'description' => 'Classic creamy cheesecake.',
+                'price_base' => 55.00,
+                'discount_percentage' => 0,
+                'unit' => 'piece',
+                'minimum' => 1,
+                'maximum' => 10,
+                'preparation_time' => 90,
                 'available' => true,
-                'avg_weight' => '1.2kg',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'rate' => 4.9,
+                'batch_code' => 'BCH-003',
+                'matin_code' => 'MAT-003',
+                'category_id' => $categories['Cheesecakes'] ?? null,
             ],
-            [
-                'category_id' => 3,
-                'name' => 'زردچوبه درجه یک',
-                'name_en' => 'Premium Turmeric',
-                'description' => 'ادویه طبیعی و خالص با رنگ طلایی زیبا',
-                'price_number' => '150000',
-                'price_kilo' => '1000000',
-                'price_discounted' => 950000,
-                'unit' => 'کیلوگرم',
-                'rate' => 5,
-                'minimum_weight' => 1,
-                'maximum_weight' => 15,
-                'preparation_time' => 2,
-                'batch_id' => 'SPI-030',
-                'available' => true,
-                'avg_weight' => '1kg',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        ];
+
+        // Insert products into the database
+        foreach ($products as $product) {
+            DB::table('products')->insert(array_merge(
+                $product,
+                [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            ));
+        }
     }
 }

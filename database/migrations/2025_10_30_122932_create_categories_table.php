@@ -12,19 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 255);
-            $table->string('slug', 255)->unique();
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->text('description')->nullable();
-            $table->string('image', 255)->nullable();
-            $table->string('icon', 255)->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->integer('sort_order')->default(0);
-            $table->timestamps();
+        $table->id();
+        $table->string('name', 255);
+        $table->string('slug', 255)->unique();
+        $table->unsignedBigInteger('parent_id')->nullable()->index();
+        $table->text('description')->nullable();
+        $table->boolean('is_active')->default(true);
+        $table->integer('sort_order')->default(0)->index();
+        $table->timestamps();
 
-            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('set null');
-        });
+        $table->unique(['parent_id', 'name']);
+        $table->foreign('parent_id')->references('id')->on('categories')->onDelete('set null');
+    });
 
     }
 
