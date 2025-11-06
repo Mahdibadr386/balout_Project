@@ -140,7 +140,7 @@ class AuthRepository implements AuthRepositoryInterface
             Log::info("New user activated: {$user->tel}");
         }
 
-        Auth::login($user);
+
         $token = $user->createToken('Token-User')->accessToken;
 
         Cache::forget($tel);
@@ -162,7 +162,11 @@ class AuthRepository implements AuthRepositoryInterface
 
         User::where('tel', $data['tel'])->where('status', '!=', 1)->delete();
 
-        User::create($data);
+        $user = User::create($data);
+
+        if (! $user->hasAnyRole()) {
+            $user->assignRole('user');
+        }
     }
 
 }
