@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Repositories\Auth\Eloquent;
+namespace App\Repositories\Auth;
 
-use App\Http\Requests\Auth\SendCodeRequest;
 use App\Models\User;
 use App\Models\UserAddress;
-use App\Repositories\Auth\Contracts\AuthRepositoryInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
-class AuthRepository implements AuthRepositoryInterface
+class AuthRepository
 {
 
     public function revokeTokens(User $user): void

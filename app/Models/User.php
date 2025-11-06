@@ -30,7 +30,7 @@ class User extends Authenticatable
         'last_login_date',
     ];
 
-    protected $with = ['addresses'];
+    protected $with = ['addresses' , 'feedbacks'];
 
     protected $guarded = [
         'id',
@@ -58,6 +58,10 @@ class User extends Authenticatable
         return $this->hasMany(UserAddress::class, 'user_id', 'id');
     }
 
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'user_id', 'id');
+    }
 
     public function getCitiesAttribute()
     {

@@ -20,6 +20,9 @@ return new class extends Migration
         // Comment content
         $table->text('comment');
 
+        // Approved
+        $table->boolean('approved')->default(false);
+
         // Rating (1-5)
         $table->unsignedTinyInteger('rate');
 

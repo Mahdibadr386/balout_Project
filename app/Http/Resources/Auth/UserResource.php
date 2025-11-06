@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Auth;
 
+use App\Http\Resources\Public\Feedback\FeedbackResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,6 +29,7 @@ class UserResource extends JsonResource
             'is_active'     => $this->is_active,
             'created_at'    => $this->created_at?->format('Y-m-d H:i:s'),
             'addresses'     => UserAddressResource::collection($this->whenLoaded('addresses')),
+            'feedbacks'     => FeedbackResource::collection($this->whenLoaded('feedbacks')),
         ];
     }
 }

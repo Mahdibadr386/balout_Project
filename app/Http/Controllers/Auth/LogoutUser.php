@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Repositories\Auth\Contracts\AuthRepositoryInterface;
+use App\Repositories\Auth\AuthRepository;
 use Illuminate\Http\Request;
 
 class LogoutUser extends Controller
 {
     protected $authRepo;
 
-    public function __construct(AuthRepositoryInterface $authRepo)
+    public function __construct(AuthRepository $authRepo)
     {
         $this->authRepo = $authRepo;
     }
@@ -20,6 +20,7 @@ class LogoutUser extends Controller
     {
         $this->authRepo->revokeTokens($request->user());
 
-        return ResponseHelper::success(null, 'خروج از حساب کاربری با موفقیت انجام شد' , 200);
+        return response()->success(null, 'خروج از حساب کاربری با موفقیت انجام شد', 200);
+
     }
 }

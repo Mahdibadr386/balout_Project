@@ -2,10 +2,7 @@
 
 namespace App\Providers;
 
-use App\Repositories\Auth\Contracts\AuthRepositoryInterface;
-use App\Repositories\Auth\Eloquent\AuthRepository;
-use App\Repositories\User\Contracts\UserRepositoryInterface;
-use App\Repositories\User\Eloquent\UserRepository;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,8 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
-        $this->app->bind(AuthRepositoryInterface::class, AuthRepository::class);
+
     }
 
     /**
@@ -24,6 +20,32 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        require_once app_path('Helpers/ResponseHelper.php');
+        // Response Macro Success
+        Response::macro('success', function ($data = null, string $message = 'عملیات با موفقیت انجام شد', int $status = 200) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'data'    => $data,
+            ], $status);
+        });
+
+        // Response Macro Error
+        Response::macro('error', function (string $message = 'خطا در انجام عملیات', $errors = null, int $status = 400) {
+            return response()->json([
+                'success' => false,
+                'message' => $message,
+                'errors'  => $errors,
+            ], $status);
+        });
+
+
+        // Response Macro ValidationError
+        Response::macro('validationError', function ($errors, string $message = 'اعتبارسنجی ناموفق بود', int $status = 422) {
+            return response()->json([
+                'success' => false,
+                'message' => $message,
+                'errors'  => $errors,
+            ], $status);
+        });
     }
 }

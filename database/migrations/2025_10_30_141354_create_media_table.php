@@ -33,7 +33,7 @@ return new class extends Migration
             $table->integer('duration')->nullable(); // duration in seconds (if applicable)
 
             // Metadata
-            $table->json('custom_properties');
+            $table->json('custom_properties')->nullable();
 
             // Display order
             $table->unsignedInteger('order_column')->nullable()->index();
