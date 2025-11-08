@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Public\Category\CategoriesController;
+use App\Http\Controllers\Public\ContactUs\ContactUsController;
 use App\Http\Controllers\Public\Feedback\{DestroyFeedbackController , SendFeedbackController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\Product\{CategoryProductsController , ProductsController ,ShowProductController};
@@ -38,7 +39,9 @@ Route::name('Feedback')->middleware('auth:api')->prefix('feedback')->group(funct
     Route::delete('/{id}' , DestroyFeedbackController::class);
 });
 
-
+Route::name('ContactUs')->prefix('contactUs')->group(function () {
+    Route::post('/' , ContactUsController::class);
+});
 
 
 
