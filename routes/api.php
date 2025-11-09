@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\Public\Cart\{AddCartItemController , DecrementCartItemController , IncrementCartItemController , ShowCartController ,RemoveCartItemController};
 use App\Http\Controllers\Public\Category\CategoriesController;
 use App\Http\Controllers\Public\ContactUs\ContactUsController;
-use App\Http\Controllers\Public\Feedback\{DestroyFeedbackController , SendFeedbackController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\Product\{CategoryProductsController , ProductsController ,ShowProductController};
 use App\Http\Controllers\Auth\{CheckCode, CheckUser, LogoutUser, ProfileUser, SendCode,  UpdateProfile};
+use App\Http\Controllers\Public\Feedback\{DestroyFeedbackController , SendFeedbackController};
 
 
 
@@ -43,6 +44,13 @@ Route::name('ContactUs')->prefix('contactUs')->group(function () {
     Route::post('/' , ContactUsController::class);
 });
 
+Route::name('Cart')->middleware('auth:api')->prefix('cart')->group(function () {
+    Route::get('/', ShowCartController::class);
+    Route::post('/', AddCartItemController::class);
+    Route::post('/{item}/increment', IncrementCartItemController::class);
+    Route::post('/{item}/decrement', DecrementCartItemController::class);
+    Route::delete('/{item}', RemoveCartItemController::class);
+});
 
 
 

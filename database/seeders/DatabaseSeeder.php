@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             FeedbacksTableSeeder::class,
             MediaTableSeeder::class,
             RolePermissionSeeder::class,
+            OptionSeeder::class,
+            OptionDetailSeeder::class,
         ]);
 
 
