@@ -25,6 +25,7 @@ class ProductsTableSeeder extends Seeder
                 'price_base' => 45.50,
                 'discount_percentage' => 10,
                 'unit' => 'piece',
+                'quantity' => 10,
                 'minimum' => 1,
                 'maximum' => 20,
                 'preparation_time' => 60, // minutes
@@ -41,6 +42,7 @@ class ProductsTableSeeder extends Seeder
                 'price_base' => 50.00,
                 'discount_percentage' => 5,
                 'unit' => 'piece',
+                'quantity' => 11,
                 'minimum' => 1,
                 'maximum' => 15,
                 'preparation_time' => 70,
@@ -57,6 +59,7 @@ class ProductsTableSeeder extends Seeder
                 'price_base' => 55.00,
                 'discount_percentage' => 0,
                 'unit' => 'piece',
+                'quantity' => 5,
                 'minimum' => 1,
                 'maximum' => 10,
                 'preparation_time' => 90,

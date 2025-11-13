@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\Cart\ChangeCartItemQuantityRequest;
 use App\Http\Resources\Public\Cart\CartItemResource;
 use App\Services\Cart\CartService;
-use Illuminate\Support\Facades\Response;
 
 
 class IncrementCartItemController extends Controller
@@ -21,9 +20,9 @@ class IncrementCartItemController extends Controller
         $updated = $this->service->incrementProduct($userId, $item, $by);
 
         if ($updated) {
-            return Response::success(new CartItemResource($updated->load('options.optionDetail','product')), 'تعداد محصول افزایش یافت', 200);
+            return response()->success(new CartItemResource($updated->load('options.optionDetail', 'product')), 'تعداد محصول افزایش یافت', 200);
         }
 
-        return Response::error('افزایش تعداد موفقیت‌آمیز نبود', null, 400);
+        return response()->error('افزایش تعداد موفقیت‌آمیز نبود', null, 400);
     }
 }

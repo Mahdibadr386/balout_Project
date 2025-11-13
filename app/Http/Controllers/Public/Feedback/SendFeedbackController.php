@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\Feedback\StoreFeedbackRequest;
 use App\Http\Resources\Public\Feedback\FeedbackResource;
 use App\Repositories\Public\Feedback\FeedbackRepository;
-use Illuminate\Http\Request;
 
 class SendFeedbackController extends Controller
 {

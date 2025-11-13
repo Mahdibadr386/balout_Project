@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Public\Product;
 
-use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Public\Product\ProductResource;
-use App\Models\Product;
 use App\Repositories\Public\Product\ProductRepository;
-use Illuminate\Http\Request;
+
 
 class ShowProductController extends Controller
 {

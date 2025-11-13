@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Order extends Model
+{
+    use SoftDeletes;
+
+    protected $fillable = [
+        'order_number', 'user_id', 'address_id', 'status',
+        'subtotal', 'discount', 'shipping_cost', 'tax', 'total',
+        'payment_method', 'currency', 'meta'
+    ];
+
+    protected $casts = [
+        'subtotal' => 'float',
+        'discount' => 'float',
+        'shipping_cost' => 'float',
+        'tax' => 'float',
+        'total' => 'float',
+        'meta' => 'array',
+    ];
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(PaymentTransaction::class);
+    }
+
+
+
+}
+

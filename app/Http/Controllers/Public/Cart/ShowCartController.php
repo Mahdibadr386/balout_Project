@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Public\Cart\CartResource;
 use App\Services\Cart\CartService;
-use Illuminate\Support\Facades\Response;
+
 
 class ShowCartController extends Controller
 {
@@ -17,10 +17,10 @@ class ShowCartController extends Controller
         $cart = $this->service->getCart($userId);
 
         if (! $cart) {
-            return Response::success(null, 'سبد خرید خالی است', 200);
+            return response()->success(null, 'سبد خرید خالی است', 200);
         }
 
         $cart->load('items.product','items.options.optionDetail');
-        return Response::success(new CartResource($cart), 'سبد خرید بارگذاری شد', 200);
+        return response()->success(new CartResource($cart), 'سبد خرید بارگذاری شد', 200);
     }
 }

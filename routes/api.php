@@ -53,4 +53,9 @@ Route::name('Cart')->middleware('auth:api')->prefix('cart')->group(function () {
 });
 
 
+Route::middleware('auth:api')->group(function() {
+    Route::post('/checkout', \App\Http\Controllers\Public\Checkout\CheckoutController::class)->name('checkout');
+});
+// webhook (public, secured by signature)
+Route::post('/payment/webhook/{gateway}', \App\Http\Controllers\Public\Checkout\PaymentCallbackController::class)->name('payment.callback');
 

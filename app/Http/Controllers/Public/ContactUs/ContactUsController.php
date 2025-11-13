@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public\ContactUs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\ContactUs\StoreContactUsRequest;
 use App\Repositories\Public\ContactUs\ContactUsRepository;
-use Illuminate\Http\Request;
+
 
 class ContactUsController extends Controller
 {

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Repositories\Auth\AuthRepository;
 use Illuminate\Http\Request;

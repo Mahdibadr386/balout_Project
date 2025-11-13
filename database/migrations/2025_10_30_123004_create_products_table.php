@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('price_base', 12, 2)->default(0);
             $table->unsignedTinyInteger('discount_percentage')->default(0);
             $table->string('unit', 50)->nullable();
+            $table->unsignedInteger('quantity')->default(1);
             $table->unsignedInteger('minimum')->default(1);
             $table->unsignedInteger('maximum')->default(100);
             $table->unsignedInteger('preparation_time')->default(0);

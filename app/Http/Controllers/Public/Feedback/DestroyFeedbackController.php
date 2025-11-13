@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Public\Feedback;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Public\Feedback\FeedbackRepository;
-use Illuminate\Http\Request;
 
 class DestroyFeedbackController extends Controller
 {
