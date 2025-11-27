@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Repositories\Public\Order\PaymentTransactionRepository;
@@ -39,7 +40,9 @@ class PaymentService
             $this->payments->updateResponse($tx, $payload, $newStatus);
 
             $order = $tx->order()->lockForUpdate()->first();
+
             if ($newStatus === 'success') {
+
                 $this->orders->updateStatus($order, 'paid');
 
 
@@ -48,11 +51,15 @@ class PaymentService
                     ->first();
 
                 if ($cart) {
+                    $cart->status = 'completed';
+                    $cart->save();
+
                     $cart->delete();
                 }
 
                 // fire event
                 event(new \App\Events\OrderPlaced($order));
+
             } else {
                 $this->orders->updateStatus($order, 'failed');
             }
@@ -60,7 +67,4 @@ class PaymentService
             return ['status' => $newStatus];
         });
     }
-
-
-
 }

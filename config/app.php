@@ -123,4 +123,10 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    'aliases' => Illuminate\Support\Facades\Facade::defaultAliases()->merge([
+        'Sms' => App\Services\Sms\Facades\Sms::class,
+        'SmsOtp' =>App\Services\Sms\Facades\SmsOtp::class,
+    ])->all(),
+
 ];
