@@ -27,7 +27,7 @@ class RolePermissionSeeder extends Seeder
             'user_address.view','user_address.create','user_address.update','user_address.delete',
 
 
-            'category.view','category.create','category.update','category.delete','category.restore','category.manage.tree',
+            'Category.view','Category.create','Category.update','Category.delete','Category.restore','Category.manage.tree',
 
 
             'product.view','product.create','product.update','product.delete','product.restore','product.force_delete',
@@ -78,7 +78,7 @@ class RolePermissionSeeder extends Seeder
         $roleUser->syncPermissions([
             'auth.login','auth.logout',
             'profile.view.self','profile.update.self','profile.delete.self',
-            'product.view','category.view','feedback.view','feedback.create',
+            'product.view','Category.view','feedback.view','feedback.create',
             'user.view.own','user_address.view','user_address.create','user_address.update','user_address.delete',
             'sessions.view'
         ]);
@@ -95,7 +95,7 @@ class RolePermissionSeeder extends Seeder
             'product.view','product.create','product.update','product.delete','product.manage.images','product.toggle.available','product.update.pricing','product.update.stock','product.restore',
 
 
-            'category.view','category.create','category.update','category.delete','category.manage.tree',
+            'Category.view','Category.create','Category.update','Category.delete','Category.manage.tree',
 
 
             'feedback.view','feedback.delete','feedback.moderate',

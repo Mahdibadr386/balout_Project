@@ -29,7 +29,7 @@ class ProductResource extends JsonResource
             'rate' => (float) $this->rate,
             'batch_code' => $this->batch_code,
             'matin_code' => $this->matin_code,
-            'category' => $this->whenLoaded('category', function () {
+            'Category' => $this->whenLoaded('Category', function () {
                 return [
                     'id' => $this->category->id,
                     'name' => $this->category->name,

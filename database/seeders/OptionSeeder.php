@@ -20,7 +20,6 @@ class OptionSeeder extends Seeder
             'type' => 'multiple_option',
             'name' => 'رنگ',
             'effect' => null,
-            'parent_id' => null,
         ]);
 
         $size = Option::create([
@@ -29,7 +28,6 @@ class OptionSeeder extends Seeder
             'type' => 'multiple_option',
             'name' => 'سایز',
             'effect' => null,
-            'parent_id' => null,
         ]);
 
         $material = Option::create([
@@ -38,7 +36,6 @@ class OptionSeeder extends Seeder
             'type' => 'multiple_option',
             'name' => 'جنس',
             'effect' => null,
-            'parent_id' => null,
         ]);
 
 
@@ -63,7 +60,6 @@ class OptionSeeder extends Seeder
                 'type' => 'two_option',
                 'name' => $name,
                 'effect' => $effect,
-                'parent_id' => $parentId,
             ]);
         }
     }

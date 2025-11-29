@@ -55,7 +55,7 @@ class Product extends Model
      * Relationships
      */
 
-    // Each product belongs to a category
+    // Each product belongs to a Category
     public function category()
     {
         return $this->belongsTo(Category::class);

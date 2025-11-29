@@ -23,7 +23,7 @@ class Media extends Model
         'url',
         'size',
         'duration',
-        'custom_properties',
+        'alt',
         'order_column',
     ];
 
@@ -35,12 +35,9 @@ class Media extends Model
         'size' => 'integer',
         'duration' => 'integer',
         'order_column' => 'integer',
-        'custom_properties' => 'array', // automatically converts JSON to array
     ];
 
-    protected $attributes = [
-        'custom_properties' => [], // default empty array
-    ];
+
 
     /**
      * Polymorphic relation

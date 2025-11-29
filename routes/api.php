@@ -16,8 +16,8 @@ Route::prefix('auth')->name('auth.')->group(function () {
 
     Route::middleware('auth:api')->prefix('profile')->name('profile.')->group(function () {
         Route::post('/logout', LogoutUser::class)->name('logout');
-        Route::get('/profile', ProfileUser::class)->name('show');
-        Route::put('/profileUpdate', UpdateProfile::class)->name('update');
+        Route::get('/', ProfileUser::class)->name('show');
+        Route::put('/update', UpdateProfile::class)->name('update');
     });
 });
 
@@ -25,11 +25,11 @@ Route::prefix('auth')->name('auth.')->group(function () {
 Route::prefix('products')->name('product.')->group(function () {
     Route::get('/', ProductsController::class)->name('index');
     Route::get('/{slug}', ShowProductController::class)->name('show');
-    Route::get('/category/{slug}', CategoryProductsController::class)->name('category');
+    Route::get('/Category/{slug}', CategoryProductsController::class)->name('Category');
 });
 
 
-Route::prefix('categories')->name('category.')->group(function () {
+Route::prefix('categories')->name('Category.')->group(function () {
     Route::get('/', CategoriesController::class)->name('index');
 });
 

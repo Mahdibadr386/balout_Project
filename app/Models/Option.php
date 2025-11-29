@@ -12,9 +12,11 @@ class Option extends Model
     protected $table = 'options';
 
     protected $fillable = [
-        'name',
-        'slug',
+        'optionable_id',
+        'optionable_type',
         'type',
+        'name',
+        'effect',
     ];
 
     public function details()
@@ -26,5 +28,6 @@ class Option extends Model
     {
         return $this->hasMany(OptionMessage::class, 'option_id', 'id');
     }
+
 
 }

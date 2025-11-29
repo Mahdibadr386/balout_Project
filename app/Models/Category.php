@@ -19,7 +19,7 @@ class Category extends Model
         'parent_id',
         'description',
         'is_active',
-        'sort_order',
+        'sort_order'
     ];
 
     /**
@@ -31,7 +31,7 @@ class Category extends Model
     ];
 
     /**
-     * Parent category relation (self-referencing)
+     * Parent Category relation (self-referencing)
      */
     public function parent()
     {
@@ -63,7 +63,7 @@ class Category extends Model
     }
 
     /**
-     * Helper to check if category is root
+     * Helper to check if Category is root
      */
     public function isRoot(): bool
     {
