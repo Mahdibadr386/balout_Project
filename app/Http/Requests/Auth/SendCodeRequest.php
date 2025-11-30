@@ -23,7 +23,7 @@ class SendCodeRequest extends FormRequest
                 'required',
                 'string',
                 'regex:/^09[0-9]{9}$/',
-                'unique:users',
+
             ],
         ];
 

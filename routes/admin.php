@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\User\{UsersController, UserController, DeleteUserController};
+use App\Http\Controllers\Admin\User\{UsersController, UserController, DeleteUserController, UserStatusController};
 use App\Http\Controllers\Admin\ContactUs\{IndexContactUsController, ContactUsController, DeleteContactUsController};
 use App\Http\Controllers\Admin\Feedback\{FeedbacksController, FeedbackController, ApproveFeedbackController, DeleteFeedbackController};
 use App\Http\Controllers\Admin\Media\{DeleteMediaController,StoreMediaController};
 use App\Http\Controllers\Admin\Option\{DeleteOptionDetailController, OptionsController, OptionController, StoreOptionController, StoreOptionDetailController, UpdateOptionController, DeleteOptionController, UpdateOptionDetailController};
 use App\Http\Controllers\Admin\Product\{DeleteProductController, ProductController, ProductsController, StoreProductController, UpdateProductController};
 use App\Http\Controllers\Admin\Category\{CategoriesController, CategoryController, DeleteCategoryController, StoreCategoryController, UpdateCategoryController};
+use App\Http\Controllers\Admin\Order\{OrdersController,OrderController , StoreOrderController  , DeleteOrderController , UpdateOrderStatusController};
+
 
 
 Route::prefix('categories')->name('Category.')->group(function () {
@@ -64,6 +66,16 @@ Route::prefix('users')->name('user.')->group(function () {
     Route::get('/', UsersController::class);
     Route::get('/{id}', UserController::class);
     Route::delete('/{id}', DeleteUserController::class);
+    Route::patch('/{id}/status', UserStatusController::class);
+});
+
+
+Route::prefix('orders')->name('order.')->group(function () {
+    Route::get('/', OrdersController::class);
+    Route::get('/{id}', OrderController::class);
+    Route::post('/', StoreOrderController::class);
+    Route::delete('/{id}', DeleteOrderController::class);
+    Route::post('/{id}/status', UpdateOrderStatusController::class);
 });
 
 

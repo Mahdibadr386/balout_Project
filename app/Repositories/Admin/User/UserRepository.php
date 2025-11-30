@@ -21,4 +21,15 @@ class UserRepository
         return $user->delete();
     }
 
+    public function deactivate(User $user): User
+    {
+        if ($user['is_active']){
+            $user->update(['is_active' => false]);
+        }else{
+            $user->update(['is_active' => true]);
+        }
+
+
+        return $user;
+    }
 }
