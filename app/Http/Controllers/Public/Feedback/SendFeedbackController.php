@@ -19,7 +19,8 @@ class SendFeedbackController extends Controller
     public function __invoke(StoreFeedbackRequest $request)
     {
         $data = $request->validated();
-        $feedback = $this->feedbackRepository->storeFeedback($data);
+        $user_id = auth()->id();
+        $feedback = $this->feedbackRepository->storeFeedback($data , $user_id);
 
         return response()->success(new FeedbackResource($feedback), 'بازخورد با موفقیت ارسال شد.', 201);
     }

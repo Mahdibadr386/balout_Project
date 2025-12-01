@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Public\Cart\{AddCartItemController , DecrementCartItemController , IncrementCartItemController , ShowCartController ,RemoveCartItemController};
 use App\Http\Controllers\Public\Category\CategoriesController;
+use App\Http\Controllers\Public\Checkout\CheckoutController;
+use App\Http\Controllers\Public\Checkout\PaymentCallbackController;
 use App\Http\Controllers\Public\ContactUs\ContactUsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\Product\{CategoryProductsController , ProductsController ,ShowProductController};
@@ -54,7 +56,7 @@ Route::middleware('auth:api')->prefix('cart')->name('cart.')->group(function () 
 });
 
 
-Route::middleware('auth:api')->post('/checkout', \App\Http\Controllers\Public\Checkout\CheckoutController::class)->name('checkout');
+Route::middleware('auth:api')->post('/checkout', CheckoutController::class)->name('checkout');
 
 
-Route::post('/payment/webhook/{gateway}', \App\Http\Controllers\Public\Checkout\PaymentCallbackController::class)->name('payment.callback');
+Route::post('/payment/webhook/{gateway}', PaymentCallbackController::class)->name('payment.callback');

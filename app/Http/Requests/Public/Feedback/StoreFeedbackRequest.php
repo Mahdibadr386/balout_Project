@@ -13,7 +13,7 @@ class StoreFeedbackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check(); // Only logged-in users can submit feedback
+        return auth()->check();
     }
 
     /**
@@ -26,11 +26,6 @@ class StoreFeedbackRequest extends FormRequest
                 'required',
                 'integer',
                 'exists:products,id',
-            ],
-            'user_id' => [
-                'required',
-                'integer',
-                'exists:users,id',
             ],
             'comment' => [
                 'required',

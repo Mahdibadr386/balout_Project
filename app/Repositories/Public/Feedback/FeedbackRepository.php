@@ -6,11 +6,11 @@ use App\Models\Feedback;
 
 class FeedbackRepository
 {
-    public function storeFeedback(array $data)
+    public function storeFeedback(array $data , int $user_id)
     {
         return Feedback::updateOrCreate(
             [
-                'user_id'    => $data['user_id'],
+                'user_id'    => $user_id,
                 'product_id' => $data['product_id'],
             ],
             [

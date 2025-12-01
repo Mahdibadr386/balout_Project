@@ -55,6 +55,7 @@ class UpdateProfileRequest extends FormRequest
             'national_code.required' => 'کد ملی الزامی است.',
             'national_code.string' => 'کد ملی باید یک رشته معتبر باشد.',
             'national_code.max' => 'کد ملی نمی‌تواند بیش از 10 کاراکتر باشد.',
+            'national_code.unique' => 'این کد ملی در دسترس نمی باشد',
 
             'description.string' => 'توضیحات باید یک متن معتبر باشد.',
             'description.max' => 'توضیحات نمی‌تواند بیش از ۲۰۰۰ کاراکتر باشد.',
