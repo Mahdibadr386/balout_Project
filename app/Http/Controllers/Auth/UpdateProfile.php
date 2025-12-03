@@ -10,20 +10,13 @@ use App\Repositories\Auth\AuthRepository;
 
 class UpdateProfile extends Controller
 {
-    protected $authRepo;
-
-    public function __construct(AuthRepository $authRepo)
-    {
-        $this->authRepo = $authRepo;
-    }
-
-    public function __invoke(UpdateProfileRequest $request)
+    public function __invoke(AuthRepository $authRepository, UpdateProfileRequest $request)
     {
         $user = auth()->user();
         $data = $request->except('addresses', 'password');
         $addresses = $request->addresses ?? [];
 
-        $updatedUser = $this->authRepo->updateProfile($user, $data, $addresses);
+        $updatedUser = $authRepository->updateProfile($user, $data, $addresses);
 
         return response()->success(['user' => new UserResource($updatedUser)], 'پروفایل با موفقیت بروزرسانی شد', 200);
 

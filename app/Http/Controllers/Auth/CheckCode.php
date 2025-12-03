@@ -9,17 +9,10 @@ use App\Repositories\Auth\AuthRepository;
 
 class CheckCode extends Controller
 {
-    protected $authRepo;
-
-    public function __construct(AuthRepository $authRepo)
-    {
-        $this->authRepo = $authRepo;
-    }
-
-    public function __invoke(CheckCodeRequest $request)
+    public function __invoke(AuthRepository $authRepository ,  CheckCodeRequest $request)
     {
         $data = $request->validated();
-        $result = $this->authRepo->checkCode($data);
+        $result = $authRepository->checkCode($data);
 
         if (!$result['success']) {
             return response()->error($result['message'], null, 400);

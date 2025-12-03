@@ -7,11 +7,9 @@ use App\Repositories\Admin\Order\OrderRepository;
 
 class DeleteOrderController extends Controller
 {
-    public function __construct(protected OrderRepository $repository) {}
-
-    public function __invoke($id)
+    public function __invoke(OrderRepository $OrderRepository ,$id)
     {
-        $this->repository->delete($id);
+        $OrderRepository->delete($id);
         return response()->success(null, 'سفارش با موفقیت حذف شد', 200);
     }
 }

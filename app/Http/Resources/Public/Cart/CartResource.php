@@ -9,7 +9,6 @@ class CartResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => (int)$this->id,
             'user_id' => (int)$this->user_id,
             'status' => $this->status,
             'subtotal' => (float)$this->subtotal,

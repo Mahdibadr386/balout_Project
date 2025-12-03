@@ -37,8 +37,6 @@ class ProductResource extends JsonResource
                 ];
             }),
             'feedbacks'     => FeedbackResource::collection($this->whenLoaded('feedbacks')),
-            'created_at' => $this->created_at?->toDateTimeString(),
-            'updated_at' => $this->updated_at?->toDateTimeString(),
         ];
     }
 }

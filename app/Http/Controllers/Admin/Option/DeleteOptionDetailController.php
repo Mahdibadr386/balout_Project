@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class DeleteOptionDetailController extends Controller
 {
-    public function __invoke(Request $request, OptionDetailRepository $repo, $id)
+    public function __invoke(Request $request, OptionDetailRepository $OptionDetailRepository, $id)
     {
-        $repo->delete($id);
+        $OptionDetailRepository->delete($id);
 
         return response()->success(null, 'جزئیات گزینه با موفقیت حذف شد', 200);
     }

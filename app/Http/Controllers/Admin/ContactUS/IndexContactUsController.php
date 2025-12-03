@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Admin\ContactUS;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\ContactUs\ContactUsResource;
 use App\Repositories\Admin\ContactUs\ContactUsRepository;
-use Illuminate\Http\Request;
 
 class IndexContactUsController extends Controller
 {
-    public function __construct(private ContactUsRepository $repository) {}
-
-    public function __invoke()
+    public function __invoke(ContactUsRepository $ContactUsRepository)
     {
-        return response()->success(ContactUsResource::collection($this->repository->all()), 'لیست آیتم‌ها با موفقیت دریافت شد', 200);
+        return response()->success(ContactUsResource::collection($ContactUsRepository->all()), 'لیست آیتم‌ها با موفقیت دریافت شد', 200);
     }
 }

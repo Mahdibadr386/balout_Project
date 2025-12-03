@@ -17,7 +17,6 @@ class FeedbackResource extends JsonResource
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name,
-                'email' => $this->user->email,
             ],
             'comment' => $this->comment,
             'rate' => $this->rate,

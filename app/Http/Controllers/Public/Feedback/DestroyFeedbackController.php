@@ -7,16 +7,9 @@ use App\Repositories\Public\Feedback\FeedbackRepository;
 
 class DestroyFeedbackController extends Controller
 {
-    protected $feedbackRepository;
-
-    public function __construct(FeedbackRepository $feedbackRepository)
+    public function __invoke(FeedbackRepository $feedbackRepository , int $id)
     {
-        $this->feedbackRepository = $feedbackRepository;
-    }
-
-    public function __invoke(int $id)
-    {
-        $deleted = $this->feedbackRepository->destroyFeedback($id);
+        $deleted = $feedbackRepository->destroyFeedback($id);
 
         if (!$deleted) return response()->error('بازخورد یافت نشد یا قبلاً حذف شده است.', null, 404);
 

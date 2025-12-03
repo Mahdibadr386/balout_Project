@@ -10,9 +10,9 @@ use App\Repositories\Admin\Category\CategoryRepository;
 
 class StoreCategoryController extends Controller
 {
-    public function __invoke(CategoryStoreRequest $request, CategoryRepository $repo)
+    public function __invoke(CategoryStoreRequest $request, CategoryRepository $CategoryRepository)
     {
-        $category = $repo->create($request->validated());
+        $category = $CategoryRepository->create($request->validated());
 
         return response()->success(new CategoryResource($category), 'دسته‌بندی با موفقیت ایجاد شد', 201);
 

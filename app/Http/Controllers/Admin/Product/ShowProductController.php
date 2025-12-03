@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Product\ProductResource;
 use App\Repositories\Admin\Product\ProductRepository;
-use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ShowProductController extends Controller
 {
-    public function __construct(protected ProductRepository $repository) {}
-
-    public function __invoke($id)
+    public function __invoke(ProductRepository $ProductRepository, $id)
     {
-        $product = $this->repository->find($id);
+        $product = $ProductRepository->find($id);
         if ($product) {
             $product->load('media');
         }

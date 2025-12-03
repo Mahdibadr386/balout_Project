@@ -9,15 +9,9 @@ use App\Repositories\Public\Product\ProductRepository;
 
 class CategoryProductsController extends Controller
 {
-    protected $productRepository;
-    public function __construct(ProductRepository $productRepository)
+    public function __invoke(ProductRepository $productRepository  ,string $slug)
     {
-        $this->productRepository = $productRepository;
-    }
-
-    public function __invoke(string $slug)
-    {
-        $products = $this->productRepository->categoryProducts($slug);
+        $products = $productRepository->categoryProducts($slug);
 
         if ($products === null) return response()->error('دسته‌بندی مورد نظر یافت نشد', null, 404);
         if ($products->isEmpty()) return response()->error('هیچ محصولی در این دسته‌بندی یافت نشد', null, 404);

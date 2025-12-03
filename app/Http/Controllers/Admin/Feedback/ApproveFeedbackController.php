@@ -9,14 +9,12 @@ use Illuminate\Http\Request;
 
 class ApproveFeedbackController extends Controller
 {
-    public function __construct(private FeedbackRepository $repository) {}
-
-    public function __invoke(Request $request, $id)
+    public function __invoke(FeedbackRepository $FeedbackRepository ,Request $request, $id)
     {
-        $feedback = $this->repository->find($id);
+        $feedback = $FeedbackRepository->find($id);
         if (!$feedback) return response()->error('بازخورد یافت نشد', null, 404);
 
-        $this->repository->approve($feedback);
+        $FeedbackRepository->approve($feedback);
         return response()->success(new FeedbackResource($feedback), 'بازخورد با موفقیت تایید شد', 200);
 
     }

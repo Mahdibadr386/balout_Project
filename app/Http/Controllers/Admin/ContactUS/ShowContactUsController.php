@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Admin\ContactUS;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\ContactUs\ContactUsResource;
 use App\Repositories\Admin\ContactUs\ContactUsRepository;
-use Illuminate\Http\Request;
 
-class ContactUsController extends Controller
+class ShowContactUsController extends Controller
 {
-    public function __construct(private ContactUsRepository $repository) {}
-
-    public function __invoke($id)
+    public function __invoke(ContactUsRepository $ContactUsRepository,$id)
     {
-        $item = $this->repository->find($id);
+        $item = $ContactUsRepository->find($id);
 
         if (!$item) return response()->error('آیتم پیدا نشد', null, 404);
 

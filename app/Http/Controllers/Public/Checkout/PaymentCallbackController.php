@@ -10,16 +10,14 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentCallbackController extends Controller
 {
-    public function __construct(protected PaymentService $paymentService) {}
-
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(PaymentService $paymentService , Request $request): JsonResponse
     {
 
         $payload = $request->all();
         $gateway = $request->route('gateway') ?? 'mock';
 
         try {
-            $result = $this->paymentService->handleGatewayCallback($gateway, $payload);
+            $result = $paymentService->handleGatewayCallback($gateway, $payload);
             return response()->success($result, 200);
         } catch (\Exception $e) {
             Log::error('Payment callback error: '.$e->getMessage(), ['payload' => $payload]);

@@ -9,20 +9,12 @@ use App\Repositories\Public\Product\ProductRepository;
 
 class ShowProductController extends Controller
 {
-
-    protected $productRepository;
-    public function __construct(ProductRepository $productRepository)
+    public function __invoke(ProductRepository $productRepository , string $slug)
     {
-        $this->productRepository = $productRepository;
-    }
-    public function __invoke(string $slug)
-    {
-        $product = $this->productRepository->product($slug);
-
+        $product = $productRepository->product($slug);
 
         if ($product === null) return response()->error('محصول مورد نظر یافت نشد', null, 404);
 
         return response()->success(new ProductResource($product), 'اطلاعات محصول با موفقیت دریافت شد', 200);
-
     }
 }

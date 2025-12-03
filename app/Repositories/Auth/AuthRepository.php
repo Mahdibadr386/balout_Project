@@ -23,17 +23,13 @@ class AuthRepository
     {
         return DB::transaction(function () use ($user, $data, $addresses) {
 
-            // --------------------------
-            // Update main user data
-            // --------------------------
+
             if (isset($data['password']) && $data['password']) {
                 $data['password'] = Hash::make($data['password']);
             }
             $user->update($data);
 
-            // --------------------------
-            // Sync addresses safely
-            // --------------------------
+
             $existingAddressIds = $user->addresses()->pluck('id')->toArray();
             $submittedAddressIds = [];
 
@@ -58,10 +54,10 @@ class AuthRepository
                 }
             }
 
-            // Delete removed addresses
+
             $user->addresses()->whereNotIn('id', $submittedAddressIds)->delete();
 
-            // Load relations to avoid N+1
+
             $user->load('addresses.city');
 
             Log::info("User profile updated: {$user->id}");

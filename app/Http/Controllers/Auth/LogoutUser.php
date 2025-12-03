@@ -8,16 +8,9 @@ use Illuminate\Http\Request;
 
 class LogoutUser extends Controller
 {
-    protected $authRepo;
-
-    public function __construct(AuthRepository $authRepo)
+    public function __invoke(AuthRepository $authRepository, Request $request)
     {
-        $this->authRepo = $authRepo;
-    }
-
-    public function __invoke(Request $request)
-    {
-        $this->authRepo->revokeTokens($request->user());
+        $authRepository->revokeTokens($request->user());
 
         return response()->success(null, 'خروج از حساب کاربری با موفقیت انجام شد', 200);
 

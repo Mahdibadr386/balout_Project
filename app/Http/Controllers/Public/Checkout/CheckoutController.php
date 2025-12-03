@@ -11,21 +11,16 @@ use Illuminate\Http\JsonResponse;
 
 class CheckoutController extends Controller
 {
-    public function __construct(
-        protected CheckoutService $checkoutService,
-        protected PaymentService $paymentService
-    ) {}
-
-    public function __invoke(CheckoutRequest $request): JsonResponse
+    public function __invoke(CheckoutService $checkoutService, PaymentService $paymentService, CheckoutRequest $request): JsonResponse
     {
         $user = auth()->user();
         $cart = $user->cart()->with('items.options')->firstOrFail();
 
         // create order & payment transaction
-        $result = $this->checkoutService->createOrderFromCart($user, $cart, $request->validated());
+        $result = $checkoutService->createOrderFromCart($user, $cart, $request->validated());
 
         // initiate payment with payment service (returns redirect url or token)
-        $paymentInit = $this->paymentService->initiatePayment($result['payment'], [
+        $paymentInit = $paymentService->initiatePayment($result['payment'], [
 //            'return_url' => route('checkout.callback'), // example
             'idempotency_key' => $request->input('idempotency_key'),
         ]);

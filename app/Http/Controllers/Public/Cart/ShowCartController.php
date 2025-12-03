@@ -9,12 +9,10 @@ use App\Services\Cart\CartService;
 
 class ShowCartController extends Controller
 {
-    public function __construct(protected CartService $service) {}
-
-    public function __invoke()
+    public function __invoke(CartService $CartService)
     {
         $userId = auth()->id();
-        $cart = $this->service->getCart($userId);
+        $cart = $CartService->getCart($userId);
 
         if (! $cart) {
             return response()->success(null, 'سبد خرید خالی است', 200);

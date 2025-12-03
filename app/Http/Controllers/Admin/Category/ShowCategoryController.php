@@ -7,11 +7,11 @@ use App\Http\Resources\Admin\Category\CategoryResource;
 use App\Repositories\Admin\Category\CategoryRepository;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ShowCategoryController extends Controller
 {
-    public function __invoke(Request $request, CategoryRepository $repo)
+    public function __invoke(Request $request, CategoryRepository $CategoryRepository)
     {
-        $category = $repo->find($request->id);
+        $category = $CategoryRepository->find($request->id);
 
         if(!$category) {
             return response()->success( 'دسته‌بندی با موفقیت دریافت نشد', 404);

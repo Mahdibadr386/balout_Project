@@ -22,7 +22,7 @@ class UpdateProfileRequest extends FormRequest
             'first_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'name_en' => 'required|string|max:255',
-            'tel' => 'nullable|string|max:11|unique:users,tel,' . $userId,
+            'tel' => 'required|string|max:11|unique:users,tel,' . $userId,
             'national_code' => 'required|string|max:10|unique:users,national_code,' . $userId,
             'description' => 'nullable|string|max:2000',
             'password' => 'nullable|string|min:6|max:255',

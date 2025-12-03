@@ -9,18 +9,11 @@ use App\Repositories\Auth\AuthRepository;
 
 class CheckUser extends Controller
 {
-
-    protected $authRepo;
-
-    public function __construct(AuthRepository $authRepo)
-    {
-        $this->authRepo = $authRepo;
-    }
-    public function __invoke(CheckUserRequest $request)
+    public function __invoke(AuthRepository $authRepository , CheckUserRequest $request)
     {
         $data = $request->validated();
         $tel = $data['tel'];
-        $userExists = $this->authRepo->checkUser($tel);
+        $userExists = $authRepository->checkUser($tel);
 
         return response()->success(['user_exists' => $userExists], $userExists ? 'کاربر موجود است' : 'کاربر جدید - نیاز به ثبت ‌نام', 200);
 

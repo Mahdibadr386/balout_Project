@@ -10,11 +10,9 @@ use Illuminate\Http\Request;
 
 class StoreOptionController extends Controller
 {
-    public function __construct(protected OptionRepository $repository) {}
-
-    public function __invoke(StoreOptionRequest $request)
+    public function __invoke(OptionRepository $OptionRepository ,StoreOptionRequest $request)
     {
-        $option = $this->repository->create($request->validated());
+        $option = $OptionRepository->create($request->validated());
         return response()->success(new OptionResource($option), 'گزینه جدید با موفقیت ایجاد شد', 201);
     }
 

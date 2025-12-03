@@ -11,12 +11,10 @@ use App\Services\Cart\CartService;
 
 class AddCartItemController extends Controller
 {
-    public function __construct(protected CartService $service) {}
-
-    public function __invoke(AddCartItemRequest $request)
+    public function __invoke(CartService $CartService ,AddCartItemRequest $request)
     {
         $userId = auth()->id();
-        $item = $this->service->addProduct($userId, $request->validated());
+        $item = $CartService->addProduct($userId, $request->validated());
 
         if ($item) {
             return response()->success(new CartItemResource($item->load('options.optionDetail', 'product')), 'محصول به سبد اضافه شد', 201);

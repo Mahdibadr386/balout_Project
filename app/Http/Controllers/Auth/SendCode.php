@@ -8,17 +8,10 @@ use App\Repositories\Auth\AuthRepository;
 
 class SendCode extends Controller
 {
-    protected $authRepo;
-
-    public function __construct(AuthRepository $authRepo)
-    {
-        $this->authRepo = $authRepo;
-    }
-
-    public function __invoke(SendCodeRequest $request)
+    public function __invoke(AuthRepository $authRepository,SendCodeRequest $request)
     {
         $data = $request->validated();
-        $response = $this->authRepo->sendCode($data);
+        $response = $authRepository->sendCode($data);
 
         return $response->isNewUser
             ? response()->success(['is_new_user' => true, 'code' => $response->code], 'کد فعالسازی برای تکمیل ثبت نام ارسال شد', 200)

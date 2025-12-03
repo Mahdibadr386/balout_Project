@@ -9,13 +9,11 @@ use App\Http\Resources\Admin\Order\OrderResource;
 
 class StoreOrderController extends Controller
 {
-    public function __construct(protected OrderRepository $repository) {}
-
-    public function __invoke(StoreOrderRequest $request)
+    public function __invoke(OrderRepository $OrderRepository ,StoreOrderRequest $request)
     {
         $data = $request->validated();
 
-        $order = $this->repository->store($data);
+        $order = $OrderRepository->store($data);
 
         $order->load('items.options', 'user', 'address');
 

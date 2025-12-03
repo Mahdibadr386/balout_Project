@@ -10,7 +10,7 @@ class ChangeCartItemQuantityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'by' => ['nullable','integer','min:1','max:100'],
+            'by' => ['nullable','integer','min:1','max:20'],
         ];
     }
 

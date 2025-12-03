@@ -16,8 +16,6 @@ class UserAddressResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'       => $this->id,
-            'city_id'  => $this->city_id,
             'city_name'=> optional(City::find($this->city_id))->name_fa ?? null,
             'address'  => $this->address,
             'tel'      => $this->tel,

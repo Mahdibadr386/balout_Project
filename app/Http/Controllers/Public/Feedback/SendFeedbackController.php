@@ -9,18 +9,11 @@ use App\Repositories\Public\Feedback\FeedbackRepository;
 
 class SendFeedbackController extends Controller
 {
-    protected $feedbackRepository;
-
-    public function __construct(FeedbackRepository $feedbackRepository)
-    {
-        $this->feedbackRepository = $feedbackRepository;
-    }
-
-    public function __invoke(StoreFeedbackRequest $request)
+    public function __invoke(FeedbackRepository $feedbackRepository , StoreFeedbackRequest $request)
     {
         $data = $request->validated();
         $user_id = auth()->id();
-        $feedback = $this->feedbackRepository->storeFeedback($data , $user_id);
+        $feedback = $feedbackRepository->storeFeedback($data , $user_id);
 
         return response()->success(new FeedbackResource($feedback), 'بازخورد با موفقیت ارسال شد.', 201);
     }
