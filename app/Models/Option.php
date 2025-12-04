@@ -12,12 +12,15 @@ class Option extends Model
     protected $table = 'options';
 
     protected $fillable = [
-        'optionable_id',
-        'optionable_type',
+        'product_id',
         'type',
         'name',
         'effect',
     ];
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 
     public function details()
     {

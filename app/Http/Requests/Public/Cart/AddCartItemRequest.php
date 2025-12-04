@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Requests\Public\Cart;
 
+use App\Rules\Option\OptionBelongsToProduct;
+use App\Rules\Option\OptionDetailBelongsToOption;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddCartItemRequest extends FormRequest
@@ -16,16 +18,34 @@ class AddCartItemRequest extends FormRequest
             'product_id' => ['required', 'integer', 'exists:products,id'],
             'quantity'   => ['nullable', 'integer', 'min:1'],
 
-
             'options' => ['nullable', 'array'],
-            'options.*.option_id'        => ['required_with:options', 'integer', 'exists:options,id'],
-            'options.*.option_detail_id' => ['required_with:options', 'integer', 'exists:option_details,id'],
 
+            'options.*.option_id' => [
+                'required_with:options',
+                'integer',
+                'exists:options,id',
+                new OptionBelongsToProduct($this->input('product_id')),
+            ],
+
+            'options.*.option_detail_id' => [
+                'required_with:options',
+                'integer',
+                'exists:option_details,id',
+                new OptionDetailBelongsToOption(),
+            ],
 
             'messages' => ['nullable', 'array'],
-            'messages.*.option_id'  => ['required_with:messages', 'integer', 'exists:options,id'],
-            'messages.*.message'    => ['required_with:messages', 'string', 'max:255'],
+
+            'messages.*.option_id' => [
+                'required_with:messages',
+                'integer',
+                'exists:options,id',
+                new OptionBelongsToProduct($this->input('product_id')),
+            ],
+
+            'messages.*.message' => ['required_with:messages', 'string', 'max:255'],
         ];
+
     }
 
     public function messages(): array

@@ -96,8 +96,18 @@ class OrderRepository
     public function delete($id)
     {
         $order = $this->find($id);
-        return $order->delete();
+
+        return DB::transaction(function () use ($order) {
+            foreach ($order->items as $item) {
+                $item->options()->delete();
+            }
+            $order->items()->delete();
+
+            return $order->delete();
+        });
     }
+
+
 
     public function updateStatus($id, $status)
     {

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Payment\{IndexPaymentsController, ShowPaymentController};
 use App\Http\Controllers\Admin\User\{IndexUsersController, ShowUserController, DeleteUserController, UserStatusController};
 use App\Http\Controllers\Admin\ContactUs\{IndexContactUsController, ShowContactUsController, DeleteContactUsController};
 use App\Http\Controllers\Admin\Feedback\{IndexFeedbacksController, ShowFeedbackController, ApproveFeedbackController, DeleteFeedbackController};
@@ -79,3 +80,8 @@ Route::prefix('orders')->name('order.')->group(function () {
 });
 
 
+
+Route::prefix('payments')->name('payments.')->group(function () {
+    Route::get('/', IndexPaymentsController::class)->name('index');
+    Route::get('/{id}', ShowPaymentController::class)->name('show');
+});

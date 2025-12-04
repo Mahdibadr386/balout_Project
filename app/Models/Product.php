@@ -31,16 +31,12 @@ class Product extends Model
     ];
 
     protected $with = ['feedbacks'];
-    /**
-     * The attributes that should be hidden for arrays / API responses.
-     */
+
     protected $hidden = [
         'deleted_at',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     */
+
     protected $casts = [
         'price_base' => 'decimal:2',
         'discount_percentage' => 'integer',
@@ -51,23 +47,21 @@ class Product extends Model
         'rate' => 'decimal:2',
     ];
 
-    /**
-     * Relationships
-     */
 
-    // Each product belongs to a Category
+
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    // Polymorphic relation for media (images/videos)
+
     public function media()
     {
         return $this->morphMany(Media::class, 'model');
     }
 
-    // Feedback/comments for the product
+
     public function feedbacks()
     {
         return $this->hasMany(Feedback::class);
@@ -91,4 +85,10 @@ class Product extends Model
         }
         return $this->price_base;
     }
+
+    public function options() {
+        return $this->hasMany(Option::class);
+    }
+
+
 }

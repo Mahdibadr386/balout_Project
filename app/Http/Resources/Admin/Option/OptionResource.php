@@ -10,8 +10,7 @@ class OptionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'optionable_id' => $this->optionable_id,
-            'optionable_type' => $this->optionable_type,
+            'product_id' => $this->product_id,
             'type' => $this->type,
             'name' => $this->name,
             'effect' => $this->effect,

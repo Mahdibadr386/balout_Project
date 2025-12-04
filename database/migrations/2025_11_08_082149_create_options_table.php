@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('optionable_id');
-            $table->string('optionable_type', 255);
+            $table->unsignedBigInteger('product_id');
             $table->enum('type', ['two_option', 'multiple_option'])->nullable()->default('multiple_option');
             $table->string('name', 255);
             $table->decimal('effect', 8, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-
-            $table->index(['optionable_id', 'optionable_type']);
+            $table->index(['product_id']);
         });
 
     }
