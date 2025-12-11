@@ -43,6 +43,12 @@ class ProductRepository
                 DB::table('option_product')->insert($pivot);
             }
 
+            if (!empty($data['images'])) {
+                foreach ($data['images'] as $image) {
+                    $product->addMedia($image)->toMediaCollection('images');
+                }
+            }
+
             return $product;
         });
     }
@@ -52,6 +58,7 @@ class ProductRepository
     {
         return DB::transaction(function () use ($product, $data) {
             $product->update($data);
+
 
             $product->options()->detach();
 
@@ -76,6 +83,21 @@ class ProductRepository
                 }
             }
 
+            if (!empty($data['remove_images'])) {
+                foreach ($data['remove_images'] as $mediaId) {
+                    $media = $product->media()->find($mediaId);
+                    if ($media) {
+                        $media->delete();
+                    }
+                }
+            }
+
+            if (!empty($data['images'])) {
+                foreach ($data['images'] as $image) {
+                    $product->addMedia($image)->toMediaCollection('images');
+                }
+            }
+
             return $product;
         });
     }
@@ -87,13 +109,7 @@ class ProductRepository
             $product->feedbacks()->delete();
 
             //delete medias
-            foreach ($product->media as $media) {
-                if (Storage::disk($media->disk)->exists($media->path)) {
-                    Storage::disk($media->disk)->delete($media->path);
-                }
-            }
-            $product->media()->delete();
-
+            $product->clearMediaCollection('images');
 
             return $product->delete();
         });

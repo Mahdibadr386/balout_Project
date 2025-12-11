@@ -35,6 +35,8 @@ class StoreProductRequest extends FormRequest
             'options' => ['nullable', 'array', new OptionCategoryMatch($this->category_id)],
             'options.*.id' => 'exists:options,id',
             'options.*.detail_id' => ['required', 'exists:option_details,id', new OptionDetailBelongsToOptionAndCategory()],
+            'images' => ['required', 'array', 'min:1', 'max:5'],
+            'images.*' => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048', 'prohibited_if:images.*.size,0'],
         ];
     }
 
@@ -99,6 +101,16 @@ class StoreProductRequest extends FormRequest
 
             'options.array' => 'ساختار گزینه‌ها معتبر نیست.',
             'options.*.exists' => 'یکی از گزینه‌های انتخاب‌شده وجود ندارد یا معتبر نیست.',
+
+            'images.required' => 'ارسال حداقل یک تصویر برای محصول اجباری است.',
+            'images.array' => 'تصاویر باید در قالب آرایه ارسال شوند.',
+            'images.min' => 'حداقل یک تصویر باید ارسال شود.',
+            'images.max' => 'حداکثر تعداد مجاز تصاویر ۵ عدد است.',
+
+            'images.*.required' => 'ارسال هر تصویر الزامی است.',
+            'images.*.file' => 'هر آیتم تصاویر باید یک فایل معتبر باشد.',
+            'images.*.mimes' => 'تنها فرمت‌های JPG, JPEG, PNG و WEBP مجاز هستند.',
+            'images.*.max' => 'حجم هر تصویر نباید بیش از ۲ مگابایت باشد.',
         ];
     }
 

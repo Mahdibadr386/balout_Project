@@ -36,6 +36,14 @@ class ProductResource extends JsonResource
                     'slug' => $this->category->slug,
                 ];
             }),
+            'media' => $this->media->map(function ($media) {
+                return [
+                    'id' => $media->id,
+                    'file_name' => $media->file_name,
+                    'collection' => $media->collection_name,
+                    'url' => $media->getFullUrl(),
+                ];
+            }),
             'feedbacks'     => FeedbackResource::collection($this->whenLoaded('feedbacks')),
         ];
     }

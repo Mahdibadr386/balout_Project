@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\Payment\{IndexPaymentsController, ShowPaymentCont
 use App\Http\Controllers\Admin\User\{IndexUsersController, SendSmsUserController, ShowUserController, DeleteUserController, StoreUserController, UpdateUserController, UserStatusController};
 use App\Http\Controllers\Admin\ContactUs\{IndexContactUsController, ShowContactUsController, DeleteContactUsController};
 use App\Http\Controllers\Admin\Feedback\{IndexFeedbacksController, ShowFeedbackController, ApproveFeedbackController, DeleteFeedbackController};
-use App\Http\Controllers\Admin\Media\{DeleteMediaController,StoreMediaController};
 use App\Http\Controllers\Admin\Option\{DeleteOptionDetailController, IndexOptionsController, ShowOptionController, StoreOptionController, StoreOptionDetailController, UpdateOptionController, DeleteOptionController, UpdateOptionDetailController};
 use App\Http\Controllers\Admin\Product\{ActiveStatusProductController, DeleteProductController, PinProductController, ShowProductController, IndexProductsController, StoreProductController, UpdateProductController};
 use App\Http\Controllers\Admin\Category\{GetCategoryOptionsController, IndexCategoriesController, ShowCategoryController, DeleteCategoryController, StoreCategoryController, UpdateCategoryController};
@@ -36,11 +35,6 @@ Route::prefix('products')->name('product.')->group(function () {
     Route::patch('/pin/{id}', PinProductController::class);
 });
 
-
-Route::prefix('products/{product}/media')->name('product.media.')->group(function () {
-    Route::post('/', StoreMediaController::class);
-    Route::delete('/{media}', DeleteMediaController::class);
-});
 
 
 Route::prefix('options')->name('option.')->group(function () {

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes , InteractsWithMedia ;
 
     /**
      * The attributes that are mass assignable.
@@ -59,9 +61,9 @@ class Product extends Model
     }
 
 
-    public function media()
+    public function registerMediaCollections(): void
     {
-        return $this->morphMany(Media::class, 'model');
+        $this->addMediaCollection('images')->useDisk('public');
     }
 
 

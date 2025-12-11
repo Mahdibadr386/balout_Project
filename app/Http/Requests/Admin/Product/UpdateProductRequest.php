@@ -43,6 +43,10 @@ class UpdateProductRequest extends FormRequest
                 'exists:option_details,id',
                 new OptionDetailBelongsToOptionAndCategory(),
             ],
+            'images' => ['nullable', 'array', 'max:5'],
+            'images.*' => ['file', 'mimes:jpg,jpeg,png,webp', 'max:2048', 'dimensions:min_width=300,min_height=300'],
+            'remove_images' => ['nullable', 'array'],
+            'remove_images.*' => ['integer', 'exists:media,id'],
         ];
     }
 
@@ -100,6 +104,19 @@ class UpdateProductRequest extends FormRequest
             'options.*.id.exists' => 'گزینه انتخاب شده معتبر نیست.',
             'options.*.detail_id.required' => 'جزئیات هر گزینه باید مشخص شود.',
             'options.*.detail_id.exists' => 'جزئیات انتخاب شده معتبر نیست.',
+
+            'images.array' => 'تصاویر باید در قالب آرایه ارسال شوند.',
+            'images.max' => 'حداکثر تعداد تصاویر قابل ارسال ۵ عدد است.',
+
+            'images.*.file' => 'هر تصویر باید یک فایل معتبر باشد.',
+            'images.*.mimes' => 'فرمت تصویر فقط باید JPG، JPEG، PNG یا WEBP باشد.',
+            'images.*.max' => 'حجم هر تصویر نباید بیشتر از ۲ مگابایت باشد.',
+            'images.*.dimensions' => 'ابعاد هر تصویر باید حداقل ۳۰۰ در ۳۰۰ پیکسل باشد.',
+
+
+            'remove_images.array' => 'لیست تصاویر حذف‌شونده باید به صورت آرایه ارسال شود.',
+            'remove_images.*.integer' => 'شناسه تصویر نامعتبر است.',
+            'remove_images.*.exists' => 'تصویری با این شناسه یافت نشد.',
         ];
     }
 

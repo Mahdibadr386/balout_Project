@@ -30,13 +30,9 @@ class ProductResource extends JsonResource
             'media' => $this->media->map(function ($media) {
                 return [
                     'id' => $media->id,
-                    'type' => $media->type,
-                    'collection_name' => $media->collection_name,
                     'file_name' => $media->file_name,
-                    'url' => $media->url,
-                    'order_column' => $media->order_column,
-                    'custom_properties' => $media->custom_properties,
-                    'duration' => $media->duration,
+                    'collection' => $media->collection_name,
+                    'url' => $media->getFullUrl(),
                 ];
             }),
             'options' => $this->options->map(function ($option) {

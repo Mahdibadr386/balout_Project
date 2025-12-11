@@ -44,5 +44,14 @@ class AppServiceProvider extends ServiceProvider
                 'errors'  => $errors,
             ], $status);
         });
+
+        // Response Macro Validation
+        Response::macro('validationError', function ($errors, string $message = 'اعتبارسنجی ناموفق بود', int $status = 422) {
+            return response()->json([
+                'success' => false,
+                'message' => $message,
+                'errors'  => $errors,
+            ], $status);
+        });
     }
 }
