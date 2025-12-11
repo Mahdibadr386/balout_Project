@@ -12,7 +12,7 @@ class IndexCategoriesController extends Controller
     {
         $categories = $CategoryRepository->paginate();
 
-        return response()->success(new CategoryCollection($categories), 'لیست دسته‌بندی‌ها با موفقیت دریافت شد', 200);
+        return response()->success( 'لیست دسته‌بندی‌ها با موفقیت دریافت شد' ,new CategoryCollection($categories),);
 
     }
 }

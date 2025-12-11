@@ -13,7 +13,7 @@ class StoreOptionController extends Controller
     public function __invoke(OptionRepository $OptionRepository ,StoreOptionRequest $request)
     {
         $option = $OptionRepository->create($request->validated());
-        return response()->success(new OptionResource($option), 'گزینه جدید با موفقیت ایجاد شد', 201);
+        return response()->success( 'گزینه جدید با موفقیت ایجاد شد', new OptionResource($option),201);
     }
 
 }

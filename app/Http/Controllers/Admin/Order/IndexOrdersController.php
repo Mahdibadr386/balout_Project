@@ -10,6 +10,6 @@ class IndexOrdersController extends Controller
 {
     public function __invoke(OrderRepository $OrderRepository)
     {
-        return response()->success(OrderResource::collection($OrderRepository->paginate()), 'لیست سفارش‌ها با موفقیت بارگذاری شد', 200);
+        return response()->success( 'لیست سفارش‌ها با موفقیت بارگذاری شد',OrderResource::collection($OrderRepository->paginate()));
     }
 }

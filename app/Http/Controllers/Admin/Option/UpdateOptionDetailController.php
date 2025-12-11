@@ -13,6 +13,6 @@ class UpdateOptionDetailController extends Controller
     {
         $item = $OptionDetailRepository->update($id, $request->validated());
 
-        return response()->success(new OptionDetailResource($item), 'جزئیات گزینه با موفقیت ایجاد شد', 201);
+        return response()->success( 'جزئیات گزینه با موفقیت ایجاد شد', new OptionDetailResource($item),201);
     }
 }

@@ -10,6 +10,6 @@ class IndexFeedbacksController extends Controller
 {
     public function __invoke(FeedbackRepository $FeedbackRepository)
     {
-        return response()->success(FeedbackResource::collection($FeedbackRepository->all()), 'لیست بازخوردها با موفقیت دریافت شد', 200);
+        return response()->success( 'لیست بازخوردها با موفقیت دریافت شد' ,FeedbackResource::collection($FeedbackRepository->all()));
     }
 }

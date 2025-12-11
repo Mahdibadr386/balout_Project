@@ -11,9 +11,9 @@ class DestroyFeedbackController extends Controller
     {
         $deleted = $feedbackRepository->destroyFeedback($id);
 
-        if (!$deleted) return response()->error('بازخورد یافت نشد یا قبلاً حذف شده است.', null, 404);
+        if (!$deleted) return response()->error('بازخورد یافت نشد یا قبلاً حذف شده است.');
 
-        return response()->success(null, 'بازخورد با موفقیت حذف شد.', 200);
+        return response()->success('بازخورد با موفقیت حذف شد.');
     }
 
 }

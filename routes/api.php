@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Public\Cart\{AddCartItemController , DecrementCartItemController , IncrementCartItemController , ShowCartController ,RemoveCartItemController};
+use App\Http\Controllers\Public\Cities\IndexCitiesController;
 use App\Http\Controllers\Public\Category\CategoriesController;
 use App\Http\Controllers\Public\Checkout\CheckoutController;
 use App\Http\Controllers\Public\Checkout\PaymentCallbackController;
@@ -21,6 +22,10 @@ Route::prefix('auth')->name('auth.')->group(function () {
         Route::get('/', ProfileUser::class)->name('show');
         Route::put('/update', UpdateProfile::class)->name('update');
     });
+});
+
+Route::prefix('cities')->name('City.')->group(function () {
+    Route::get('/', IndexCitiesController::class);
 });
 
 
@@ -50,8 +55,8 @@ Route::prefix('contactUs')->name('contactUs.')->group(function () {
 Route::middleware('auth:api')->prefix('cart')->name('cart.')->group(function () {
     Route::get('/', ShowCartController::class)->name('index');
     Route::post('/', AddCartItemController::class)->name('store');
-    Route::post('/{item}/increment', IncrementCartItemController::class)->name('increment');
-    Route::post('/{item}/decrement', DecrementCartItemController::class)->name('decrement');
+    Route::post('/increment/{item}', IncrementCartItemController::class)->name('increment');
+    Route::post('/decrement/{item}', DecrementCartItemController::class)->name('decrement');
     Route::delete('/{item}', RemoveCartItemController::class)->name('destroy');
 });
 

@@ -14,9 +14,9 @@ class ShowCategoryController extends Controller
         $category = $CategoryRepository->find($request->id);
 
         if(!$category) {
-            return response()->success( 'دسته‌بندی با موفقیت دریافت نشد', 404);
+            return response()->error('دسته‌بندی با موفقیت دریافت نشد');
         }else{
-            return response()->success(new CategoryResource($category), 'دسته‌بندی با موفقیت دریافت شد', 200);
+            return response()->success( 'دسته‌بندی با موفقیت دریافت شد' ,new CategoryResource($category));
         }
 
     }

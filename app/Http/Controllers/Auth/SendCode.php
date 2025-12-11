@@ -14,8 +14,8 @@ class SendCode extends Controller
         $response = $authRepository->sendCode($data);
 
         return $response->isNewUser
-            ? response()->success(['is_new_user' => true, 'code' => $response->code], 'کد فعالسازی برای تکمیل ثبت نام ارسال شد', 200)
-            : response()->success(['is_new_user' => false, 'code' => $response->code], 'کد ورود ارسال شد', 200);
+            ? response()->success( 'کد فعالسازی برای تکمیل ثبت نام ارسال شد', ['is_new_user' => true, 'code' => $response->code])
+            : response()->success( 'کد ورود ارسال شد',['is_new_user' => false, 'code' => $response->code] );
 
     }
 }

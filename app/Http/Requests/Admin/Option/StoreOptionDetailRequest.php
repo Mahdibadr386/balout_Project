@@ -8,15 +8,16 @@ class StoreOptionDetailRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     public function rules()
     {
         return [
             'option_id' => 'required|integer|exists:options,id',
-            'name'      => 'required|string|max:255',
-            'price'     => 'required|numeric|min:0|max:9999999999.99',
+            'details'   => 'required|array|min:1',
+            'details.*.name'  => 'required|string|max:255',
+            'details.*.price' => 'required|numeric|min:0|max:9999999999.99',
         ];
     }
 
@@ -27,14 +28,18 @@ class StoreOptionDetailRequest extends FormRequest
             'option_id.integer'  => 'شناسه گزینه اصلی باید عدد باشد.',
             'option_id.exists'   => 'گزینه انتخاب‌شده معتبر نیست.',
 
-            'name.required' => 'نام جزئیات گزینه الزامی است.',
-            'name.string'   => 'نام باید به صورت رشته باشد.',
-            'name.max'      => 'نام نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد.',
+            'details.required'  => 'حداقل یک جزئیات باید ارسال شود.',
+            'details.array'     => 'جزئیات باید به صورت آرایه ارسال شوند.',
+            'details.min'       => 'حداقل یک جزئیات لازم است.',
 
-            'price.required' => 'قیمت الزامی است.',
-            'price.numeric'  => 'قیمت باید عدد باشد.',
-            'price.min'      => 'قیمت نمی‌تواند کمتر از صفر باشد.',
-            'price.max'      => 'قیمت بیش از حد بزرگ است.',
+            'details.*.name.required' => 'نام جزئیات گزینه الزامی است.',
+            'details.*.name.string'   => 'نام باید به صورت رشته باشد.',
+            'details.*.name.max'      => 'نام نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد.',
+
+            'details.*.price.required' => 'قیمت الزامی است.',
+            'details.*.price.numeric'  => 'قیمت باید عدد باشد.',
+            'details.*.price.min'      => 'قیمت نمی‌تواند کمتر از صفر باشد.',
+            'details.*.price.max'      => 'قیمت بیش از حد بزرگ است.',
         ];
     }
 }

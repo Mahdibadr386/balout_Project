@@ -13,9 +13,9 @@ class IndexPaymentsController extends Controller
         $transactions = $PayRepository->paginate();
 
         if (!$transactions) {
-            return response()->error( null,'تراکنش ها یافت نشدند.', 404);
+            return response()->error( 'تراکنش ها یافت نشدند.');
         }
-        return response()->success( PaymentTransactionResource::collection($transactions)  ,'لیست تراکنش پیدا شد.', 200);
+        return response()->success('لیست تراکنش پیدا شد.',  PaymentTransactionResource::collection($transactions)  );
 
     }
 }

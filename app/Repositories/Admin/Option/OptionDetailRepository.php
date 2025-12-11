@@ -3,6 +3,7 @@
 namespace App\Repositories\Admin\Option;
 
 use App\Models\OptionDetail;
+use Illuminate\Support\Facades\DB;
 
 class OptionDetailRepository
 {
@@ -11,9 +12,21 @@ class OptionDetailRepository
         return OptionDetail::findOrFail($id);
     }
 
-    public function create(array $data)
+    public function create(int $optionId, array $details)
     {
-        return OptionDetail::create($data);
+        return DB::transaction(function () use ($optionId, $details) {
+            $created = [];
+
+            foreach ($details as $detail) {
+                $created[] = OptionDetail::create([
+                    'option_id' => $optionId,
+                    'name'      => $detail['name'],
+                    'price'     => $detail['price'],
+                ]);
+            }
+
+            return $created;
+        });
     }
 
     public function update($id, array $data)

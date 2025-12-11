@@ -12,6 +12,6 @@ class DeleteOptionDetailController extends Controller
     {
         $OptionDetailRepository->delete($id);
 
-        return response()->success(null, 'جزئیات گزینه با موفقیت حذف شد', 200);
+        return response()->success( 'جزئیات گزینه با موفقیت حذف شد');
     }
 }

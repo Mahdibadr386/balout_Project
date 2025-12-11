@@ -10,7 +10,11 @@ class IndexUsersController extends Controller
 {
     public function __invoke(UserRepository $UserRepository)
     {
-        return response()->success(UserResource::collection($UserRepository->all()), 'لیست کاربران با موفقیت دریافت شد', 200);
+        $user = $UserRepository->all();
+        if ($user) {
+            return response()->success( 'لیست کاربران با موفقیت دریافت شد' ,UserResource::collection($user));
+        }
 
+        return response()->error( 'لیست کاربران دریافت نشد');
     }
 }

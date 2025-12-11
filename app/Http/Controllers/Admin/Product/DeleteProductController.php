@@ -11,9 +11,9 @@ class DeleteProductController extends Controller
     public function __invoke(ProductRepository $ProductRepository,$id)
     {
         $product = $ProductRepository->find($id);
-        if (!$product) return response()->error('محصول یافت نشد', null, 404);
+        if (!$product) return response()->error('محصول یافت نشد');
 
         $ProductRepository->delete($product);
-        return response()->success(null, 'محصول با موفقیت حذف شد',200);
+        return response()->success( 'محصول با موفقیت حذف شد');
     }
 }

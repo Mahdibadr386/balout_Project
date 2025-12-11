@@ -14,7 +14,7 @@ class ProductsController extends Controller
     {
         $products = $productRepository->products();
 
-        return response()->success(new ProductCollection($products), 'اطلاعات محصولات با موفقیت دریافت شد', 200);
+        return response()->success( 'اطلاعات محصولات با موفقیت دریافت شد', new ProductCollection($products));
 
     }
 }

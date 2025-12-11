@@ -9,26 +9,26 @@ class OptionSeeder extends Seeder
 {
     public function run(): void
     {
-        $optionableId = 1;
+        $category_id = 1;
+
 
 
         $color = Option::create([
-            'product_id' => $optionableId,
+            'category_id' => $category_id,
             'type' => 'multiple_option',
             'name' => 'رنگ',
             'effect' => null,
         ]);
 
         $size = Option::create([
-            'product_id' => $optionableId,
-
+            'category_id' => $category_id,
             'type' => 'multiple_option',
             'name' => 'سایز',
             'effect' => null,
         ]);
 
         $material = Option::create([
-            'product_id' => $optionableId,
+            'category_id' => $category_id,
             'type' => 'multiple_option',
             'name' => 'جنس',
             'effect' => null,
@@ -51,7 +51,7 @@ class OptionSeeder extends Seeder
 
         foreach ($children as [$parentId, $name, $effect]) {
             Option::create([
-                'product_id' => $optionableId,
+                'category_id' => $category_id,
                 'type' => 'two_option',
                 'name' => $name,
                 'effect' => $effect,

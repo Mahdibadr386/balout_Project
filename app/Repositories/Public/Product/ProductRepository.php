@@ -19,12 +19,13 @@ class ProductRepository
         return Product::with('Category')
             ->where('category_id', $category->id)
             ->where('available', true)
+            ->orderBy('updated_at', 'desc')
             ->get();
     }
 
     public function products()
     {
-        $products = Product::with('Category')->where('available', true)->paginate(10);
+        $products = Product::with('Category')->where('available', true)->orderBy('updated_at', 'desc')->paginate(10);
         return $products;
     }
 

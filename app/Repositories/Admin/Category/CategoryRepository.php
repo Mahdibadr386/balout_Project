@@ -3,13 +3,18 @@
 namespace App\Repositories\Admin\Category;
 
 use App\Models\Category;
+use App\Models\Option;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class CategoryRepository
 {
     public function paginate(int $perPage = 20)
     {
-        return Category::orderBy('sort_order')->paginate($perPage);
+        return Category::with('childrenRecursive')
+            ->whereNull('parent_id')
+            ->orderBy('sort_order')
+            ->paginate($perPage);
     }
 
 
@@ -32,12 +37,20 @@ class CategoryRepository
         return $category;
     }
 
-
     public function delete(int $id): bool
     {
         $category = $this->findOrFail($id);
-        return $category->delete();
+        return DB::transaction(function () use ($category) {
+
+            foreach ($category->options as $option) {
+                $option->details()->delete();
+                $option->messages()->delete();
+                $option->delete();
+            }
+            return $category->delete();
+        });
     }
+
 
 
     protected function findOrFail(int $id): Category
@@ -49,5 +62,13 @@ class CategoryRepository
         }
 
         return $category;
+    }
+
+    public function getCategoryOptions(int $id)
+    {
+        $result = Option::with('details')
+            ->where('category_id', $id)
+            ->get();
+        return $result;
     }
 }

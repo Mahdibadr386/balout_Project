@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Admin\Product;
 
+use App\Http\Resources\Admin\Option\OptionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -36,6 +37,23 @@ class ProductResource extends JsonResource
                     'order_column' => $media->order_column,
                     'custom_properties' => $media->custom_properties,
                     'duration' => $media->duration,
+                ];
+            }),
+            'options' => $this->options->map(function ($option) {
+                $pivotDetails = $option->pivot ? [$option->pivot->detail_id] : [];
+
+                return [
+                    'id' => $option->id,
+                    'name' => $option->name,
+                    'details' => $option->details()
+                        ->whereIn('id', $pivotDetails)
+                        ->get()
+                        ->map(function ($detail) {
+                            return [
+                                'id' => $detail->id,
+                                'name' => $detail->name,
+                            ];
+                        }),
                 ];
             }),
             'created_at' => $this->created_at,

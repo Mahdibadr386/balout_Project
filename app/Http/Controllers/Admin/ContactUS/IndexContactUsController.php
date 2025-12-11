@@ -10,6 +10,6 @@ class IndexContactUsController extends Controller
 {
     public function __invoke(ContactUsRepository $ContactUsRepository)
     {
-        return response()->success(ContactUsResource::collection($ContactUsRepository->all()), 'لیست آیتم‌ها با موفقیت دریافت شد', 200);
+        return response()->success( 'لیست آیتم‌ها با موفقیت دریافت شد',ContactUsResource::collection($ContactUsRepository->all()),);
     }
 }

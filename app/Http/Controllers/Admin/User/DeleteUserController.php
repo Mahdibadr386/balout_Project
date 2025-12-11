@@ -11,8 +11,8 @@ class DeleteUserController extends Controller
     {
         $user = $UserRepository->find($id);
 
-        if (!$user) return response()->error('کاربر یافت نشد', null, 404);
-        return $UserRepository->delete($user) ? response()->success(null, 'کاربر با موفقیت حذف شد', 200) : response()->error('حذف کاربر انجام نشد', null, 400);
+        if (!$user) return response()->error('کاربر یافت نشد');
+        return $UserRepository->delete($user) ? response()->success( 'کاربر با موفقیت حذف شد') : response()->error('حذف کاربر انجام نشد',  400);
 
     }
 }

@@ -17,6 +17,6 @@ class StoreOrderController extends Controller
 
         $order->load('items.options', 'user', 'address');
 
-        return response()->success(new OrderResource($order), 'جزئیات سفارش با موفقیت بارگذاری شد', 200);
+        return response()->success( ' سفارش با موفقیت افزوده شد' , new OrderResource($order) , 201);
     }
 }

@@ -15,6 +15,6 @@ class StoreMediaController extends Controller
     {
         $media = $repo->store($product, $StoreMediaRequest->validated());
 
-        return response()->success(new MediaResource($media), 'رسانه با موفقیت به محصول اضافه شد.' , 200);
+        return response()->success( 'رسانه با موفقیت به محصول اضافه شد.' ,new MediaResource($media));
     }
 }

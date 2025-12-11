@@ -13,6 +13,6 @@ class UpdateOrderStatusController extends Controller
     {
         $OrderRepository->updateStatus($id, $request->status);
         $order = $OrderRepository->find($id);
-        return response()->success(new OrderResource($order), 'اطلاعات سفارش با موفقیت تغییر داده شد', 200);
+        return response()->success( 'اطلاعات سفارش با موفقیت تغییر داده شد',new OrderResource($order));
     }
 }

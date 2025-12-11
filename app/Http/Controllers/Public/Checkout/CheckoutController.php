@@ -25,7 +25,7 @@ class CheckoutController extends Controller
             'idempotency_key' => $request->input('idempotency_key'),
         ]);
 
-        return response()->success(['order' => new OrderResource($result['order']), 'payment' => $paymentInit], 'سفارش ایجاد شد. به مرحله پرداخت بروید.', 201);
+        return response()->success('سفارش ایجاد شد. به مرحله پرداخت بروید.', ['order' => new OrderResource($result['order']), 'payment' => $paymentInit], 201);
 
     }
 }

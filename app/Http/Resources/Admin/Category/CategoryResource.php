@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Resources\Admin\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,9 +15,12 @@ class CategoryResource extends JsonResource
             'description' => $this->description,
             'is_active'   => (bool) $this->is_active,
             'sort_order'  => (int) $this->sort_order,
-            'created_at'  => $this->created_at?->format('Y-m-d H:i'),
-            'updated_at'  => $this->updated_at?->format('Y-m-d H:i'),
-            'parent' => new CategoryResource($this->whenLoaded('parent')),
+
+            'children' => CategoryResource::collection(
+                $this->whenLoaded('childrenRecursive')
+            ),
         ];
     }
 }
+
+

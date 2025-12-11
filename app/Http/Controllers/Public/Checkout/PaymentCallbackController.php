@@ -18,10 +18,10 @@ class PaymentCallbackController extends Controller
 
         try {
             $result = $paymentService->handleGatewayCallback($gateway, $payload);
-            return response()->success($result, 200);
+            return response()->success('عملیات با موفقیت انجام شد',$result );
         } catch (\Exception $e) {
             Log::error('Payment callback error: '.$e->getMessage(), ['payload' => $payload]);
-            return response()->error($e->getMessage(), 400);
+            return response()->error('عملیات با موفقیت انجام نشد',$e->getMessage());
         }
     }
 }

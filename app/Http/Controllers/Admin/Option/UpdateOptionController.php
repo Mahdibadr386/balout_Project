@@ -10,14 +10,12 @@ use App\Repositories\Admin\Option\OptionRepository;
 
 class UpdateOptionController extends Controller
 {
-    public function __construct(protected OptionRepository $OptionRepository) {}
-
     public function __invoke( OptionRepository $OptionRepository,UpdateOptionRequest $request, $id)
     {
         $option = $OptionRepository->find($id);
-        if (!$option) return response()->error('گزینه موردنظر یافت نشد', null, 404);
+        if (!$option) return response()->error('گزینه موردنظر یافت نشد');
 
         $option = $OptionRepository->update($option, $request->validated());
-        return response()->success(new OptionResource($option), 'گزینه با موفقیت بروزرسانی شد' , 200);
+        return response()->success( 'گزینه با موفقیت بروزرسانی شد' , new OptionResource($option));
     }
 }

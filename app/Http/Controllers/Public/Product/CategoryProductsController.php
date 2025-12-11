@@ -13,10 +13,10 @@ class CategoryProductsController extends Controller
     {
         $products = $productRepository->categoryProducts($slug);
 
-        if ($products === null) return response()->error('دسته‌بندی مورد نظر یافت نشد', null, 404);
-        if ($products->isEmpty()) return response()->error('هیچ محصولی در این دسته‌بندی یافت نشد', null, 404);
+        if ($products === null) return response()->error('دسته‌بندی مورد نظر یافت نشد');
+        if ($products->isEmpty()) return response()->error('هیچ محصولی در این دسته‌بندی یافت نشد');
 
-        return response()->success(new ProductCollection($products), 'اطلاعات محصولات با موفقیت دریافت شد', 200);
+        return response()->success( 'اطلاعات محصولات با موفقیت دریافت شد',new ProductCollection($products) );
     }
 
 

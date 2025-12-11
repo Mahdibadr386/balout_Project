@@ -12,6 +12,6 @@ class StoreProductController extends Controller
     public function __invoke(ProductRepository $ProductRepository,StoreProductRequest $request)
     {
         $product = $ProductRepository->create($request->validated());
-        return response()->success(new ProductResource($product), 'محصول با موفقیت ساخته شد', 201);
+        return response()->success( 'محصول با موفقیت ساخته شد',new ProductResource($product), 201);
     }
 }

@@ -14,8 +14,8 @@ class ShowOptionController extends Controller
     {
         $option = $OptionRepository->find($id)?->load('details');
         return $option
-            ? response()->success(new OptionResource($option), 'جزئیات گزینه با موفقیت بارگذاری شد' , 200)
-            : response()->error('گزینه موردنظر یافت نشد', null, 404);
+            ? response()->success( 'جزئیات گزینه با موفقیت بارگذاری شد' , new OptionResource($option),)
+            : response()->error('گزینه موردنظر یافت نشد');
     }
 
 }

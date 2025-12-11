@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->enum('type', ['two_option', 'multiple_option'])->nullable()->default('multiple_option');
             $table->string('name', 255);
             $table->decimal('effect', 8, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->index(['product_id']);
+            $table->index(['category_id']);
         });
 
     }

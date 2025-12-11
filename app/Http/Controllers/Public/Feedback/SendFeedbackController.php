@@ -15,6 +15,6 @@ class SendFeedbackController extends Controller
         $user_id = auth()->id();
         $feedback = $feedbackRepository->storeFeedback($data , $user_id);
 
-        return response()->success(new FeedbackResource($feedback), 'بازخورد با موفقیت ارسال شد.', 201);
+        return response()->success( 'بازخورد با موفقیت ارسال شد.',new FeedbackResource($feedback), 201);
     }
 }

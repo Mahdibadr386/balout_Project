@@ -13,6 +13,6 @@ class IndexOptionsController extends Controller
     {
         $options = $OptionRepository->all();
 
-        return response()->success(OptionResource::collection($options), 'لیست گزینه‌ها با موفقیت بارگذاری شد' , 200);
+        return response()->success( 'لیست گزینه‌ها با موفقیت بارگذاری شد',OptionResource::collection($options) );
     }
 }

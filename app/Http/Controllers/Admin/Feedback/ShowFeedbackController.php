@@ -13,7 +13,7 @@ class ShowFeedbackController extends Controller
     {
         $feedback = $FeedbackRepository->find($id);
 
-        if (!$feedback) return response()->error('بازخورد موردنظر یافت نشد', null, 404); return response()->success(new FeedbackResource($feedback), 'بازخورد با موفقیت دریافت شد', 200);
+        if (!$feedback) return response()->error('بازخورد موردنظر یافت نشد'); return response()->success( 'بازخورد با موفقیت دریافت شد',new FeedbackResource($feedback),);
 
     }
 }

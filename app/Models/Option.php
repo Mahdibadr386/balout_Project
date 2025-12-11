@@ -11,15 +11,24 @@ class Option extends Model
 
     protected $table = 'options';
 
+    protected $with = ['details'];
+
     protected $fillable = [
-        'product_id',
+        'category_id',
         'type',
         'name',
         'effect',
     ];
 
-    public function product() {
-        return $this->belongsTo(Product::class);
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)
+            ->withPivot('detail_id');
     }
 
     public function details()

@@ -14,7 +14,7 @@ class StoreCategoryController extends Controller
     {
         $category = $CategoryRepository->create($request->validated());
 
-        return response()->success(new CategoryResource($category), 'دسته‌بندی با موفقیت ایجاد شد', 201);
+        return response()->success( 'دسته‌بندی با موفقیت ایجاد شد',new CategoryResource($category), 201);
 
     }
 }

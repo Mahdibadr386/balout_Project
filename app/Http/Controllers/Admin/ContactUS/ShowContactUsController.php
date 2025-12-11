@@ -12,9 +12,9 @@ class ShowContactUsController extends Controller
     {
         $item = $ContactUsRepository->find($id);
 
-        if (!$item) return response()->error('آیتم پیدا نشد', null, 404);
+        if (!$item) return response()->error('آیتم پیدا نشد');
 
-        return response()->success(new ContactUsResource($item), 'آیتم با موفقیت دریافت شد', 200);
+        return response()->success( 'آیتم با موفقیت دریافت شد',new ContactUsResource($item),);
 
 
     }

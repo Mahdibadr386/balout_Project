@@ -10,7 +10,7 @@ class ProfileUser extends Controller
 {
     public function __invoke(Request $request)
     {
-        return response()->success(new UserResource($request->user()), 'اطلاعات کاربر با موفقیت دریافت شد', 200);
+        return response()->success('اطلاعات کاربر با موفقیت دریافت شد' ,new UserResource($request->user()));
 
     }
 }

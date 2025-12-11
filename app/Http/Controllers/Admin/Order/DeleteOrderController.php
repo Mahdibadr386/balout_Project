@@ -10,6 +10,6 @@ class DeleteOrderController extends Controller
     public function __invoke(OrderRepository $OrderRepository ,$id)
     {
         $OrderRepository->delete($id);
-        return response()->success(null, 'سفارش با موفقیت حذف شد', 200);
+        return response()->success( 'سفارش با موفقیت حذف شد');
     }
 }

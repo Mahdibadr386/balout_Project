@@ -10,6 +10,6 @@ class IndexProductsController extends Controller
 {
     public function __invoke(ProductRepository $ProductRepository)
     {
-        return response()->success(ProductResource::collection($ProductRepository->all()) , 'لیست محصولات با موفقیت دریافت شد' , 200);
+        return response()->success( 'لیست محصولات با موفقیت دریافت شد' , ProductResource::collection($ProductRepository->all()));
     }
 }

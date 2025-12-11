@@ -8,13 +8,13 @@ class UpdateOptionRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->check();
     }
 
     public function rules(): array
     {
         return [
-            'product_id' => ['sometimes', 'required', 'integer', 'exists:products,id'],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
             'type' => ['sometimes', 'nullable', 'in:two_option,multiple_option'],
             'name' => ['sometimes', 'required', 'string', 'max:255'],
             'effect' => ['sometimes', 'nullable', 'numeric'],
@@ -26,9 +26,9 @@ class UpdateOptionRequest extends FormRequest
     {
         return [
 
-            'product_id.required' => 'انتخاب محصول الزامی است.',
-            'product_id.integer'  => 'شناسه محصول معتبر نیست.',
-            'product_id.exists'   => 'محصول انتخاب‌شده در سیستم ثبت نشده است.',
+            'category_id.required' => 'انتخاب دسته بندی الزامی است.',
+            'category_id.integer'  => 'شناسه دسته بندی معتبر نیست.',
+            'category_id.exists'   => 'دسته بندی انتخاب‌شده در سیستم ثبت نشده است.',
 
             'type.in' => 'نوع گزینه فقط می‌تواند two_option یا multiple_option باشد.',
 

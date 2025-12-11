@@ -15,11 +15,11 @@ class CheckCode extends Controller
         $result = $authRepository->checkCode($data);
 
         if (!$result['success']) {
-            return response()->error($result['message'], null, 400);
+            return response()->error($result['message']);
 
         }
 
-        return response()->success(['token' => $result['token'], 'user' => new UserResource($result['user']), 'is_new_user' => $result['is_new_user']], 'کد تایید با موفقیت بررسی شد', 200);
+        return response()->success('کد تایید با موفقیت بررسی شد',['token' => $result['token'], 'user' => new UserResource($result['user']), 'is_new_user' => $result['is_new_user']]);
 
     }
 

@@ -12,11 +12,11 @@ class DeleteFeedbackController extends Controller
     {
         $feedback = $FeedbackRepository->find($id);
         if (!$feedback) {
-            return response()->error('بازخورد یافت نشد', null, 404);
+            return response()->error('بازخورد یافت نشد');
         }
 
         $FeedbackRepository->delete($feedback);
-        return response()->success(null, 'بازخورد با موفقیت حذف شد', 200);
+        return response()->success( 'بازخورد با موفقیت حذف شد');
 
     }
 }

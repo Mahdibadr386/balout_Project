@@ -12,8 +12,8 @@ class ShowUserController extends Controller
     {
         $user = $UserRepository->find($id);
 
-        if (!$user) return response()->error('کاربر یافت نشد', null, 404);
-        return response()->success(new UserResource($user), 'اطلاعات کاربر با موفقیت دریافت شد', 200);
+        if (!$user) return response()->error('کاربر یافت نشد');
+        return response()->success('اطلاعات کاربر با موفقیت دریافت شد',new UserResource($user));
 
     }
 }

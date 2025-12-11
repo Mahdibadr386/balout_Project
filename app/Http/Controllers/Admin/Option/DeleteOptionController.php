@@ -11,9 +11,9 @@ class DeleteOptionController extends Controller
     public function __invoke(OptionRepository $OptionRepository,$id)
     {
         $option = $OptionRepository->find($id);
-        if (!$option) return response()->error('گزینه موردنظر یافت نشد', null, 404);
+        if (!$option) return response()->error('گزینه موردنظر یافت نشد');
 
         $OptionRepository->delete($option);
-        return response()->success(null, 'گزینه با موفقیت حذف شد');
+        return response()->success( 'گزینه با موفقیت حذف شد');
     }
 }

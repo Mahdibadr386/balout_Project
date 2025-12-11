@@ -20,9 +20,9 @@ class DecrementCartItemController extends Controller
         $updated = $CartService->decrementProduct($userId, $item, $by);
 
         if ($updated) {
-            return response()->success(new CartItemResource($updated->load('options.optionDetail', 'product')), 'تعداد محصول کاهش یافت', 200);
+            return response()->success( 'تعداد محصول کاهش یافت',new CartItemResource($updated->load('options.optionDetail', 'product')));
         }
 
-        return response()->error('کاهش تعداد موفقیت‌آمیز نبود', null, 400);
+        return response()->error('کاهش تعداد موفقیت‌آمیز نبود');
     }
 }

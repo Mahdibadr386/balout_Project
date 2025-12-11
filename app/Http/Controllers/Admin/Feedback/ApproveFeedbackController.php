@@ -12,10 +12,10 @@ class ApproveFeedbackController extends Controller
     public function __invoke(FeedbackRepository $FeedbackRepository ,Request $request, $id)
     {
         $feedback = $FeedbackRepository->find($id);
-        if (!$feedback) return response()->error('بازخورد یافت نشد', null, 404);
+        if (!$feedback) return response()->error('بازخورد یافت نشد');
 
         $FeedbackRepository->approve($feedback);
-        return response()->success(new FeedbackResource($feedback), 'بازخورد با موفقیت تایید شد', 200);
+        return response()->success( 'بازخورد با موفقیت تایید شد' ,new FeedbackResource($feedback));
 
     }
 }

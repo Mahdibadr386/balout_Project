@@ -47,8 +47,11 @@ class Product extends Model
         'rate' => 'decimal:2',
     ];
 
-
-
+    public function options()
+    {
+        return $this->belongsToMany(Option::class)
+            ->withPivot('detail_id');
+    }
 
     public function category()
     {
@@ -86,9 +89,6 @@ class Product extends Model
         return $this->price_base;
     }
 
-    public function options() {
-        return $this->hasMany(Option::class);
-    }
 
 
 }

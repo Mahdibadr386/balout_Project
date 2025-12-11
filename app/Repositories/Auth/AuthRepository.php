@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Morilog\Jalali\Jalalian;
 
 class AuthRepository
 {
@@ -128,8 +129,13 @@ class AuthRepository
 
         $isNewUser = $user->status != 1;
 
+        $date = Jalalian::fromCarbon(now())->format('Y/m/d H:i:s');
+
         if ($isNewUser) {
-            $user->update(['status' => 1]);
+            $user->update([
+                'status' => 1,
+                'last_login_date' => $date,
+            ]);
             Log::info("New user activated: {$user->tel}");
         }
 

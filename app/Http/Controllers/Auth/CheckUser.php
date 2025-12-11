@@ -15,7 +15,7 @@ class CheckUser extends Controller
         $tel = $data['tel'];
         $userExists = $authRepository->checkUser($tel);
 
-        return response()->success(['user_exists' => $userExists], $userExists ? 'کاربر موجود است' : 'کاربر جدید - نیاز به ثبت ‌نام', 200);
+        return response()->success(['user_exists' => $userExists], $userExists ? 'کاربر موجود است' : 'کاربر جدید - نیاز به ثبت ‌نام');
 
     }
 }

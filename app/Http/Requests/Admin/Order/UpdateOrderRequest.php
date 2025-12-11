@@ -8,7 +8,7 @@ class UpdateOrderRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->hasRole('super_admin');
     }
     public function rules(): array
     {

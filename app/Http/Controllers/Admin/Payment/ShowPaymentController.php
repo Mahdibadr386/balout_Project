@@ -14,10 +14,10 @@ class ShowPaymentController extends Controller
         $transaction = $PayRepository->find($id);
 
         if (!$transaction) {
-            return response()->error( null,'تراکنش یافت نشد.', 404);
+            return response()->error( 'تراکنش یافت نشد.');
         }
 
 
-        return response()->success( new PaymentTransactionResource($transaction)  ,'تراکنش پیدا شد.', 200);
+        return response()->success( 'تراکنش پیدا شد.' , new PaymentTransactionResource($transaction)  );
     }
 }

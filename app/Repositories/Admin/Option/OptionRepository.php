@@ -8,12 +8,12 @@ class OptionRepository
 {
     public function all()
     {
-        return Option::latest()->get();
+        return Option::with('details', 'messages')->latest()->get();
     }
 
     public function find(int $id): ?Option
     {
-        return Option::find($id);
+        return Option::with('details', 'messages')->find($id);
     }
 
     public function create(array $data): Option
@@ -31,4 +31,6 @@ class OptionRepository
     {
         return $option->delete();
     }
+
+
 }

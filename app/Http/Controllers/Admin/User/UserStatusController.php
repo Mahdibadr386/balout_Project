@@ -13,9 +13,9 @@ class UserStatusController extends Controller
     {
         $user = $UserRepository->find($id);
 
-        if (!$user) return response()->error('کاربر یافت نشد', null, 404);
+        if (!$user) return response()->error('کاربر یافت نشد');
         $UserRepository->deactivate($user);
-        return response()->success(new UserResource($user), 'کاربر با موفقیت غیرفعال شد', 200);
+        return response()->success( 'کاربر با موفقیت تغییر حالت داده شد', new UserResource($user));
 
     }
 }

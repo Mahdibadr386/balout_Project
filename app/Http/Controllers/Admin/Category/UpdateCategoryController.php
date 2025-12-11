@@ -13,7 +13,7 @@ class UpdateCategoryController extends Controller
     {
         $category = $CategoryRepository->update($id, $request->validated());
 
-        return response()->success(new CategoryResource($category), 'دسته‌بندی با موفقیت بروزرسانی شد', 200);
+        return response()->success( 'دسته‌بندی با موفقیت بروزرسانی شد',new CategoryResource($category), 200);
 
     }
 }

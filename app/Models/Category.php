@@ -22,6 +22,7 @@ class Category extends Model
         'sort_order'
     ];
 
+    protected $with = ['options' , ];
     /**
      * The attributes that should be cast to native types.
      */
@@ -46,20 +47,22 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    public function childrenRecursive()
+    {
+        return $this->children()->with('childrenRecursive');
+    }
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
+
+
     /**
      * Scope to get only active categories
      */
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    /**
-     * Recursive method to get all descendants
-     */
-    public function allChildren()
-    {
-        return $this->children()->with('allChildren');
     }
 
     /**

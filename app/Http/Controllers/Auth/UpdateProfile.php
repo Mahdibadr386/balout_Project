@@ -18,7 +18,7 @@ class UpdateProfile extends Controller
 
         $updatedUser = $authRepository->updateProfile($user, $data, $addresses);
 
-        return response()->success(['user' => new UserResource($updatedUser)], 'پروفایل با موفقیت بروزرسانی شد', 200);
+        return response()->success( 'پروفایل با موفقیت بروزرسانی شد',['user' => new UserResource($updatedUser)]);
 
     }
 

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Exceptions\CustomExceptionHandler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,10 +24,11 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
+
     public function boot(): void
     {
         // Response Macro Success
-        Response::macro('success', function ($data = null, string $message = 'عملیات با موفقیت انجام شد', int $status = 200) {
+        Response::macro('success', function ( string $message = 'عملیات با موفقیت انجام شد',$data = null, int $status = 200) {
             return response()->json([
                 'success' => true,
                 'message' => $message,
@@ -35,17 +37,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // Response Macro Error
-        Response::macro('error', function (string $message = 'خطا در انجام عملیات', $errors = null, int $status = 400) {
-            return response()->json([
-                'success' => false,
-                'message' => $message,
-                'errors'  => $errors,
-            ], $status);
-        });
-
-
-        // Response Macro ValidationError
-        Response::macro('validationError', function ($errors, string $message = 'اعتبارسنجی ناموفق بود', int $status = 422) {
+        Response::macro('error', function (string $message = 'خطا در انجام عملیات', $errors = null, int $status = 404) {
             return response()->json([
                 'success' => false,
                 'message' => $message,

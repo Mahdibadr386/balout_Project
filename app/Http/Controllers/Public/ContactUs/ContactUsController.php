@@ -15,8 +15,8 @@ class ContactUsController extends Controller
         $result = $contactUsRepository->StoreContact($data);
 
         if(!$result){
-            return response()->success(null, 'درخواست شما با موفقیت ثبت نشد.', 500);
+            return response()->error( 'درخواست شما با موفقیت ثبت نشد.', null,400);
         }
-        return response()->success(null, 'درخواست شما با موفقیت ثبت شد.', 200);
+        return response()->success('درخواست شما با موفقیت ثبت شد.');
     }
 }

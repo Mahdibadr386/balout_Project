@@ -12,7 +12,7 @@ class LogoutUser extends Controller
     {
         $authRepository->revokeTokens($request->user());
 
-        return response()->success(null, 'خروج از حساب کاربری با موفقیت انجام شد', 200);
+        return response()->success('خروج از حساب کاربری با موفقیت انجام شد');
 
     }
 }

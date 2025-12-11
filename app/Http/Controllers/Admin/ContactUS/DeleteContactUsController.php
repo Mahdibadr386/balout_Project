@@ -12,12 +12,12 @@ class DeleteContactUsController extends Controller
     {
         $item = $ContactUsRepository->find($id);
 
-        if (!$item) return response()->error('آیتم پیدا نشد', null, 404);
+        if (!$item) return response()->error('آیتم پیدا نشد');
 
 
         $ContactUsRepository->delete($item);
 
-        return response()->success(null, 'آیتم با موفقیت حذف شد', 200);
+        return response()->success( 'آیتم با موفقیت حذف شد');
 
     }
 }

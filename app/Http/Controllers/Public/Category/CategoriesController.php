@@ -14,7 +14,7 @@ class CategoriesController extends Controller
     {
         $categories = $categoryRepository->all();
 
-        return response()->success(CategoryResource::collection($categories), 'لیست دسته‌بندی‌ها با موفقیت دریافت شد');
+        return response()->success( 'لیست دسته‌بندی‌ها با موفقیت دریافت شد' ,CategoryResource::collection($categories),);
 
     }
 

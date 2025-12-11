@@ -16,7 +16,7 @@ class ShowProductController extends Controller
         }
 
         return $product
-            ? response()->success(new ProductResource($product) , 'محصول یافت شد' , 200)
-            : response()->error('محصول یافت نشد', null, 404);
+            ? response()->success( 'محصول یافت شد' , new ProductResource($product))
+            : response()->error('محصول یافت نشد');
     }
 }

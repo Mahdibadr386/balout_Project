@@ -11,8 +11,9 @@ class StoreOptionDetailController extends Controller
 {
     public function __invoke(StoreOptionDetailRequest $request, OptionDetailRepository $OptionDetailRepository)
     {
-        $item = $OptionDetailRepository->create($request->validated());
+        $details = $request->input('details', []);
+        $createdDetails = $OptionDetailRepository->create($request->option_id, $details);
 
-        return response()->success(new OptionDetailResource($item), 'جزئیات گزینه با موفقیت ایجاد شد', 201);
+        return response()->success( 'جزئیات اپشن با موفقیت ایجاد شد', OptionDetailResource::collection(collect($createdDetails)),201);
     }
 }

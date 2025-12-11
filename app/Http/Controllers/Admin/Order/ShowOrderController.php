@@ -10,6 +10,6 @@ class ShowOrderController extends Controller
 {
     public function __invoke(OrderRepository $OrderRepository,$id)
     {
-        return response()->success(new OrderResource($OrderRepository->find($id)), 'جزئیات سفارش با موفقیت بارگذاری شد', 200);
+        return response()->success( ' سفارش با موفقیت بارگذاری شد',new OrderResource($OrderRepository->find($id)));
     }
 }

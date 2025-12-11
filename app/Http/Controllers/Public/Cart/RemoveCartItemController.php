@@ -15,8 +15,8 @@ class RemoveCartItemController extends Controller
 
         $removed = $CartService->removeItem($userId, $item);
 
-        if (!$removed) return response()->error('آیتم پیدا نشد یا قابل حذف نبود', null, 404);
-        return response()->success(null, 'آیتم با موفقیت حذف شد', 200);
+        if (!$removed) return response()->error('آیتم پیدا نشد یا قابل حذف نبود');
+        return response()->success('آیتم با موفقیت حذف شد');
 
 
 

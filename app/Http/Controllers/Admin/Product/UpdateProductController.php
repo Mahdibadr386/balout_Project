@@ -13,8 +13,8 @@ class UpdateProductController extends Controller
     public function __invoke(ProductRepository $ProductRepository,UpdateProductRequest $request, $id)
     {
         $product = $ProductRepository->find($id);
-        if (!$product) return response()->error('محصول یافت نشد', null, 404);
+        if (!$product) return response()->error('محصول یافت نشد');
 
-        return response()->success(new ProductResource($ProductRepository->update($product, $request->validated())), 'محصول با موفقیت بروزرسانی شد',200);
+        return response()->success('محصول با موفقیت بروزرسانی شد',new ProductResource($ProductRepository->update($product, $request->validated())));
     }
 }

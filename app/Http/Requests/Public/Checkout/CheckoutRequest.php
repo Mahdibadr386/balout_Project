@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Requests\Public\Checkout;
 
+use App\Rules\User\AddressBelongsToUser;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CheckoutRequest extends FormRequest
@@ -12,8 +13,9 @@ class CheckoutRequest extends FormRequest
 
     public function rules(): array
     {
+        $userId = auth()->id();
         return [
-            'address_id' => ['required', 'exists:user_addresses,id'],
+            'address_id' => ['required', 'exists:user_addresses,id' , new AddressBelongsToUser($this->input($userId)),],
             'payment_method' => ['required', 'string'],
             'shipping_method' => ['nullable', 'string'],
             'idempotency_key' => ['nullable', 'string', 'max:128'],

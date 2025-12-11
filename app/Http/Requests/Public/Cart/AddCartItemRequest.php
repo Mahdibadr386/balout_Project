@@ -40,7 +40,6 @@ class AddCartItemRequest extends FormRequest
                 'required_with:messages',
                 'integer',
                 'exists:options,id',
-                new OptionBelongsToProduct($this->input('product_id')),
             ],
 
             'messages.*.message' => ['required_with:messages', 'string', 'max:255'],

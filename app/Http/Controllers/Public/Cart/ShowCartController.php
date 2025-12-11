@@ -15,10 +15,10 @@ class ShowCartController extends Controller
         $cart = $CartService->getCart($userId);
 
         if (! $cart) {
-            return response()->success(null, 'سبد خرید خالی است', 200);
+            return response()->success( 'سبد خرید خالی است' );
         }
 
         $cart->load('items.product','items.options.optionDetail');
-        return response()->success(new CartResource($cart), 'سبد خرید بارگذاری شد', 200);
+        return response()->success( 'سبد خرید بارگذاری شد' , new CartResource($cart));
     }
 }

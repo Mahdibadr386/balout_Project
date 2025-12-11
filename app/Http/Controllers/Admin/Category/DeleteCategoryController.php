@@ -12,7 +12,7 @@ class DeleteCategoryController extends Controller
     {
         $CategoryRepository->delete($id);
 
-        return response()->success('دسته‌بندی با موفقیت حذف شد' , 200);
+        return response()->success('دسته‌بندی با موفقیت حذف شد');
 
     }
 }

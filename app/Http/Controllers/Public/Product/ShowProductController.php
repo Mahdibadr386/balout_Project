@@ -13,8 +13,8 @@ class ShowProductController extends Controller
     {
         $product = $productRepository->product($slug);
 
-        if ($product === null) return response()->error('محصول مورد نظر یافت نشد', null, 404);
+        if ($product === null) return response()->error('محصول مورد نظر یافت نشد');
 
-        return response()->success(new ProductResource($product), 'اطلاعات محصول با موفقیت دریافت شد', 200);
+        return response()->success('اطلاعات محصول با موفقیت دریافت شد', new ProductResource($product));
     }
 }

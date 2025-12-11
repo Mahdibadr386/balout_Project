@@ -18,9 +18,9 @@ class IncrementCartItemController extends Controller
         $updated = $CartService->incrementProduct($userId, $item, $by);
 
         if ($updated) {
-            return response()->success(new CartItemResource($updated->load('options.optionDetail', 'product')), 'تعداد محصول افزایش یافت', 200);
+            return response()->success('تعداد محصول افزایش یافت', new CartItemResource($updated->load('options.optionDetail', 'product')));
         }
 
-        return response()->error('افزایش تعداد موفقیت‌آمیز نبود', null, 400);
+        return response()->error('افزایش تعداد موفقیت‌آمیز نبود');
     }
 }

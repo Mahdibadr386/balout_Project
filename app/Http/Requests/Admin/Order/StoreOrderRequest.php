@@ -4,20 +4,21 @@ namespace App\Http\Requests\Admin\Order;
 
 use App\Rules\Option\OptionBelongsToProduct;
 use App\Rules\Option\OptionDetailBelongsToOption;
+use App\Rules\User\AddressBelongsToUser;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOrderRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->hasRole('super_admin');
     }
 
     public function rules(): array
     {
         return [
             'user_id'      => 'required|exists:users,id',
-            'address_id'   => 'required|exists:user_addresses,id',
+            'address_id'   => ['required','exists:user_addresses,id' ,  new AddressBelongsToUser($this->input('user_id'))],
             'product_id'   => 'required|integer|exists:products,id',
             'quantity'     => 'nullable|integer|min:1',
             'payment_method' => 'required|string',
@@ -46,7 +47,6 @@ class StoreOrderRequest extends FormRequest
                 'required_with:messages',
                 'integer',
                 'exists:options,id',
-                new OptionBelongsToProduct($this->input('product_id')),
             ],
 
             'messages.*.message' => ['required_with:messages', 'string', 'max:255'],
