@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Http\Resources\Admin\User\UserResource;
-use App\Repositories\Admin\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 
 
 class UpdateUserController extends Controller
 {
-    public function __invoke($id, UpdateUserRequest $request, UserRepository $UserRepository)
+    public function __invoke($id, UpdateUserRequest $request, UserRepositoryInterface $UserRepository)
     {
         $user = $UserRepository->update($id, $request->validated());
 

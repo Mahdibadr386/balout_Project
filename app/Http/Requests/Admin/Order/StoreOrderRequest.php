@@ -11,7 +11,7 @@ class StoreOrderRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->user()->hasRole('super_admin');
+        return true;
     }
 
     public function rules(): array
@@ -57,33 +57,51 @@ class StoreOrderRequest extends FormRequest
     public function messages()
     {
         return [
-            'product_id.required' => 'محصول انتخاب نشده است.',
-            'product_id.integer' => 'شناسه محصول معتبر نیست.',
-            'product_id.exists' => 'محصول انتخاب‌شده وجود ندارد.',
+            'user_id.required' => 'شناسه کاربر الزامی است.',
+            'user_id.exists'   => 'کاربر انتخاب شده معتبر نیست.',
 
-            'quantity.integer' => 'تعداد باید عدد صحیح باشد.',
-            'quantity.min' => 'تعداد نمی‌تواند کمتر از ۱ باشد.',
+            'address_id.required' => 'شناسه آدرس الزامی است.',
+            'address_id.exists'   => 'آدرس انتخاب شده معتبر نیست.',
 
-            'options.array' => 'گزینه‌ها باید به صورت آرایه ارسال شوند.',
+            'product_id.required' => 'شناسه محصول الزامی است.',
+            'product_id.integer'  => 'شناسه محصول باید عدد صحیح باشد.',
+            'product_id.exists'   => 'محصول انتخاب شده معتبر نیست.',
+
+            'quantity.nullable' => 'تعداد می‌تواند خالی باشد.',
+            'quantity.integer'  => 'تعداد باید عدد صحیح باشد.',
+            'quantity.min'      => 'تعداد باید حداقل ۱ باشد.',
+
+            'payment_method.required' => 'روش پرداخت الزامی است.',
+            'payment_method.string'   => 'روش پرداخت باید به صورت متن باشد.',
+
+            'shipping_method.nullable' => 'روش ارسال می‌تواند خالی باشد.',
+            'shipping_method.string'   => 'روش ارسال باید به صورت متن باشد.',
+
+            'idempotency_key.nullable' => 'کلید یکتایی می‌تواند خالی باشد.',
+            'idempotency_key.string'   => 'کلید یکتایی باید به صورت متن باشد.',
+            'idempotency_key.max'      => 'کلید یکتایی نمی‌تواند بیشتر از ۱۲۸ کاراکتر باشد.',
+
+            'options.nullable' => 'گزینه‌ها می‌توانند خالی باشند.',
+            'options.array'    => 'گزینه‌ها باید به صورت آرایه باشند.',
+
             'options.*.option_id.required_with' => 'شناسه گزینه الزامی است.',
-            'options.*.option_id.integer' => 'شناسه گزینه باید عدد باشد.',
-            'options.*.option_id.exists' => 'گزینه انتخاب‌شده وجود ندارد.',
-            'options.*.option_id.option_belongs_to_product' => 'گزینه انتخاب‌شده به این محصول تعلق ندارد.',
+            'options.*.option_id.integer'       => 'شناسه گزینه باید عدد صحیح باشد.',
+            'options.*.option_id.exists'        => 'گزینه انتخاب شده معتبر نیست.',
 
-            'options.*.option_detail_id.required_with' => 'جزئیات گزینه الزامی است.',
-            'options.*.option_detail_id.integer' => 'شناسه جزئیات گزینه باید عدد باشد.',
-            'options.*.option_detail_id.exists' => 'جزئیات گزینه انتخاب‌شده وجود ندارد.',
-            'options.*.option_detail_id.option_detail_belongs_to_option' => 'جزئیات گزینه به گزینه مربوطه تعلق ندارد.',
+            'options.*.option_detail_id.required_with' => 'شناسه جزئیات گزینه الزامی است.',
+            'options.*.option_detail_id.integer'       => 'شناسه جزئیات گزینه باید عدد صحیح باشد.',
+            'options.*.option_detail_id.exists'        => 'جزئیات گزینه انتخاب شده معتبر نیست.',
 
-            'messages.array' => 'پیام‌ها باید به صورت آرایه ارسال شوند.',
+            'messages.nullable' => 'پیام‌ها می‌توانند خالی باشند.',
+            'messages.array'    => 'پیام‌ها باید به صورت آرایه باشند.',
+
             'messages.*.option_id.required_with' => 'شناسه گزینه برای پیام الزامی است.',
-            'messages.*.option_id.integer' => 'شناسه گزینه برای پیام باید عدد باشد.',
-            'messages.*.option_id.exists' => 'گزینه انتخاب‌شده برای پیام وجود ندارد.',
-            'messages.*.option_id.option_belongs_to_product' => 'گزینه انتخاب‌شده برای پیام به این محصول تعلق ندارد.',
+            'messages.*.option_id.integer'       => 'شناسه گزینه برای پیام باید عدد صحیح باشد.',
+            'messages.*.option_id.exists'        => 'گزینه مربوط به پیام معتبر نیست.',
 
             'messages.*.message.required_with' => 'متن پیام الزامی است.',
-            'messages.*.message.string' => 'متن پیام باید رشته باشد.',
-            'messages.*.message.max' => 'متن پیام نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد.',
+            'messages.*.message.string'        => 'متن پیام باید به صورت متن باشد.',
+            'messages.*.message.max'           => 'متن پیام نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد.',
         ];
 
     }

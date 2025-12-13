@@ -11,7 +11,7 @@ class MessageCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -29,10 +29,10 @@ class MessageCustomerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'message.required' => 'متن پیام باید پر شود',
-            'message.min' => 'متن پیام باید حداقل 3 حرف باشد',
-            'message.string' => 'پیام باید به صورت متن باشد',
-            'message.max' => 'متن پیام نمی تواند بیشتر از 500 باشد',
+            'message.required' => 'پیام الزامی است.',
+            'message.string'   => 'پیام باید به صورت متن باشد.',
+            'message.min'      => 'پیام باید حداقل ۳ کاراکتر باشد.',
+            'message.max'      => 'پیام نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد.',
         ];
     }
 }

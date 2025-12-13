@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin\ContactUs;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class ContactUsResource extends JsonResource
 {
@@ -15,7 +16,8 @@ class ContactUsResource extends JsonResource
             'tel'        => $this->tel,
             'subject'    => $this->subject,
             'message'    => $this->message,
-            'created_at' => $this->created_at->toDateTimeString(),
+            'created_at' => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
+
         ];
     }
 }

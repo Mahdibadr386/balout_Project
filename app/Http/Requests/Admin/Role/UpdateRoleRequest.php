@@ -8,7 +8,7 @@ class UpdateRoleRequest extends FormRequest
 {
     public function authorize()
     {
-        return auth()->user()->hasRole('super_admin');
+        return true;
     }
 
     public function rules()
@@ -23,11 +23,14 @@ class UpdateRoleRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'       => 'لطفاً نام نقش را وارد کنید.',
-            'name.string'         => 'نام نقش باید یک متن معتبر باشد.',
-            'name.unique'         => 'این نام نقش قبلاً استفاده شده است.',
-            'permissions.array'   => 'فرمت مجوزها نامعتبر است.',
-            'permissions.*.exists'=> 'مجوز انتخاب‌شده معتبر نیست یا وجود ندارد.',
+            'name.required' => 'نام نقش الزامی است.',
+            'name.string'   => 'نام نقش باید به صورت متن باشد.',
+            'name.unique'   => 'این نام نقش قبلاً استفاده شده است.',
+
+            'permissions.nullable' => 'مجوزها می‌توانند خالی باشند.',
+            'permissions.array'    => 'مجوزها باید به صورت آرایه باشند.',
+
+            'permissions.*.exists' => 'یکی از مجوزهای انتخاب شده معتبر نیست.',
         ];
     }
 

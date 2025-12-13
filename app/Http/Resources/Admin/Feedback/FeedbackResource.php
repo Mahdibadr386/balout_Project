@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin\Feedback;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class FeedbackResource extends JsonResource
 {
@@ -21,7 +22,7 @@ class FeedbackResource extends JsonResource
             'comment' => $this->comment,
             'rate' => $this->rate,
             'approved' => $this->approved,
-            'created_at' => $this->created_at->toDateTimeString(),
+            'created_at' => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
         ];
     }
 }

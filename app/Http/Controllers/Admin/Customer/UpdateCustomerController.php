@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Admin\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Customer\UpdateCustomerRequest;
 use App\Http\Resources\Auth\UserResource;
-use App\Repositories\Admin\Customer\CustomerRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Customer\CustomerRepositoryInterface;
 
 class UpdateCustomerController extends Controller
 {
-    public function __invoke(CustomerRepository $CustomerRepository , UpdateCustomerRequest $request , $id)
+    public function __invoke(CustomerRepositoryInterface $CustomerRepository , UpdateCustomerRequest $request , $id)
     {
         $user = $CustomerRepository->find($id);
         if (!$user) return response()->error('مشتری یافت نشد');

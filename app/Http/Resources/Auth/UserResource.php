@@ -5,6 +5,7 @@ namespace App\Http\Resources\Auth;
 use App\Http\Resources\Public\Feedback\FeedbackResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class UserResource extends JsonResource
 {
@@ -27,7 +28,7 @@ class UserResource extends JsonResource
             'marriage_date' => $this->marriage_date,
             'status'        => $this->status,
             'is_active'     => $this->is_active,
-            'created_at'    => $this->created_at?->format('Y-m-d H:i:s'),
+            'created_at'    => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
             'addresses'     => UserAddressResource::collection($this->whenLoaded('addresses')),
             'feedbacks'     => FeedbackResource::collection($this->whenLoaded('feedbacks')),
         ];

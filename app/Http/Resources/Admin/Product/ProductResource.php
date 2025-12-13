@@ -4,6 +4,7 @@ namespace App\Http\Resources\Admin\Product;
 
 use App\Http\Resources\Admin\Option\OptionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class ProductResource extends JsonResource
 {
@@ -52,8 +53,8 @@ class ProductResource extends JsonResource
                         }),
                 ];
             }),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
+            'updated_at' => Jalalian::fromCarbon($this->updated_at)->format('Y/m/d H:i:s'),
         ];
     }
 }

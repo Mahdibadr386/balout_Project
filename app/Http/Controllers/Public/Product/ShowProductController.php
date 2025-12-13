@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Public\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Public\Product\ProductResource;
-use App\Repositories\Public\Product\ProductRepository;
+use App\Repositories\Product\ProductRepositoryInterface;
 
 
 class ShowProductController extends Controller
 {
-    public function __invoke(ProductRepository $productRepository , string $slug)
+    public function __invoke(ProductRepositoryInterface $productRepository , string $slug)
     {
         $product = $productRepository->product($slug);
 

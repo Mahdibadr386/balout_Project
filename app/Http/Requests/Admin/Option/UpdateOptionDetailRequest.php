@@ -8,7 +8,7 @@ class UpdateOptionDetailRequest extends FormRequest
 {
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     public function rules()
@@ -16,25 +16,25 @@ class UpdateOptionDetailRequest extends FormRequest
         return [
             'option_id' => 'required|integer|exists:options,id',
             'name'      => 'required|string|max:255',
-            'price'     => 'required|numeric|min:0|max:9999999999.99',
+            'price'     => 'required|numeric|min:0|max:1000000000.00',
         ];
     }
 
     public function messages()
     {
         return [
-            'option_id.required' => 'شناسه گزینه اصلی الزامی است.',
-            'option_id.integer'  => 'شناسه گزینه اصلی باید عدد باشد.',
-            'option_id.exists'   => 'گزینه انتخاب‌شده معتبر نیست.',
+            'option_id.required' => 'شناسه گزینه الزامی است.',
+            'option_id.integer'  => 'شناسه گزینه باید عدد صحیح باشد.',
+            'option_id.exists'   => 'گزینه انتخاب شده معتبر نیست.',
 
-            'name.required' => 'نام جزئیات گزینه الزامی است.',
-            'name.string'   => 'نام باید به صورت رشته باشد.',
-            'name.max'      => 'نام نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد.',
+            'name.required' => 'نام جزئیات الزامی است.',
+            'name.string'   => 'نام جزئیات باید به صورت متن باشد.',
+            'name.max'      => 'نام جزئیات نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد.',
 
             'price.required' => 'قیمت الزامی است.',
             'price.numeric'  => 'قیمت باید عدد باشد.',
-            'price.min'      => 'قیمت نمی‌تواند کمتر از صفر باشد.',
-            'price.max'      => 'قیمت بیش از حد بزرگ است.',
+            'price.min'      => 'قیمت نمی‌تواند منفی باشد.',
+            'price.max'      => 'قیمت نمی‌تواند بیشتر از ۱٬۰۰۰٬۰۰۰٬۰۰۰ باشد.',
         ];
     }
 }

@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\User\UserResource;
-use App\Repositories\Admin\Customer\CustomerRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Customer\CustomerRepositoryInterface;
 
 class IndexCustomerController extends Controller
 {
-    public function __invoke(CustomerRepository $CustomerRepository)
+    public function __invoke(CustomerRepositoryInterface $CustomerRepository)
     {
         $customer = $CustomerRepository->all();
         if ($customer) {

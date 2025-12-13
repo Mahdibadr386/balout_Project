@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\User\UserResource;
-use App\Repositories\Admin\Customer\CustomerRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Customer\CustomerRepositoryInterface;
 
 class ShowCustomerController extends Controller
 {
-    public function __invoke(CustomerRepository $CustomerRepository , $id)
+    public function __invoke(CustomerRepositoryInterface $CustomerRepository , $id)
     {
         $customer = $CustomerRepository->find($id);
 

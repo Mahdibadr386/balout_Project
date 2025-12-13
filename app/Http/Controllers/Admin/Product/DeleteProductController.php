@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\Product\ProductRepository;
+use App\Repositories\Product\ProductRepositoryInterface;
 
 
 class DeleteProductController extends Controller
 {
-    public function __invoke(ProductRepository $ProductRepository,$id)
+    public function __invoke(ProductRepositoryInterface $ProductRepository,$id)
     {
         $product = $ProductRepository->find($id);
         if (!$product) return response()->error('محصول یافت نشد');

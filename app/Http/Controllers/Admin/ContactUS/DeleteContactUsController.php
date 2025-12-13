@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\ContactUS;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\ContactUs\ContactUsRepository;
+use App\Repositories\ContactUs\ContactUsRepositoryInterface;
 
 
 class DeleteContactUsController extends Controller
 {
-    public function __invoke(ContactUsRepository $ContactUsRepository, $id)
+    public function __invoke(ContactUsRepositoryInterface $ContactUsRepository, $id)
     {
         $item = $ContactUsRepository->find($id);
 

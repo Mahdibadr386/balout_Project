@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
-use App\Repositories\Public\Order\PaymentTransactionRepository;
-use App\Repositories\Public\Order\OrderRepository;
+
+use App\Repositories\Payment\PaymentTransactionRepositoryInterface;
+use App\Repositories\Order\OrderRepositoryInterface;
 use App\Gateways\MockPaymentGateway;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -11,8 +12,8 @@ use Exception;
 class PaymentService
 {
     public function __construct(
-        protected PaymentTransactionRepository $payments,
-        protected OrderRepository $orders,
+        protected PaymentTransactionRepositoryInterface $payments,
+        protected OrderRepositoryInterface $orders,
         protected MockPaymentGateway $gateway  //For example And test Mock
     ) {}
 
@@ -43,7 +44,7 @@ class PaymentService
 
             if ($newStatus === 'success') {
 
-                $this->orders->updateStatus($order, 'paid');
+                $this->orders->OrderUpdateStatus($order, 'paid');
 
 
                 $cart = \App\Models\Cart::where('user_id', $order->user_id)
@@ -61,7 +62,7 @@ class PaymentService
                 event(new \App\Events\OrderPlaced($order));
 
             } else {
-                $this->orders->updateStatus($order, 'failed');
+                $this->orders->OrderUpdateStatus($order, 'failed');
             }
 
             return ['status' => $newStatus];

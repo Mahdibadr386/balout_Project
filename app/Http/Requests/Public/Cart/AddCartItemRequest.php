@@ -9,7 +9,7 @@ class AddCartItemRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->check();
+        return true;
     }
 
     public function rules(): array
@@ -50,19 +50,35 @@ class AddCartItemRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'product_id.required' => 'شناسه محصول ضروری است.',
-            'product_id.exists' => 'محصول مورد نظر یافت نشد.',
-            'quantity.integer' => 'تعداد باید عدد صحیح باشد.',
-            'quantity.min' => 'تعداد باید حداقل ۱ باشد.',
-            'options.array' => 'گزینه‌ها باید به صورت آرایه ارسال شوند.',
-            'options.*.option_id.required_with' => 'شناسه گزینه لازم است.',
-            'options.*.option_detail_id.required_with' => 'شناسه مقدار گزینه لازم است.',
-            'options.*.option_id.exists' => 'گزینهٔ ارسالی معتبر نیست.',
-            'options.*.option_detail_id.exists' => 'مقدار گزینهٔ ارسالی معتبر نیست.',
-            'messages.array' => 'پیام‌ها باید به صورت آرایه ارسال شوند.',
-            'messages.*.option_id.required_with' => 'شناسه گزینه پیام لازم است.',
-            'messages.*.message.required_with' => 'متن پیام لازم است.',
-            'messages.*.option_id.exists' => 'گزینهٔ پیام معتبر نیست.',
+            'product_id.required' => 'شناسه محصول الزامی است.',
+            'product_id.integer'  => 'شناسه محصول باید عدد صحیح باشد.',
+            'product_id.exists'   => 'محصول انتخاب شده معتبر نیست.',
+
+            'quantity.nullable' => 'تعداد می‌تواند خالی باشد.',
+            'quantity.integer'  => 'تعداد باید عدد صحیح باشد.',
+            'quantity.min'      => 'تعداد باید حداقل ۱ باشد.',
+
+            'options.nullable' => 'گزینه‌ها می‌توانند خالی باشند.',
+            'options.array'    => 'گزینه‌ها باید به صورت آرایه باشند.',
+
+            'options.*.option_id.required_with' => 'شناسه گزینه الزامی است.',
+            'options.*.option_id.integer'       => 'شناسه گزینه باید عدد صحیح باشد.',
+            'options.*.option_id.exists'        => 'گزینه انتخاب شده معتبر نیست.',
+
+            'options.*.option_detail_id.required_with' => 'شناسه جزئیات گزینه الزامی است.',
+            'options.*.option_detail_id.integer'       => 'شناسه جزئیات گزینه باید عدد صحیح باشد.',
+            'options.*.option_detail_id.exists'        => 'جزئیات گزینه انتخاب شده معتبر نیست.',
+
+            'messages.nullable' => 'پیام‌ها می‌توانند خالی باشند.',
+            'messages.array'    => 'پیام‌ها باید به صورت آرایه باشند.',
+
+            'messages.*.option_id.required_with' => 'شناسه گزینه برای پیام الزامی است.',
+            'messages.*.option_id.integer'       => 'شناسه گزینه برای پیام باید عدد صحیح باشد.',
+            'messages.*.option_id.exists'        => 'گزینه مربوط به پیام معتبر نیست.',
+
+            'messages.*.message.required_with' => 'متن پیام الزامی است.',
+            'messages.*.message.string'        => 'متن پیام باید به صورت متن باشد.',
+            'messages.*.message.max'           => 'متن پیام نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد.',
         ];
     }
 }

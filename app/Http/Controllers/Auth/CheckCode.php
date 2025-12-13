@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\CheckCodeRequest;
 use App\Http\Resources\Auth\UserResource;
-use App\Repositories\Auth\AuthRepository;
+use App\Repositories\Auth\AuthRepositoryInterface;
 
 class CheckCode extends Controller
 {
-    public function __invoke(AuthRepository $authRepository ,  CheckCodeRequest $request)
+    public function __invoke(AuthRepositoryInterface $authRepository ,  CheckCodeRequest $request)
     {
         $data = $request->validated();
         $result = $authRepository->checkCode($data);

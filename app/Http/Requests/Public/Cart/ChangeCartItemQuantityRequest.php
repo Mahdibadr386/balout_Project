@@ -5,7 +5,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ChangeCartItemQuantityRequest extends FormRequest
 {
-    public function authorize() { return auth()->check(); }
+    public function authorize()
+    {
+        return true;
+    }
 
     public function rules(): array
     {
@@ -17,9 +20,10 @@ class ChangeCartItemQuantityRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'by.integer' => 'مقدار تغییر باید عدد صحیح باشد.',
-            'by.min' => 'حداقل مقدار تغییر ۱ است.',
-            'by.max' => 'مقدار تغییر خیلی بزرگ است.',
+            'by.nullable' => 'فیلد ترتیب‌بندی می‌تواند خالی باشد.',
+            'by.integer'  => 'فیلد ترتیب‌بندی باید عدد صحیح باشد.',
+            'by.min'      => 'مقدار ترتیب‌بندی باید حداقل ۱ باشد.',
+            'by.max'      => 'مقدار ترتیب‌بندی نمی‌تواند بیشتر از ۲۰ باشد.',
         ];
     }
 }

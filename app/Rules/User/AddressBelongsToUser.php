@@ -16,8 +16,7 @@ class AddressBelongsToUser implements Rule
 
     public function passes($attribute, $value)
     {
-        return UserAddress::where('id', $value)
-            ->where('user_id', $this->userId)
+        return UserAddress::where('user_id', $this->userId)
             ->exists();
     }
 

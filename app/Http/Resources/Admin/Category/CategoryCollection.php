@@ -19,16 +19,4 @@ class CategoryCollection extends ResourceCollection
         ];
     }
 
-    public function with($request)
-    {
-        return [
-            'pagination' => [
-                'total' => $this->total(),
-                'count' => $this->count(),
-                'per_page' => $this->perPage(),
-                'current_page' => $this->currentPage(),
-                'total_pages' => $this->lastPage(),
-            ]
-        ];
-    }
 }

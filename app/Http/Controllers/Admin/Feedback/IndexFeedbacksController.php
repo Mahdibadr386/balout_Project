@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin\Feedback;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Feedback\FeedbackResource;
-use App\Repositories\Admin\Feedback\FeedbackRepository;
+use App\Repositories\Feedback\FeedbackRepositoryInterface;
 
 class IndexFeedbacksController extends Controller
 {
-    public function __invoke(FeedbackRepository $FeedbackRepository)
+    public function __invoke(FeedbackRepositoryInterface $FeedbackRepository)
     {
         return response()->success( 'لیست بازخوردها با موفقیت دریافت شد' ,FeedbackResource::collection($FeedbackRepository->all()));
     }

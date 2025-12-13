@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Public\Feedback;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Public\Feedback\FeedbackRepository;
+use App\Repositories\Feedback\FeedbackRepositoryInterface;
 
 class DestroyFeedbackController extends Controller
 {
-    public function __invoke(FeedbackRepository $feedbackRepository , int $id)
+    public function __invoke(FeedbackRepositoryInterface $feedbackRepository , int $id)
     {
         $deleted = $feedbackRepository->destroyFeedback($id);
 

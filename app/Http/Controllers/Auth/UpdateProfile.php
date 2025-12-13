@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UpdateProfileRequest;
 use App\Http\Resources\Auth\UserResource;
-use App\Repositories\Auth\AuthRepository;
+use App\Repositories\Auth\AuthRepositoryInterface;
 
 
 class UpdateProfile extends Controller
 {
-    public function __invoke(AuthRepository $authRepository, UpdateProfileRequest $request)
+    public function __invoke(AuthRepositoryInterface $authRepository, UpdateProfileRequest $request)
     {
         $user = auth()->user();
         $data = $request->except('addresses', 'password');

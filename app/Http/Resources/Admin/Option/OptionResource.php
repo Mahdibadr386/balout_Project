@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin\Option;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class OptionResource extends JsonResource
 {
@@ -14,8 +15,7 @@ class OptionResource extends JsonResource
             'type' => $this->type,
             'name' => $this->name,
             'effect' => $this->effect,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
             'option_details'  => OptionDetailResource::collection(
                 $this->whenLoaded('details')
             ),

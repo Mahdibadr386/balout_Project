@@ -33,9 +33,9 @@ class CheckUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'tel.required' => 'شماره تلفن الزامی است',
-            'tel.string' => 'شماره تلفن باید متن باشد',
-            'tel.regex' => 'فرمت شماره تلفن صحیح نمی‌باشد',
+            'tel.required' => 'شماره موبایل الزامی است.',
+            'tel.string'   => 'شماره موبایل باید به صورت متن باشد.',
+            'tel.regex'    => 'فرمت شماره موبایل صحیح نیست. شماره باید با ۰۹ شروع شود و دقیقاً ۱۱ رقم باشد.',
         ];
     }
 }

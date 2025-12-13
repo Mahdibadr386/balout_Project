@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\CheckUserRequest;
-use App\Repositories\Auth\AuthRepository;
+use App\Repositories\Auth\AuthRepositoryInterface;
 
 
 class CheckUser extends Controller
 {
-    public function __invoke(AuthRepository $authRepository , CheckUserRequest $request)
+    public function __invoke(AuthRepositoryInterface $authRepository , CheckUserRequest $request)
     {
         $data = $request->validated();
         $tel = $data['tel'];

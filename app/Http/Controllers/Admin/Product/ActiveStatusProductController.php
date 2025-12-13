@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Product\ProductResource;
-use App\Repositories\Admin\Product\ProductRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Product\ProductRepositoryInterface;
 
 class ActiveStatusProductController extends Controller
 {
-    public function __invoke(ProductRepository $ProductRepository , $id)
+    public function __invoke(ProductRepositoryInterface $ProductRepository , $id)
     {
         $product = $ProductRepository->find($id);
 

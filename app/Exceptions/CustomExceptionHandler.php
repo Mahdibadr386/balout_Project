@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Spatie\Permission\Exceptions\UnauthorizedException as SpatieUnauthorizedException;
 use Throwable;
 
 class CustomExceptionHandler extends ExceptionHandler
@@ -53,6 +54,14 @@ class CustomExceptionHandler extends ExceptionHandler
 
             if ($e instanceof AuthenticationException) {
                 return response()->error('احراز هویت انجام نشده است.', null, 401);
+            }
+
+            if ($e instanceof SpatieUnauthorizedException) {
+                return response()->error(
+                    'شما مجوز دسترسی به این بخش را ندارید.',
+                    null,
+                    403
+                );
             }
 
             if ($e instanceof AuthorizationException) {

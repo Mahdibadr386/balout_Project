@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Morilog\Jalali\Jalalian;
 
-class AuthRepository
+class AuthRepository implements AuthRepositoryInterface
 {
 
     public function revokeTokens(User $user): void

@@ -13,7 +13,7 @@ class StoreFeedbackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -49,18 +49,17 @@ class StoreFeedbackRequest extends FormRequest
     {
         return [
             'product_id.required' => 'شناسه محصول الزامی است.',
-            'product_id.integer' => 'شناسه محصول باید عدد باشد.',
-            'product_id.exists' => 'محصول انتخاب شده وجود ندارد.',
-            'user_id.required' => 'شناسه کاربر الزامی است.',
-            'user_id.integer' => 'شناسه کاربر باید عدد باشد.',
-            'user_id.exists' => 'کاربر انتخاب شده وجود ندارد.',
+            'product_id.integer'  => 'شناسه محصول باید عدد صحیح باشد.',
+            'product_id.exists'   => 'محصول انتخاب شده معتبر نیست.',
+
             'comment.required' => 'متن نظر الزامی است.',
-            'comment.string' => 'متن نظر باید رشته باشد.',
-            'comment.min' => 'متن نظر باید حداقل :min کاراکتر باشد.',
-            'comment.max' => 'متن نظر نمی‌تواند بیشتر از :max کاراکتر باشد.',
-            'rate.required' => 'امتیاز محصول الزامی است.',
-            'rate.integer' => 'امتیاز باید عدد باشد.',
-            'rate.between' => 'امتیاز باید بین :min تا :max باشد.',
+            'comment.string'   => 'متن نظر باید به صورت متن باشد.',
+            'comment.min'      => 'متن نظر باید حداقل ۵ کاراکتر باشد.',
+            'comment.max'      => 'متن نظر نمی‌تواند بیشتر از ۱۰۰۰ کاراکتر باشد.',
+
+            'rate.required'    => 'امتیاز الزامی است.',
+            'rate.integer'     => 'امتیاز باید عدد صحیح باشد.',
+            'rate.between'     => 'امتیاز باید بین ۱ تا ۵ باشد.',
         ];
     }
 

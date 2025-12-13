@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\StoreUserRequest;
 use App\Http\Resources\Auth\UserResource;
-use App\Repositories\Admin\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 
 class StoreUserController extends Controller
 {
-    public function __invoke(StoreUserRequest $request, UserRepository $UserRepository)
+    public function __invoke(StoreUserRequest $request, UserRepositoryInterface $UserRepository)
     {
         $user = $UserRepository->create($request->validated());
 

@@ -8,7 +8,7 @@ class AssignRoleRequest extends FormRequest
 {
     public function authorize()
     {
-        return auth()->user()->hasRole('super_admin');
+        return true;
     }
 
     public function rules()
@@ -22,10 +22,11 @@ class AssignRoleRequest extends FormRequest
     public function messages()
     {
         return [
-            'users.required'   => 'لطفاً حداقل یک کاربر را انتخاب کنید.',
-            'users.array'      => 'فرمت اطلاعات کاربران نامعتبر است.',
-            'users.min'        => 'حداقل یک کاربر باید انتخاب شود.',
-            'users.*.exists'   => 'کاربر انتخاب‌شده معتبر نیست یا وجود ندارد.',
+            'users.required' => 'لیست کاربران الزامی است.',
+            'users.array'    => 'لیست کاربران باید به صورت آرایه باشد.',
+            'users.min'      => 'حداقل یک کاربر باید انتخاب شود.',
+
+            'users.*.exists' => 'یکی از کاربران انتخاب شده معتبر نیست.',
         ];
     }
 

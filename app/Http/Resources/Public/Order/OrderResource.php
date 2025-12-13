@@ -32,7 +32,6 @@ class OrderResource extends JsonResource
                 ]),
             ]),
             'payments' => $this->payments,
-            'created_at' => $this->created_at,
         ];
     }
 }

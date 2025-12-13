@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Auth\AuthRepository;
+use App\Repositories\Auth\AuthRepositoryInterface;
 use Illuminate\Http\Request;
 
 class LogoutUser extends Controller
 {
-    public function __invoke(AuthRepository $authRepository, Request $request)
+    public function __invoke(AuthRepositoryInterface $authRepository, Request $request)
     {
         $authRepository->revokeTokens($request->user());
 

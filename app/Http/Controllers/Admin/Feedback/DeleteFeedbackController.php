@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Feedback;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\Feedback\FeedbackRepository;
+use App\Repositories\Feedback\FeedbackRepositoryInterface;
 
 
 class DeleteFeedbackController extends Controller
 {
-    public function __invoke(FeedbackRepository $FeedbackRepository ,$id)
+    public function __invoke(FeedbackRepositoryInterface $FeedbackRepository ,$id)
     {
         $feedback = $FeedbackRepository->find($id);
         if (!$feedback) {

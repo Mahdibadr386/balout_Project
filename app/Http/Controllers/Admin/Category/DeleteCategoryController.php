@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\Category\CategoryRepository;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 
 class DeleteCategoryController extends Controller
 {
-    public function __invoke( CategoryRepository $CategoryRepository, $id)
+    public function __invoke( CategoryRepositoryInterface $CategoryRepository, $id)
     {
         $CategoryRepository->delete($id);
 

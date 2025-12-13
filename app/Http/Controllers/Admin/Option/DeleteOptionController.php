@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Option;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\Option\OptionRepository;
+use App\Repositories\Option\OptionRepositoryInterface;
 
 
 class DeleteOptionController extends Controller
 {
-    public function __invoke(OptionRepository $OptionRepository,$id)
+    public function __invoke(OptionRepositoryInterface $OptionRepository,$id)
     {
         $option = $OptionRepository->find($id);
         if (!$option) return response()->error('گزینه موردنظر یافت نشد');

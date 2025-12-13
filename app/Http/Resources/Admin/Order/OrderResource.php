@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin\Order;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class OrderResource extends JsonResource
 {
@@ -22,8 +23,8 @@ class OrderResource extends JsonResource
             'payment_method' => $this->payment_method,
             'currency' => $this->currency,
             'meta' => $this->meta,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
+            'updated_at' => Jalalian::fromCarbon($this->updated_at)->format('Y/m/d H:i:s'),
             'items' => OrderItemResource::collection($this->whenLoaded('items')),
         ];
     }

@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Option;
 use App\Models\OptionDetail;
-use App\Repositories\Public\Order\{OrderRepository,OrderItemRepository,OrderItemOptionRepository,PaymentTransactionRepository,ProductRepository};
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\Payment\PaymentTransactionRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -12,11 +14,9 @@ use Exception;
 class CheckoutService
 {
     public function __construct(
-        protected OrderRepository $orders,
-        protected OrderItemRepository $orderItems,
-        protected OrderItemOptionRepository $orderItemOptions,
-        protected PaymentTransactionRepository $transactions,
-        protected ProductRepository $products,
+        protected OrderRepositoryInterface $orders,
+        protected PaymentTransactionRepositoryInterface $transactions,
+        protected ProductRepositoryInterface $products,
         protected StockService $stock
     ) {}
 
@@ -32,7 +32,7 @@ class CheckoutService
             }
 
 
-            $order = $this->orders->create([
+            $order = $this->orders->OrderCreate([
                 'order_number' => 'ORD-' . now()->format('YmdHis') . '-' . Str::random(6),
                 'user_id' => $user->id,
                 'address_id' => $data['address_id'],
@@ -59,7 +59,7 @@ class CheckoutService
 
                 $this->stock->reserveAndDecrease($product, $cartItem->quantity);
 
-                $orderItem = $this->orderItems->create([
+                $orderItem = $this->orders->OrderItemCreate([
                     'order_id' => $order->id,
                     'product_id' => $cartItem->product_id,
                     'quantity' => $cartItem->quantity,
@@ -71,7 +71,7 @@ class CheckoutService
 
 
                 foreach ($cartItem->options as $opt) {
-                    $this->orderItemOptions->create([
+                    $this->orders->OrderItemOptionCreate([
                         'order_item_id' => $orderItem->id,
                         'option_id' => $opt->option_id ?? null,
                         'option_detail_id' => $opt->option_detail_id ?? null,

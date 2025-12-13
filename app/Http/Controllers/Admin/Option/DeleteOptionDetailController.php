@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Option;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\Option\OptionDetailRepository;
+use App\Repositories\Option\OptionDetailRepositoryInterface;
 use Illuminate\Http\Request;
 
 class DeleteOptionDetailController extends Controller
 {
-    public function __invoke(Request $request, OptionDetailRepository $OptionDetailRepository, $id)
+    public function __invoke(Request $request, OptionDetailRepositoryInterface $OptionDetailRepository, $id)
     {
         $OptionDetailRepository->delete($id);
 

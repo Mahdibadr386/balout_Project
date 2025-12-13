@@ -8,7 +8,7 @@ class UpdateOrderStatusRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->user()->hasRole('super_admin');
+        return true;
     }
     public function rules(): array
     {
@@ -21,7 +21,7 @@ class UpdateOrderStatusRequest extends FormRequest
     {
         return [
             'status.required' => 'وضعیت سفارش الزامی است.',
-            'status.in'       => 'وضعیت انتخاب‌شده معتبر نیست.',
+            'status.in'       => 'وضعیت انتخاب شده معتبر نیست. وضعیت باید یکی از موارد زیر باشد: pending، paid، failed، cancelled، refunded، processing، shipped یا delivered.',
         ];
     }
 

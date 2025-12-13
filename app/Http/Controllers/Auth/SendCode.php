@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SendCodeRequest;
-use App\Repositories\Auth\AuthRepository;
+use App\Repositories\Auth\AuthRepositoryInterface;
 
 class SendCode extends Controller
 {
-    public function __invoke(AuthRepository $authRepository,SendCodeRequest $request)
+    public function __invoke(AuthRepositoryInterface $authRepository,SendCodeRequest $request)
     {
         $data = $request->validated();
         $response = $authRepository->sendCode($data);

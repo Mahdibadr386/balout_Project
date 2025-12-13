@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Customer\MessageCustomerRequest;
-use App\Repositories\Admin\Customer\CustomerRepository;
+use App\Repositories\Customer\CustomerRepositoryInterface;
 
 class SendSmsCustomerController extends Controller
 {
-    public function __invoke(CustomerRepository $CustomerRepository ,  MessageCustomerRequest $request ,  $id)
+    public function __invoke(CustomerRepositoryInterface $CustomerRepository ,  MessageCustomerRequest $request ,  $id)
     {
         $user = $CustomerRepository->find($id);
         if (!$user) return response()->error('مشتری یافت نشد');

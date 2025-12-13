@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin\Option;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Option\OptionResource;
-use App\Repositories\Admin\Option\OptionRepository;
+use App\Repositories\Option\OptionRepositoryInterface;
 
 
 class IndexOptionsController extends Controller
 {
-    public function __invoke(OptionRepository $OptionRepository)
+    public function __invoke(OptionRepositoryInterface $OptionRepository)
     {
         $options = $OptionRepository->all();
 

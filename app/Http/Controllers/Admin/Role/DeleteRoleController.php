@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Role;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\RolePermission\RoleRepository;
+use App\Repositories\RolePermission\RoleRepositoryInterface;
 use Spatie\Permission\Models\Role;
 
 class DeleteRoleController extends Controller
 {
-    public function __invoke(Role $role, RoleRepository $RoleRepository)
+    public function __invoke(Role $role, RoleRepositoryInterface $RoleRepository)
     {
         $RoleRepository->delete($role);
 

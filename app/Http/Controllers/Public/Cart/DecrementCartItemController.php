@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Public\Cart;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\Public\Cart\ChangeCartItemQuantityRequest;
 use App\Http\Resources\Public\Cart\CartItemResource;
 use App\Services\Cart\CartService;

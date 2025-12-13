@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Option\OptionResource;
-use App\Repositories\Admin\Category\CategoryRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 class GetCategoryOptionsController extends Controller
 {
-    public function __invoke(CategoryRepository $CategoryRepository , $id)
+    public function __invoke(CategoryRepositoryInterface $CategoryRepository , $id)
     {
         $category = $CategoryRepository->find($id);
 

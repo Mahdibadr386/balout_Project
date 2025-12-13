@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\Customer\CustomerRepository;
-use Illuminate\Http\Request;
+use App\Repositories\Customer\CustomerRepositoryInterface;
 
 class DeleteCustomerController extends Controller
 {
-    public function __invoke(CustomerRepository $CustomerRepository , $id)
+    public function __invoke(CustomerRepositoryInterface $CustomerRepository , $id)
     {
         $customer = $CustomerRepository->find($id);
 

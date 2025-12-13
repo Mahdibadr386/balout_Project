@@ -2,18 +2,18 @@
 
 namespace App\Services\Cart;
 
-use App\Models\Product;
-use App\Repositories\Public\Cart\CartRepository;
-use App\Repositories\Public\Cart\CartItemRepository;
 use App\Models\CartItem;
+use App\Models\Product;
+use App\Repositories\Cart\CartItemRepositoryInterface;
+use App\Repositories\Cart\CartRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CartService
 {
     public function __construct(
-        protected CartRepository $cartRepo,
-        protected CartItemRepository $itemRepo
+        protected CartRepositoryInterface $cartRepo,
+        protected CartItemRepositoryInterface $itemRepo
     ) {}
 
     public function addProduct(int $userId, array $data): CartItem

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Admin\Payment;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class PaymentTransactionResource extends JsonResource
 {
@@ -25,7 +26,7 @@ class PaymentTransactionResource extends JsonResource
             'request_payload'        => $this->request_payload,
             'response_payload'       => $this->response_payload,
             'idempotency_key'        => $this->idempotency_key,
-            'created_at'             => $this->created_at,
+            'created_at'             => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
             'deleted_at'             => $this->deleted_at,
         ];
     }
