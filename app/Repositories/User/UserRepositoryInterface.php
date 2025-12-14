@@ -22,7 +22,7 @@ interface UserRepositoryInterface
     public function create(array $data);
 
     /** Update a user by ID */
-    public function update(int $id, array $data);
+    public function update(User $user, array $data);
 
     /** Send an SMS to a user */
     public function sendSms(User $user, string $message);

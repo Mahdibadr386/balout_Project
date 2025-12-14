@@ -12,8 +12,11 @@ class UpdateUserController extends Controller
 {
     public function __invoke($id, UpdateUserRequest $request, UserRepositoryInterface $UserRepository)
     {
-        $user = $UserRepository->update($id, $request->validated());
-
+        $user = $UserRepository->find($id);
+        if (!$user) {
+           return response()->error( 'کاربر مورد نطر یافت نشد');
+        }
+        $user = $UserRepository->update($user, $request->validated());
         return response()->success( 'کاربر با موفقیت بروزرسانی شد', new UserResource($user));
 
     }

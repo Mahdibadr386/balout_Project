@@ -64,6 +64,15 @@ class CustomExceptionHandler extends ExceptionHandler
                 );
             }
 
+            if ($e instanceof \Exception && $e->getMessage() === 'این نقش به کاربر اختصاص داده شده و قابل حذف نیست.') {
+                return response()->error(
+                    $e->getMessage(),
+                    null,
+                    409 // Conflict
+                );
+            }
+
+
             if ($e instanceof AuthorizationException) {
                 return response()->error('شما مجوز انجام این عملیات را ندارید.', null, 403);
             }

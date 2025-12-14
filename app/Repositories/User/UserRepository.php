@@ -46,9 +46,8 @@ class UserRepository implements UserRepositoryInterface
     }
 
 
-    public function update(int $id, array $data)
+    public function update(User $user, array $data)
     {
-        $user = $this->find($id);
         $user->update($data);
         return $user->fresh();
     }
