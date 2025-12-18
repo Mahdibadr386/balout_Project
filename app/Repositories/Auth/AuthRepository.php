@@ -139,7 +139,7 @@ class AuthRepository implements AuthRepositoryInterface
             Log::info("New user activated: {$user->tel}");
         }
 
-
+        $this->revokeTokens($user);
         $token = $user->createToken('Token-User')->accessToken;
 
         Cache::forget($tel);
@@ -147,7 +147,6 @@ class AuthRepository implements AuthRepositoryInterface
 
         return [
             'success' => true,
-            'user' => $user,
             'is_new_user' => $isNewUser,
             'token' => $token,
         ];

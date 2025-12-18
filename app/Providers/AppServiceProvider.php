@@ -40,6 +40,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -76,6 +77,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Passport::tokensExpireIn(now()->addDays(7));
+        Passport::refreshTokensExpireIn(now()->addDays(30));
+        Passport::personalAccessTokensExpireIn(now()->addDays(7));
+
+
         // Response Macro Success
         Response::macro('success', function (string $message = 'عملیات با موفقیت انجام شد', $data = null, int $status = 200) {
 
@@ -136,10 +142,3 @@ class AppServiceProvider extends ServiceProvider
     }
 }
 
-//        Response::macro('success', function ( string $message = 'عملیات با موفقیت انجام شد',$data = null, int $status = 200) {
-//            return response()->json([
-//                'success' => true,
-//                'message' => $message,
-//                'data'    => $data,
-//            ], $status);
-//        });

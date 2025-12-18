@@ -15,12 +15,10 @@ class AuthResultResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'success'     => $this['success'] ?? true,
-            'message'     => $this['message'] ?? null,
             'is_new_user' => $this['is_new_user'] ?? null,
             'token'       => $this['token'] ?? null,
-            'code'        => $this['code'] ?? null,
-            'user'        => new UserResource($this['user'] ?? null),
+            'token_type'  => 'Bearer',
+            'expires_in'  => $this['expires_in'] ?? 604800,
         ];
     }
 }

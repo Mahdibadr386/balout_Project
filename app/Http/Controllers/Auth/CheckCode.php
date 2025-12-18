@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\CheckCodeRequest;
+use App\Http\Resources\Auth\AuthResultResource;
 use App\Http\Resources\Auth\UserResource;
 use App\Repositories\Auth\AuthRepositoryInterface;
 
@@ -19,7 +20,7 @@ class CheckCode extends Controller
 
         }
 
-        return response()->success('کد تایید با موفقیت بررسی شد',['token' => $result['token'], 'user' => new UserResource($result['user']), 'is_new_user' => $result['is_new_user']]);
+        return response()->success('کد تایید با موفقیت بررسی شد', new AuthResultResource($result));
 
     }
 
