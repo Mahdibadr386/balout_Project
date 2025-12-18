@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Order extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes , Searchable;
 
     protected $fillable = [
         'order_number', 'user_id', 'address_id', 'status',
@@ -45,6 +46,11 @@ class Order extends Model
     }
 
 
-
+    public function toSearchableArray(): array
+    {
+        return [
+            'order_number'        => $this->order_number ?? '',
+        ];
+    }
 }
 

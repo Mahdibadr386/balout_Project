@@ -27,6 +27,8 @@ return new class extends Migration
             $table->date('marriage_date')->nullable();
             $table->date('last_login_date')->nullable();
 
+            $table->fullText(['first_name', 'last_name', 'name_en' , 'tel']);
+
             $table->softDeletes();
             $table->timestamps();
 

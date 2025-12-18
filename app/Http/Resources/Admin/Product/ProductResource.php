@@ -53,8 +53,8 @@ class ProductResource extends JsonResource
                         }),
                 ];
             }),
-            'created_at' => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s'),
-            'updated_at' => Jalalian::fromCarbon($this->updated_at)->format('Y/m/d H:i:s'),
+            'created_at' => Jalalian::fromCarbon($this->created_at)->format('Y/m/d H:i:s') ?? null,
+            'updated_at' => Jalalian::fromCarbon($this->updated_at)->format('Y/m/d H:i:s') ?? null,
         ];
     }
 }

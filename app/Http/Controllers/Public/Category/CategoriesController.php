@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public\Category;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Public\Category\CategoryResource;
-use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Interface\CategoryRepositoryInterface;
 
 
 class CategoriesController extends Controller

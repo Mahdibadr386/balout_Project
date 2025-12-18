@@ -2,10 +2,10 @@
 
 namespace App\Services\Cart;
 
+use App\Interface\Cart\CartItemRepositoryInterface;
+use App\Interface\Cart\CartRepositoryInterface;
 use App\Models\CartItem;
 use App\Models\Product;
-use App\Repositories\Cart\CartItemRepositoryInterface;
-use App\Repositories\Cart\CartRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Auth\AuthRepositoryInterface;
+use App\Interface\AuthRepositoryInterface;
 use Illuminate\Http\Request;
 
 class LogoutUser extends Controller

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Permission;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Permission\PermissionResource;
-use App\Repositories\RolePermission\PermissionRepositoryInterface;
+use App\Interface\PermissionRepositoryInterface;
 
 class ShowPermissionController extends Controller
 {

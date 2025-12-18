@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UpdateProfileRequest;
 use App\Http\Resources\Auth\UserResource;
-use App\Repositories\Auth\AuthRepositoryInterface;
+use App\Interface\AuthRepositoryInterface;
 
 
 class UpdateProfile extends Controller

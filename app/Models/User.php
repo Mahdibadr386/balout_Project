@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable ,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable ,HasRoles , Searchable;
 
     protected $fillable = [
         'is_active',
@@ -74,5 +75,15 @@ class User extends Authenticatable
     public function cart()
     {
         return $this->hasOne(Cart::class, 'user_id', 'id');
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'first_name'        => $this->first_name ?? '',
+            'last_name'        => $this->last_name ?? '',
+            'name_en'        => $this->name_en ?? '',
+            'tel'        => $this->tel ?? '',
+        ];
     }
 }

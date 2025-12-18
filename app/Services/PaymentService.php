@@ -3,11 +3,11 @@
 namespace App\Services;
 
 
-use App\Repositories\Payment\PaymentTransactionRepositoryInterface;
-use App\Repositories\Order\OrderRepositoryInterface;
 use App\Gateways\MockPaymentGateway;
-use Illuminate\Support\Facades\DB;
+use App\Interface\OrderRepositoryInterface;
+use App\Interface\PaymentTransactionRepositoryInterface;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class PaymentService
 {

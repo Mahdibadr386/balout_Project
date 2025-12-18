@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Customer\CustomerRepositoryInterface;
+use App\Interface\CustomerRepositoryInterface;
 
 class DeleteCustomerController extends Controller
 {
     public function __invoke(CustomerRepositoryInterface $CustomerRepository , $id)
     {
+        auth()->user()->hasPermissionTo('customer.delete') ?: abort(403);
         $customer = $CustomerRepository->find($id);
 
         if (!$customer) return response()->error('مشتری یافت نشد');

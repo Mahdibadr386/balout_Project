@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
@@ -57,6 +58,14 @@ class CustomExceptionHandler extends ExceptionHandler
             }
 
             if ($e instanceof SpatieUnauthorizedException) {
+                return response()->error(
+                    'شما مجوز دسترسی به این بخش را ندارید.',
+                    null,
+                    403
+                );
+            }
+
+            if ($e instanceof HttpException && $e->getStatusCode() === 403) {
                 return response()->error(
                     'شما مجوز دسترسی به این بخش را ندارید.',
                     null,

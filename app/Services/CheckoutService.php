@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
+use App\Interface\OrderRepositoryInterface;
+use App\Interface\PaymentTransactionRepositoryInterface;
+use App\Interface\ProductRepositoryInterface;
 use App\Models\Option;
 use App\Models\OptionDetail;
-use App\Repositories\Order\OrderRepositoryInterface;
-use App\Repositories\Payment\PaymentTransactionRepositoryInterface;
-use App\Repositories\Product\ProductRepositoryInterface;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CheckoutService
 {

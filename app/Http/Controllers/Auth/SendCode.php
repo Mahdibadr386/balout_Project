@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SendCodeRequest;
-use App\Repositories\Auth\AuthRepositoryInterface;
+use App\Interface\AuthRepositoryInterface;
 
 class SendCode extends Controller
 {

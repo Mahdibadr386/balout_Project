@@ -34,6 +34,7 @@ return new class extends Migration
                 ->on('categories')
                 ->onDelete('set null');
 
+            $table->fullText(['name', 'description', 'slug']);
 
             $table->softDeletes();
             $table->timestamps();

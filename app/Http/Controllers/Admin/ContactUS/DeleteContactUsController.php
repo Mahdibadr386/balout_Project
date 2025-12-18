@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin\ContactUS;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\ContactUs\ContactUsRepositoryInterface;
+use App\Interface\ContactUsRepositoryInterface;
 
 
 class DeleteContactUsController extends Controller
 {
     public function __invoke(ContactUsRepositoryInterface $ContactUsRepository, $id)
     {
+        auth()->user()->hasPermissionTo('contact_us.delete') ?: abort(403);
         $item = $ContactUsRepository->find($id);
 
         if (!$item) return response()->error('آیتم پیدا نشد');

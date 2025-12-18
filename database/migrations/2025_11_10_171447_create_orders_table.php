@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             $table->string('currency', 10)->default('IRR');
             $table->json('meta')->nullable();
+
+            $table->fullText(['order_number']);
+
             $table->softDeletes();
             $table->timestamps();
         });

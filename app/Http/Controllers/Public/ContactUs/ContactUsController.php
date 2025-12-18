@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Public\ContactUs;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\ContactUs\StoreContactUsRequest;
-use App\Repositories\ContactUs\ContactUsRepositoryInterface;
+use App\Interface\ContactUsRepositoryInterface;
 
 
 class ContactUsController extends Controller

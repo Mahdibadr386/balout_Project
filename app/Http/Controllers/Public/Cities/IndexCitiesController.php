@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Public\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Public\Cities\CitiesResource;
-use App\Repositories\City\CityRepositoryInterface;
+use App\Interface\CityRepositoryInterface;
 
 class IndexCitiesController extends Controller
 {

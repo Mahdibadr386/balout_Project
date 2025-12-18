@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Public\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Public\Product\ProductCollection;
-use App\Repositories\Product\ProductRepositoryInterface;
+use App\Interface\ProductRepositoryInterface;
 
 
 class CategoryProductsController extends Controller

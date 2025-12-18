@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public\Feedback;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\Feedback\StoreFeedbackRequest;
 use App\Http\Resources\Public\Feedback\FeedbackResource;
-use App\Repositories\Feedback\FeedbackRepositoryInterface;
+use App\Interface\FeedbackRepositoryInterface;
 
 class SendFeedbackController extends Controller
 {

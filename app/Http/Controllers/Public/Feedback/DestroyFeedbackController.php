@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Public\Feedback;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Feedback\FeedbackRepositoryInterface;
+use App\Interface\FeedbackRepositoryInterface;
 
 class DestroyFeedbackController extends Controller
 {

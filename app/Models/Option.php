@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Option extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes ,  Searchable;
 
     protected $table = 'options';
 
@@ -41,5 +42,10 @@ class Option extends Model
         return $this->hasMany(OptionMessage::class, 'option_id', 'id');
     }
 
-
+    public function toSearchableArray(): array
+    {
+        return [
+            'name'        => $this->name ?? '',
+        ];
+    }
 }

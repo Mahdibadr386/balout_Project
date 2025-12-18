@@ -3,43 +3,45 @@
 namespace App\Providers;
 
 use App\Exceptions\CustomExceptionHandler;
-use App\Repositories\Auth\AuthRepository;
-use App\Repositories\Auth\AuthRepositoryInterface;
-use App\Repositories\Cart\CartItemRepository;
-use App\Repositories\Cart\CartItemRepositoryInterface;
-use App\Repositories\Cart\CartRepository;
-use App\Repositories\Cart\CartRepositoryInterface;
-use App\Repositories\Category\CategoryRepository;
-use App\Repositories\Category\CategoryRepositoryInterface;
-use App\Repositories\City\CityRepository;
-use App\Repositories\City\CityRepositoryInterface;
-use App\Repositories\ContactUs\ContactUsRepository;
-use App\Repositories\ContactUs\ContactUsRepositoryInterface;
-use App\Repositories\Customer\CustomerRepository;
-use App\Repositories\Customer\CustomerRepositoryInterface;
-use App\Repositories\Feedback\FeedbackRepository;
-use App\Repositories\Feedback\FeedbackRepositoryInterface;
-use App\Repositories\Option\OptionDetailRepository;
-use App\Repositories\Option\OptionDetailRepositoryInterface;
-use App\Repositories\Option\OptionRepository;
-use App\Repositories\Option\OptionRepositoryInterface;
-use App\Repositories\Order\OrderRepository;
-use App\Repositories\Order\OrderRepositoryInterface;
-use App\Repositories\Payment\PaymentTransactionRepository;
-use App\Repositories\Payment\PaymentTransactionRepositoryInterface;
-use App\Repositories\Product\ProductRepository;
-use App\Repositories\Product\ProductRepositoryInterface;
-use App\Repositories\RolePermission\PermissionRepository;
-use App\Repositories\RolePermission\PermissionRepositoryInterface;
-use App\Repositories\RolePermission\RoleRepository;
-use App\Repositories\RolePermission\RoleRepositoryInterface;
-use App\Repositories\User\UserRepository;
-use App\Repositories\User\UserRepositoryInterface;
+use App\Interface\AuthRepositoryInterface;
+use App\Interface\Cart\CartItemRepositoryInterface;
+use App\Interface\Cart\CartRepositoryInterface;
+use App\Interface\CategoryRepositoryInterface;
+use App\Interface\CityRepositoryInterface;
+use App\Interface\ContactUsRepositoryInterface;
+use App\Interface\CustomerRepositoryInterface;
+use App\Interface\FeedbackRepositoryInterface;
+use App\Interface\Option\OptionDetailRepositoryInterface;
+use App\Interface\Option\OptionRepositoryInterface;
+use App\Interface\OrderRepositoryInterface;
+use App\Interface\PaymentTransactionRepositoryInterface;
+use App\Interface\PermissionRepositoryInterface;
+use App\Interface\ProductRepositoryInterface;
+use App\Interface\RoleRepositoryInterface;
+use App\Interface\UserRepositoryInterface;
+use App\Repositories\Mysql\AuthRepository;
+use App\Repositories\Mysql\Cart\CartItemRepository;
+use App\Repositories\Mysql\Cart\CartRepository;
+use App\Repositories\Mysql\CategoryRepository;
+use App\Repositories\Mysql\CityRepository;
+use App\Repositories\Mysql\ContactUsRepository;
+use App\Repositories\Mysql\CustomerRepository;
+use App\Repositories\Mysql\FeedbackRepository;
+use App\Repositories\Mysql\Option\OptionDetailRepository;
+use App\Repositories\Mysql\Option\OptionRepository;
+use App\Repositories\Mysql\OrderRepository;
+use App\Repositories\Mysql\PaymentTransactionRepository;
+use App\Repositories\Mysql\PermissionRepository;
+use App\Repositories\Mysql\ProductRepository;
+use App\Repositories\Mysql\RoleRepository;
+use App\Repositories\Mysql\UserRepository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
@@ -139,6 +141,7 @@ class AppServiceProvider extends ServiceProvider
                 'errors'  => $errors,
             ], $status);
         });
+
     }
 }
 

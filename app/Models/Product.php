@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Product extends Model implements HasMedia
 {
-    use SoftDeletes , InteractsWithMedia ;
+    use SoftDeletes , InteractsWithMedia  , Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +24,7 @@ class Product extends Model implements HasMedia
         'discount_percentage',
         'unit',
         'minimum',
+        'quantity',
         'maximum',
         'preparation_time',
         'available',
@@ -91,6 +93,16 @@ class Product extends Model implements HasMedia
         return $this->price_base;
     }
 
-
+    /**
+     * The data I want to include in the search
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'name'        => $this->name,
+            'description' => $this->description ?? '',
+            'slug'         => $this->slug ?? '',
+        ];
+    }
 
 }
