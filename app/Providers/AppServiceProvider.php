@@ -3,13 +3,16 @@
 namespace App\Providers;
 
 use App\Exceptions\CustomExceptionHandler;
+use App\Interface\AddressRepositoryInterface;
 use App\Interface\AuthRepositoryInterface;
+use App\Interface\BranchRepositoryInterface;
 use App\Interface\Cart\CartItemRepositoryInterface;
 use App\Interface\Cart\CartRepositoryInterface;
 use App\Interface\CategoryRepositoryInterface;
 use App\Interface\CityRepositoryInterface;
 use App\Interface\ContactUsRepositoryInterface;
 use App\Interface\CustomerRepositoryInterface;
+use App\Interface\DiscountRepositoryInterface;
 use App\Interface\FeedbackRepositoryInterface;
 use App\Interface\Option\OptionDetailRepositoryInterface;
 use App\Interface\Option\OptionRepositoryInterface;
@@ -18,14 +21,18 @@ use App\Interface\PaymentTransactionRepositoryInterface;
 use App\Interface\PermissionRepositoryInterface;
 use App\Interface\ProductRepositoryInterface;
 use App\Interface\RoleRepositoryInterface;
+use App\Interface\TimeRepositoryInterface;
 use App\Interface\UserRepositoryInterface;
+use App\Repositories\Mysql\AddressRepository;
 use App\Repositories\Mysql\AuthRepository;
+use App\Repositories\Mysql\BranchRepository;
 use App\Repositories\Mysql\Cart\CartItemRepository;
 use App\Repositories\Mysql\Cart\CartRepository;
 use App\Repositories\Mysql\CategoryRepository;
 use App\Repositories\Mysql\CityRepository;
 use App\Repositories\Mysql\ContactUsRepository;
 use App\Repositories\Mysql\CustomerRepository;
+use App\Repositories\Mysql\DiscountRepository;
 use App\Repositories\Mysql\FeedbackRepository;
 use App\Repositories\Mysql\Option\OptionDetailRepository;
 use App\Repositories\Mysql\Option\OptionRepository;
@@ -34,7 +41,10 @@ use App\Repositories\Mysql\PaymentTransactionRepository;
 use App\Repositories\Mysql\PermissionRepository;
 use App\Repositories\Mysql\ProductRepository;
 use App\Repositories\Mysql\RoleRepository;
+use App\Repositories\Mysql\TimeRepository;
 use App\Repositories\Mysql\UserRepository;
+use App\Services\Discount\DiscountService;
+use App\Services\Discount\DiscountServiceInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\AbstractPaginator;
@@ -71,6 +81,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(PaymentTransactionRepositoryInterface::class, PaymentTransactionRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(BranchRepositoryInterface::class, BranchRepository::class);
+        $this->app->bind(TimeRepositoryInterface::class, TimeRepository::class);
+        $this->app->bind(DiscountRepositoryInterface::class, DiscountRepository::class);
+        $this->app->bind(DiscountServiceInterface::class, DiscountService::class);
+        $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
+
+
+
+
     }
 
     /**

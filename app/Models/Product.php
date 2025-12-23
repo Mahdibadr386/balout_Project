@@ -21,7 +21,6 @@ class Product extends Model implements HasMedia
         'slug',
         'description',
         'price_base',
-        'discount_percentage',
         'unit',
         'minimum',
         'quantity',

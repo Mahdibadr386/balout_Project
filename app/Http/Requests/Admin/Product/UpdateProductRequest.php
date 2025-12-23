@@ -24,7 +24,6 @@ class UpdateProductRequest extends FormRequest
             'slug' => ['sometimes','string','max:255', Rule::unique('products','slug')->ignore($this->route('id'))],
             'description' => 'nullable|string',
             'price_base' => 'sometimes|numeric|min:0',
-            'discount_percentage' => 'nullable|integer|min:0|max:100',
             'unit' => 'nullable|string|max:50',
             'quantity' => 'nullable|integer|min:0',
             'minimum' => 'nullable|integer|min:0',

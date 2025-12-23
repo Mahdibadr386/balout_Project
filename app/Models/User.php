@@ -30,7 +30,7 @@ class User extends Authenticatable
         'last_login_date',
     ];
 
-    protected $with = ['addresses' , 'feedbacks'];
+    protected $with = ['addresses' , 'feedbacks' ,'discountCodes'];
 
     protected $guarded = [
         'id',
@@ -86,4 +86,11 @@ class User extends Authenticatable
             'tel'        => $this->tel ?? '',
         ];
     }
+
+    public function discountCodes()
+    {
+        return $this->hasMany(DiscountCode::class)
+            ->whereNull('used_at');
+    }
+
 }

@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\Public\Cart\{AddCartItemController , DecrementCartItemController , IncrementCartItemController , ShowCartController ,RemoveCartItemController};
+use App\Http\Controllers\Public\Address\DeleteAddressController;
+use App\Http\Controllers\Public\Address\IndexAddressController;
+use App\Http\Controllers\Public\Address\StoreAddressController;
+use App\Http\Controllers\Public\Branch\IndexBranchesController;
 use App\Http\Controllers\Public\Cities\IndexCitiesController;
 use App\Http\Controllers\Public\Category\CategoriesController;
 use App\Http\Controllers\Public\Checkout\CheckoutController;
 use App\Http\Controllers\Public\Checkout\PaymentCallbackController;
 use App\Http\Controllers\Public\ContactUs\ContactUsController;
+use App\Http\Controllers\Public\Time\IndexTimeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\Product\{CategoryProductsController , ProductsController ,ShowProductController};
 use App\Http\Controllers\Auth\{CheckCode, CheckUser, LogoutUser, ProfileUser, SendCode,  UpdateProfile};
@@ -24,8 +29,22 @@ Route::prefix('auth')->name('auth.')->group(function () {
     });
 });
 
+Route::prefix('addresses')->name('Address.')->group(function () {
+    Route::get('/', IndexAddressController::class);
+    Route::post('/', StoreAddressController::class);
+    Route::delete('/{id}', DeleteAddressController::class);
+});
+
 Route::prefix('cities')->name('City.')->group(function () {
     Route::get('/', IndexCitiesController::class);
+});
+
+Route::prefix('branches')->name('Branch.')->group(callback: function () {
+    Route::get('/', IndexBranchesController::class);
+});
+
+Route::prefix('times')->name('Time.')->group(callback: function () {
+    Route::get('/', IndexTimeController::class);
 });
 
 

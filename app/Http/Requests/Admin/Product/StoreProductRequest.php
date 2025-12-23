@@ -21,7 +21,6 @@ class StoreProductRequest extends FormRequest
             'slug' => 'required|string|max:255|unique:products,slug',
             'description' => 'nullable|string',
             'price_base' => 'required|numeric|min:0',
-            'discount_percentage' => 'nullable|integer|min:0|max:100',
             'unit' => 'required|string|max:50',
             'quantity' => 'required|integer|min:0',
             'minimum' => 'required|integer|min:0',

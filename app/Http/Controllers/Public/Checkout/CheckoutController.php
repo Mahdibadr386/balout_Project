@@ -15,7 +15,6 @@ class CheckoutController extends Controller
     {
         $user = auth()->user();
         $cart = $user->cart()->with('items.options')->firstOrFail();
-
         // create order & payment transaction
         $result = $checkoutService->createOrderFromCart($user, $cart, $request->validated());
 
@@ -24,6 +23,7 @@ class CheckoutController extends Controller
 //            'return_url' => route('checkout.callback'), // example
             'idempotency_key' => $request->input('idempotency_key'),
         ]);
+
 
         return response()->success('سفارش ایجاد شد. به مرحله پرداخت بروید.', ['order' => new OrderResource($result['order']), 'payment' => $paymentInit], 201);
 

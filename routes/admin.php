@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\Category\GetCategoryOptionsController;
+use App\Http\Controllers\Admin\Discount\CodeDiscountController;
+use App\Http\Controllers\Admin\Discount\UsageDiscountController;
 use App\Http\Controllers\Admin\Customer\{SendSmsCustomerController, StatusCustomerController };
 use App\Http\Controllers\Admin\Role\{AssignRoleToUserController};
 use App\Http\Controllers\Admin\User\{ SendSmsUserController,  UserStatusController};
@@ -75,3 +77,12 @@ Route::crudResource('customers', 'customer', 'Customer', function () {
     Route::patch('/{customer}', StatusCustomerController::class);
     Route::post('/sms/{customer}', SendSmsCustomerController::class);
 });
+
+//Discount
+Route::crudResource('discounts', 'discount', 'Discount', function () {
+    Route::get('/usages', UsageDiscountController::class)->name('usages');
+    Route::post('/codes/{discount}', CodeDiscountController::class)->name('codes');
+});
+
+
+

@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\OrderItemOption;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -17,6 +18,12 @@ class OrderRepository implements OrderRepositoryInterface
 {
     public function paginate(array $filters = [])
     {
+        //delete expired orders
+        Order::where('status', 'pending')
+            ->where('expires_at', '<', Carbon::now())
+            ->delete();
+
+
         $perPage = $filters['per_page'] ?? 20;
 
         if (!empty($filters['search'])) {
@@ -41,6 +48,10 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function find($id)
     {
+        //delete expired orders
+        Order::where('status', 'pending')
+            ->where('expires_at', '<', Carbon::now())
+            ->delete();
         return Order::with('items.options')->findOrFail($id);
     }
 
@@ -51,11 +62,22 @@ class OrderRepository implements OrderRepositoryInterface
 
         return DB::transaction(function () use ($data, $user, $product) {
 
+            $meta = [
+                'shipping_method' => $data['shipping_method'] ?? null,
+            ];
+
+            if (!empty($data['address_id'])) {
+                $meta['address_snapshot'] = $user->addresses()->find($data['address_id'])->toArray();
+            }
+
             $order = Order::create([
                 'order_number' => 'ORD-' . now()->format('YmdHis') . '-' . Str::random(6),
                 'user_id' => $user->id,
-                'address_id' => $data['address_id'],
-                'status' => 'pending',
+                'branch_id' => $data['branch_id'] ?? null,
+                'address_id' => $data['address_id'] ?? null,
+                'status' => 'shipped',
+                'send_date' => $data['send_date'] ?? null,
+                'send_hour' => $data['send_hour'] ?? null,
                 'subtotal' => $product->price_base * ($data['quantity'] ?? 1),
                 'discount' => 0,
                 'shipping_cost' => $data['shipping_cost'] ?? 0,
@@ -63,11 +85,9 @@ class OrderRepository implements OrderRepositoryInterface
                 'total' => ($product->price_base * ($data['quantity'] ?? 1)) + ($data['options_price'] ?? 0),
                 'payment_method' => $data['payment_method'],
                 'currency' => 'IRR',
-                'meta' => [
-                    'address_snapshot' => $user->addresses()->find($data['address_id'])->toArray(),
-                    'shipping_method' => $data['shipping_method'] ?? null,
-                ],
+                'meta' => $meta,
             ]);
+
 
             $orderItem = $order->items()->create([
                 'product_id' => $product->id,
@@ -167,5 +187,20 @@ class OrderRepository implements OrderRepositoryInterface
         $order->status = $status;
         return $order->save();
     }
+
+    public function findWithItemsForPricing(int $orderId): Order
+    {
+        return Order::with(['items.options'])->findOrFail($orderId);
+    }
+
+    public function updateTotals(Order $order, float $subtotal, float $discount, float $total): void
+    {
+        $order->update([
+            'subtotal' => $subtotal,
+            'discount' => $discount,
+            'total'    => $total,
+        ]);
+    }
+
 
 }

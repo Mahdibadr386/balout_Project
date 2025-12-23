@@ -25,7 +25,6 @@ class AuthRepository implements AuthRepositoryInterface
     {
         return DB::transaction(function () use ($user, $data, $addresses) {
 
-
             if (isset($data['password']) && $data['password']) {
                 $data['password'] = Hash::make($data['password']);
             }
@@ -43,12 +42,14 @@ class AuthRepository implements AuthRepositoryInterface
                         'city_id' => $addressData['city_id'] ?? null,
                         'address' => $addressData['address'] ?? $address->address,
                         'tel' => $addressData['tel'] ?? $address->tel,
+                        'district_id' => $addressData['district_id'] ?? null,
                     ]);
                     $submittedAddressIds[] = $address->id;
                 } else {
                     // New address
                     $newAddress = $user->addresses()->create([
                         'city_id' => $addressData['city_id'] ?? null,
+                        'district_id' => $addressData['district_id'] ?? null,
                         'address' => $addressData['address'],
                         'tel' => $addressData['tel'] ?? null,
                     ]);
@@ -60,7 +61,7 @@ class AuthRepository implements AuthRepositoryInterface
             $user->addresses()->whereNotIn('id', $submittedAddressIds)->delete();
 
 
-            $user->load('addresses.city');
+            $user->load('addresses.city' , 'addresses.district');
 
             Log::info("User profile updated: {$user->id}");
 

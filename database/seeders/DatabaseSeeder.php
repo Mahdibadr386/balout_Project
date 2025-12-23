@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,9 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             OptionSeeder::class,
             OptionDetailSeeder::class,
+            BranchSeeder::class,
+            TimeSeeder::class,
+            DiscountSeeder::class,
         ]);
 
 

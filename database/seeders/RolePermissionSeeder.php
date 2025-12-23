@@ -94,6 +94,15 @@ class RolePermissionSeeder extends Seeder
             'customer.delete',
             'customer.change_status',
             'customer.send_sms',
+
+            //Discount
+            'discount.index',
+            'discount.show',
+            'discount.store',
+            'discount.update',
+            'discount.delete',
+            'discount.usages',
+            'discount.codes',
         ];
 
         foreach ($permissions as $permission) {
@@ -168,6 +177,15 @@ class RolePermissionSeeder extends Seeder
             'customer.delete',
             'customer.change_status',
             'customer.send_sms',
+
+            //Discount
+            'discount.index',
+            'discount.show',
+            'discount.store',
+            'discount.update',
+            'discount.delete',
+            'discount.usages',
+            'discount.codes',
         ]);
 
         // Super Admin User

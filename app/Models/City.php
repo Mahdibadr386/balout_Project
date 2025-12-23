@@ -21,4 +21,9 @@ class City extends Model
         return $this->hasMany(UserAddress::class);
     }
 
+    public function districts()
+    {
+        return $this->hasMany(District::class);
+    }
+
 }

@@ -12,11 +12,13 @@ class UserAddress extends Model
         'tel',
         'user_id',
         'city_id',
+        'district_id',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
         'city_id' => 'integer',
+        'district_id' => 'integer',
     ];
 
     public function user()
@@ -29,6 +31,8 @@ class UserAddress extends Model
         return $this->belongsTo(City::class);
     }
 
-
-
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

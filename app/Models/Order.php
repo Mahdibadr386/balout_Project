@@ -13,7 +13,8 @@ class Order extends Model
     protected $fillable = [
         'order_number', 'user_id', 'address_id', 'status',
         'subtotal', 'discount', 'shipping_cost', 'tax', 'total',
-        'payment_method', 'currency', 'meta'
+        'payment_method', 'currency', 'meta','branch_id' , 'send_date', 'send_hour',
+        'expires_at'
     ];
 
     protected $casts = [
@@ -49,8 +50,14 @@ class Order extends Model
     public function toSearchableArray(): array
     {
         return [
-            'order_number'        => $this->order_number ?? '',
+            'order_number' => $this->order_number ?? '',
         ];
     }
+
+    public function discountUsage()
+    {
+        return $this->hasOne(DiscountUsage::class);
+    }
+
 }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Rules\User\DistrictBelongsToCity;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -18,6 +19,8 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         $userId = $this->user()?->id;
+        $addresses = $this->input('addresses', []);
+
 
         return [
             'first_name' => 'nullable|string|max:255',
@@ -32,6 +35,7 @@ class UpdateProfileRequest extends FormRequest
             'addresses' => 'nullable|array',
             'addresses.*.address' => 'required_with:addresses|string|max:1000',
             'addresses.*.city_id' => 'nullable|integer|exists:cities,id',
+            'addresses.*.district_id' => ['nullable', 'integer', new DistrictBelongsToCity($addresses)],
             'addresses.*.tel' => 'nullable|string|max:11',
         ];
     }
@@ -88,6 +92,10 @@ class UpdateProfileRequest extends FormRequest
             'addresses.*.city_id.nullable' => 'شناسه شهر می‌تواند خالی باشد.',
             'addresses.*.city_id.integer'  => 'شناسه شهر باید عدد صحیح باشد.',
             'addresses.*.city_id.exists'   => 'شهر انتخاب شده معتبر نیست.',
+
+            'addresses.*.district_id.nullable' => 'شناسه ناحیه می‌تواند خالی باشد.',
+            'addresses.*.district_id.integer'  => 'شناسه ناحیه باید عدد صحیح باشد.',
+            'addresses.*.district_id.exists'   => 'ناحیه انتخاب شده معتبر نیست.',
 
             'addresses.*.tel.nullable' => 'شماره تلفن آدرس می‌تواند خالی باشد.',
             'addresses.*.tel.string'   => 'شماره تلفن آدرس باید به صورت متن باشد.',

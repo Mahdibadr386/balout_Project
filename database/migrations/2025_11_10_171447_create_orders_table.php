@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('address_id')->nullable()->constrained('user_addresses')->nullOnDelete();
             $table->enum('status', ['pending', 'paid', 'failed', 'cancelled', 'refunded', 'processing', 'shipped', 'delivered'])->default('pending');
+            $table->unsignedSmallInteger('branch_id')->nullable();
+            $table->string('send_date' , 100)->nullable();
+            $table->string('send_hour' , 100)->nullable();
             $table->decimal('subtotal', 12, 2)->default(0);
             $table->decimal('discount', 12, 2)->default(0);
             $table->decimal('shipping_cost', 12, 2)->default(0);
@@ -25,6 +28,7 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             $table->string('currency', 10)->default('IRR');
             $table->json('meta')->nullable();
+            $table->timestamp('expires_at')->nullable();
 
             $table->fullText(['order_number']);
 

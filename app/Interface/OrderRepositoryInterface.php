@@ -37,4 +37,20 @@ interface OrderRepositoryInterface
 
     /** Update the status of an order */
     public function OrderUpdateStatus(Order $order, string $status): bool;
+
+    /**
+     * Retrieve an order with all related items and pricing data required for calculations.
+     */
+    public function findWithItemsForPricing(int $orderId): Order;
+
+    /**
+     * Update order monetary totals after applying discounts and recalculating pricing.
+     */
+    public function updateTotals(
+        Order $order,
+        float $subtotal,
+        float $discount,
+        float $total
+    ): void;
+
 }

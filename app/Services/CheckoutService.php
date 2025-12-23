@@ -7,9 +7,12 @@ use App\Interface\PaymentTransactionRepositoryInterface;
 use App\Interface\ProductRepositoryInterface;
 use App\Models\Option;
 use App\Models\OptionDetail;
+use App\Services\Discount\DiscountServiceInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+
 
 class CheckoutService
 {
@@ -17,9 +20,9 @@ class CheckoutService
         protected OrderRepositoryInterface $orders,
         protected PaymentTransactionRepositoryInterface $transactions,
         protected ProductRepositoryInterface $products,
-        protected StockService $stock
+        protected StockService $stock,
+        protected DiscountServiceInterface $discounts
     ) {}
-
 
     public function createOrderFromCart($user, $cart, array $data): array
     {
@@ -31,44 +34,53 @@ class CheckoutService
                 throw new Exception('سبد خالی است');
             }
 
+            $meta = [
+                'shipping_method' => $data['shipping_method'] ?? null,
+            ];
+
+            if (!empty($data['address_id'])) {
+                $meta['address_snapshot'] =
+                    $user->addresses()->find($data['address_id'])->toArray();
+            }
 
             $order = $this->orders->OrderCreate([
                 'order_number' => 'ORD-' . now()->format('YmdHis') . '-' . Str::random(6),
                 'user_id' => $user->id,
-                'address_id' => $data['address_id'],
+                'address_id' => $data['address_id'] ?? null,
+                'branch_id' => $data['branch_id'] ?? null,
+                'send_date' => $data['send_date'] ?? null,
+                'send_hour' => $data['send_hour'] ?? null,
                 'status' => 'pending',
-                'subtotal' => $cart->subtotal,
-                'discount' => $cart->discount ?? 0,
+                'subtotal' => 0,
+                'discount' => 0,
                 'shipping_cost' => $cart->shipping_cost ?? 0,
                 'tax' => $cart->tax ?? 0,
-                'total' => $cart->total,
+                'total' => 0,
                 'payment_method' => $data['payment_method'],
                 'currency' => 'IRR',
-                'meta' => [
-                    'address_snapshot' => $user->addresses()->find($data['address_id'])->toArray(),
-                    'shipping_method' => $data['shipping_method'] ?? null,
-                ],
+                'meta' => $meta,
+                'expires_at' => Carbon::now()->addHour(),
             ]);
 
 
             foreach ($cart->items as $cartItem) {
 
                 $product = $this->products->lockAndFind($cartItem->product_id);
-                if (!$product) throw new Exception("{$cartItem->product_id}محصول یافت نشد: ");
-
+                if (!$product) {
+                    throw new Exception("محصول یافت نشد: {$cartItem->product_id}");
+                }
 
                 $this->stock->reserveAndDecrease($product, $cartItem->quantity);
 
                 $orderItem = $this->orders->OrderItemCreate([
                     'order_id' => $order->id,
-                    'product_id' => $cartItem->product_id,
+                    'product_id' => $product->id,
                     'quantity' => $cartItem->quantity,
-                    'unit_price' => $cartItem->price,
+                    'unit_price' => $product->price_base,
                     'options_price' => $cartItem->options_price ?? 0,
-                    'total_price' => ($cartItem->price + ($cartItem->options_price ?? 0)) * $cartItem->quantity,
+                    'total_price' => 0,
                     'product_snapshot' => $product->only(['id','name','slug']),
                 ]);
-
 
                 foreach ($cartItem->options as $opt) {
                     $this->orders->OrderItemOptionCreate([
@@ -76,12 +88,26 @@ class CheckoutService
                         'option_id' => $opt->option_id ?? null,
                         'option_detail_id' => $opt->option_detail_id ?? null,
                         'option_name' => Option::find($opt->option_id)->name ?? null,
-                        'option_detail_name' => (OptionDetail::find($opt->option_detail_id))->name ?? null,
+                        'option_detail_name' => OptionDetail::find($opt->option_detail_id)->name ?? null,
                         'message' => $opt->option_message_id ?? null,
                         'price_effect' => $opt->price_effect ?? 0,
                     ]);
                 }
             }
+
+            $order->load('items.options', 'user');
+
+            $result = $this->discounts->apply(
+                $order,
+                $data['discount_code'] ?? null
+            );
+
+
+            $order->update([
+                'subtotal' => $result->subtotal,
+                'discount' => $result->discount,
+                'total' => $result->total + $order->shipping_cost + $order->tax,
+            ]);
 
 
             $payment = $this->transactions->create([
@@ -95,7 +121,10 @@ class CheckoutService
                 'request_payload' => null,
             ]);
 
-            return ['order' => $order, 'payment' => $payment];
+            return [
+                'order' => $order->fresh(),
+                'payment' => $payment,
+            ];
         });
     }
 }
