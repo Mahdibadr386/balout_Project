@@ -16,12 +16,16 @@ return new class extends Migration
             $table->foreignId('order_id')->nullable()->constrained('orders')->nullOnDelete();
             $table->string('gateway')->index();
             $table->string('gateway_transaction_id')->nullable()->index();
-            $table->decimal('amount', 12, 2);
+            $table->unsignedBigInteger('amount');
             $table->enum('status', ['initiated', 'pending', 'success', 'failed', 'refunded'])->default('initiated');
             $table->string('currency', 10)->default('IRR');
             $table->json('request_payload')->nullable();
             $table->json('response_payload')->nullable();
             $table->string('idempotency_key', 128)->nullable()->index();
+            $table->unique(
+                ['gateway', 'gateway_transaction_id'],
+                'uniq_gateway_txid'
+            );
             $table->softDeletes();
             $table->timestamps();
         });

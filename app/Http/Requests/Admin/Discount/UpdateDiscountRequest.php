@@ -19,8 +19,8 @@ class UpdateDiscountRequest extends FormRequest
 
             'scope' => 'sometimes|required|in:product,category,order,personal',
 
-            'discountable_type' => 'sometimes|nullable|string|max:255',
-            'discountable_id' => 'sometimes|nullable|integer',
+            'discountable_type' => 'required|nullable|string|max:255',
+            'discountable_id' => 'required|nullable|integer',
 
             'type' => 'sometimes|required|in:amount,percent',
             'value' => 'sometimes|required|integer|min:1',
@@ -40,13 +40,42 @@ class UpdateDiscountRequest extends FormRequest
     {
         $validator->after(function ($validator) {
 
-            if ($this->filled('type') && $this->input('type') === 'percent') {
-                if ($this->filled('value') && $this->input('value') > 100) {
+            $scope = $this->input('scope');
+            $type  = $this->input('type');
+            $value = $this->input('value');
+
+            // کنترل منطقی scope
+            if (in_array($scope, ['product', 'category'])) {
+                if (!$this->filled('discountable_type') || !$this->filled('discountable_id')) {
                     $validator->errors()->add(
-                        'value',
-                        'درصد تخفیف نمی‌تواند بیشتر از ۱۰۰ باشد.'
+                        'discountable',
+                        'برای تخفیف محصول یا دسته‌بندی، انتخاب موجودیت الزامی است.'
                     );
                 }
+            }
+
+            if ($scope === 'order') {
+                if ($this->filled('discountable_type') || $this->filled('discountable_id')) {
+                    $validator->errors()->add(
+                        'discountable',
+                        'تخفیف سفارش نباید به محصول یا دسته‌بندی خاصی متصل باشد.'
+                    );
+                }
+            }
+
+            if ($scope === 'personal' && !$this->boolean('is_personal')) {
+                $validator->errors()->add(
+                    'is_personal',
+                    'تخفیف شخصی باید به‌صورت شخصی تعریف شود.'
+                );
+            }
+
+            // کنترل درصد
+            if ($type === 'percent' && $value > 100) {
+                $validator->errors()->add(
+                    'value',
+                    'درصد تخفیف نمی‌تواند بیشتر از ۱۰۰ باشد.'
+                );
             }
         });
     }

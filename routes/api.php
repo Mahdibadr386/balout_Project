@@ -10,6 +10,7 @@ use App\Http\Controllers\Public\Category\CategoriesController;
 use App\Http\Controllers\Public\Checkout\CheckoutController;
 use App\Http\Controllers\Public\Checkout\PaymentCallbackController;
 use App\Http\Controllers\Public\ContactUs\ContactUsController;
+use App\Http\Controllers\Public\District\IndexDistrictsController;
 use App\Http\Controllers\Public\Time\IndexTimeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\Product\{CategoryProductsController , ProductsController ,ShowProductController};
@@ -35,17 +36,14 @@ Route::prefix('addresses')->name('Address.')->group(function () {
     Route::delete('/{id}', DeleteAddressController::class);
 });
 
-Route::prefix('cities')->name('City.')->group(function () {
-    Route::get('/', IndexCitiesController::class);
+Route::prefix('getData')->name('getData.')->group(function () {
+    Route::get('/cities', IndexCitiesController::class);
+    Route::get('/times', IndexTimeController::class);
+    Route::get('/branches', IndexBranchesController::class);
+    Route::get('/districts/{id}', IndexDistrictsController::class);
 });
 
-Route::prefix('branches')->name('Branch.')->group(callback: function () {
-    Route::get('/', IndexBranchesController::class);
-});
 
-Route::prefix('times')->name('Time.')->group(callback: function () {
-    Route::get('/', IndexTimeController::class);
-});
 
 
 Route::prefix('products')->name('product.')->group(function () {
@@ -84,3 +82,6 @@ Route::middleware('auth:api')->post('/checkout', CheckoutController::class)->nam
 
 
 Route::post('/payment/webhook/{gateway}', PaymentCallbackController::class)->name('payment.callback');
+
+
+

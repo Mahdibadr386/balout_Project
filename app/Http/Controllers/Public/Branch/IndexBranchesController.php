@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Public\Branch;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Public\Branch\BranchResource;
-use App\Http\Resources\Public\Cart\CartItemResource;
-use App\Interface\BranchRepositoryInterface;
-use Illuminate\Http\Request;
+use App\Interface\GetDateRepositoryInterface;
+
 
 class IndexBranchesController extends Controller
 {
-    public function __invoke(BranchRepositoryInterface $BranchRepository)
+    public function __invoke(GetDateRepositoryInterface $GetDateRepository)
     {
-        $branches = $BranchRepository->getAll();
+        $branches = $GetDateRepository->getBranches();
         return response()->success('لیست شعبات با موفقیت دریافت شد', BranchResource::collection($branches));
     }
 }

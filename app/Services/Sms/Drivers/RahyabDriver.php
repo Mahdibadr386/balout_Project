@@ -24,8 +24,8 @@ class RahyabDriver implements SmsInterface
 
         $this->logger = $logger;
 
-        // اگر مقدار خالی بود (محیط توسعه)، dev بگذار
-        $this->apiKey = $apiKey ?: 'dev';
+
+        $this->apiKey = config('sms.drivers.rahyab.api_key') ?: 'dev';
 
         // URL از کانفیگ گرفته می‌شود
         $this->baseUrl = config('sms.drivers.rahyab.url');

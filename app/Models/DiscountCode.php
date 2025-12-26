@@ -31,4 +31,10 @@ class DiscountCode extends Model
     {
         return $this->usage()->exists();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

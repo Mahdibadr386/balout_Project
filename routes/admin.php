@@ -81,8 +81,12 @@ Route::crudResource('customers', 'customer', 'Customer', function () {
 //Discount
 Route::crudResource('discounts', 'discount', 'Discount', function () {
     Route::get('/usages', UsageDiscountController::class)->name('usages');
+    Route::get('/', \App\Http\Controllers\Admin\Discount\IndexDiscountController::class);
     Route::post('/codes/{discount}', CodeDiscountController::class)->name('codes');
 });
+
+
+
 
 
 

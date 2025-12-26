@@ -39,9 +39,21 @@ class CheckoutService
             ];
 
             if (!empty($data['address_id'])) {
-                $meta['address_snapshot'] =
-                    $user->addresses()->find($data['address_id'])->toArray();
+                $address = $user->addresses()
+                    ->where('id', $data['address_id'])
+                    ->first();
+
+                if (!$address) {
+                    throw new Exception('آدرس انتخاب‌شده معتبر نیست');
+                }
+
+                $meta['address_snapshot'] = $address->toArray();
             }
+
+            if (!empty($data['address_id'])) {
+                $shipping = 100000;
+            }
+
 
             $order = $this->orders->OrderCreate([
                 'order_number' => 'ORD-' . now()->format('YmdHis') . '-' . Str::random(6),
@@ -53,7 +65,7 @@ class CheckoutService
                 'status' => 'pending',
                 'subtotal' => 0,
                 'discount' => 0,
-                'shipping_cost' => $cart->shipping_cost ?? 0,
+                'shipping_cost' => $shipping ?? 0,
                 'tax' => $cart->tax ?? 0,
                 'total' => 0,
                 'payment_method' => $data['payment_method'],
@@ -120,6 +132,8 @@ class CheckoutService
                 'idempotency_key' => $data['idempotency_key'] ?? Str::uuid(),
                 'request_payload' => null,
             ]);
+
+
 
             return [
                 'order' => $order->fresh(),

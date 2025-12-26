@@ -8,6 +8,7 @@ use App\Models\Discount;
 use App\Models\DiscountCode;
 use App\Models\DiscountUsage;
 use App\Models\Product;
+use App\Services\Sms\Facades\Sms;
 use Carbon\Carbon;
 use DomainException;
 use Illuminate\Support\Facades\DB;
@@ -90,11 +91,22 @@ class DiscountRepository implements DiscountRepositoryInterface
             throw new \DomainException('کد تخفیف شخصی باید کاربر داشته باشد');
         }
 
-        return DiscountCode::create([
+
+
+        $discountCode = DiscountCode::create([
             'discount_id' => $discountId,
             'user_id'     => $data['user_id'] ?? null,
             'code'        =>  $data['code'] ?? $this->generateCode(),
         ]);
+
+        //send SMS for user
+        $number = $discountCode->user->tel;
+        $name = $discountCode->user->first_name . " ".$discountCode->user->last_name;
+        $text = $discountCode['code']." کاربر محترم: " .$name. " کد تخفیفی برای شماایجاد شد" ;
+        Sms::send($number, $text);
+
+        return $discountCode;
+
     }
 
 

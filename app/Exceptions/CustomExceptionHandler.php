@@ -15,6 +15,8 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Spatie\Permission\Exceptions\UnauthorizedException as SpatieUnauthorizedException;
 use Throwable;
+use DomainException;
+
 
 class CustomExceptionHandler extends ExceptionHandler
 {
@@ -81,6 +83,21 @@ class CustomExceptionHandler extends ExceptionHandler
                 );
             }
 
+            if ($e instanceof \Exception && str_contains($e->getMessage(), 'مقدار کافی برای محصول وجود ندارد')) {
+                return response()->error(
+                    $e->getMessage(),
+                    null,
+                    400
+                );
+            }
+
+            if ($e instanceof DomainException) {
+                return response()->error(
+                    $e->getMessage(),
+                    null,
+                    400
+                );
+            }
 
             if ($e instanceof AuthorizationException) {
                 return response()->error('شما مجوز انجام این عملیات را ندارید.', null, 403);

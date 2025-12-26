@@ -32,6 +32,7 @@ class PaymentTransactionRepository implements PaymentTransactionRepositoryInterf
     {
         return PaymentTransaction::where('gateway', $gateway)
             ->where('gateway_transaction_id', $gatewayTxId)
+            ->lockForUpdate()
             ->first();
     }
 

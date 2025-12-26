@@ -16,7 +16,6 @@ class PaymentTransaction extends Model
     ];
 
     protected $casts = [
-        'amount' => 'float',
         'request_payload' => 'array',
         'response_payload' => 'array',
     ];

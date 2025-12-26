@@ -20,9 +20,10 @@ class CheckoutController extends Controller
 
         // initiate payment with payment service (returns redirect url or token)
         $paymentInit = $paymentService->initiatePayment($result['payment'], [
-//            'return_url' => route('checkout.callback'), // example
+ //           'return_url' => route('checkout.callback'), // example
             'idempotency_key' => $request->input('idempotency_key'),
         ]);
+
 
 
         return response()->success('سفارش ایجاد شد. به مرحله پرداخت بروید.', ['order' => new OrderResource($result['order']), 'payment' => $paymentInit], 201);
