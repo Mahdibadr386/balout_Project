@@ -1,4 +1,4 @@
-name: Balout-backend-publish
+name: backend-publish
 
 on:
   push:
@@ -49,37 +49,37 @@ jobs:
             
             
   
-  deploy:
-    name: Deploy Job
-    runs-on: ubuntu-latest
+  # deploy:
+  #   name: Deploy Job
+  #   runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
-      id-token: write
+  #   permissions:
+  #     contents: read
+  #     security-events: write
+  #     actions: read
+  #     id-token: write
 
-    steps:
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-          script: |
-            cd /apps/backend
-            docker pull git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }}
-            docker run --rm git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }} php artisan migrate --pretend --force
-            if [ $? -eq 0 ]; then
-              echo "Migration check passed. Deploying..."
-              IMAGE=git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }} docker compose up -d
+  #   steps:
+  #     - name: Deploy to server
+  #       uses: appleboy/ssh-action@v1.0.0
+  #       with:
+  #         host: ${{ secrets.SSH_HOST }}
+  #         username: ${{ secrets.SSH_USER }}
+  #         key: ${{ secrets.SSH_KEY }}
+  #         port: 22
+  #         script: |
+  #           cd /apps/backend
+  #           docker pull git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }}
+  #           docker run --rm git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }} php artisan migrate --pretend --force
+  #           if [ $? -eq 0 ]; then
+  #             echo "Migration check passed. Deploying..."
+  #             IMAGE=git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }} docker compose up -d
 
-              # اجرای واقعی migration داخل کانتینر در حال اجرا
-              docker exec mado-backend php artisan migrate --force
-            else
-              echo "Migration test failed, aborting deploy"
-              exit 1
-            fi
+  #             # اجرای واقعی migration داخل کانتینر در حال اجرا
+  #             docker exec mado-backend php artisan migrate --force
+  #           else
+  #             echo "Migration test failed, aborting deploy"
+  #             exit 1
+  #           fi
 
             
