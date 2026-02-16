@@ -68,7 +68,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
-            cd /apps/balout-backend
+            cd /apps/backend
             docker pull git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }}
             docker run --rm git.meshkee.com/${{ gitea.repository }}:${{ gitea.ref_name }} php artisan migrate --pretend --force
             if [ $? -eq 0 ]; then
