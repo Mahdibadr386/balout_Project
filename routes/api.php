@@ -23,10 +23,10 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('/sendCode', SendCode::class)->name('sendCode');
     Route::post('/checkCode', CheckCode::class)->name('checkCode');
 
-    Route::middleware('auth:api')->prefix('profile')->name('profile.')->group(function () {
+    Route::middleware('auth:api')->name('profile.')->group(function () {
         Route::post('/logout', LogoutUser::class)->name('logout');
-        Route::get('/', ProfileUser::class)->name('show');
-        Route::put('/update', UpdateProfile::class)->name('update');
+        Route::get('/profile/', ProfileUser::class)->name('show');
+        Route::put('/profile/update', UpdateProfile::class)->name('update');
     });
 });
 
